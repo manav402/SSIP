@@ -70,7 +70,7 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { aadhar, username: email, pin } = req.body;
-        console.log(req.body);
+        // console.log(req.body);
         let user = "";
         if (!aadhar && !email) {
             console.log('here1');
@@ -80,13 +80,13 @@ exports.login = async (req, res) => {
             });
         }
         else if (!email) {
-            console.log('here2');
+            // console.log('here2');
             user = await User.findOne({ aadhar });
         }
         else if (!aadhar) {
-            console.log('here3');
+            // console.log('here3');
             user = await User.findOne({ email });
-            console.log(user);
+            // console.log(user);
         }
         // const user = await User.findOne({ email });
         const safePin = await bcrypt.compare(pin, user.pin);
@@ -214,6 +214,34 @@ exports.logout = async (req, res) => {
         res.status(404).json({
             status: 'fail',
             message: err.message,
+        });
+    }
+}
+
+exports.update = async (req,res)=>{
+    try{
+        const session=req.session;
+        const email=session.email;
+        const data = await User.findOneAndUpdate({email},req.body,{
+            new:true,
+            runValidators:true,
+        });
+        session.name=data.name;
+        session.email=data.email;
+        session.aadhar=data.aadhar;
+        session.mobile=data.mobile;
+        session.role=data.role;
+        res.status(200).json({
+            status:'success',
+            data:{
+                data,
+            },
+        });
+    }
+    catch(err){
+        res.status(404).json({
+            status:'fail',
+            message:err.message,
         });
     }
 }

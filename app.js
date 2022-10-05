@@ -49,6 +49,12 @@ app.get('/profile', auth.userAuth, (req, res) => {
 
 app.get('/logout',controller.logout);
 
+app.patch('/update',auth.userAuth,controller.update);
+
+app.get('/search',(req,res)=>{
+    res.status(200).sendFile(`${__dirname}/public/html/search-page.html`);
+})
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
 });
