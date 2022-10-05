@@ -1,0 +1,78 @@
+body {
+    background-color: rgb(132, 209, 173);
+}
+.signupcontainer {
+    border: 2px solid black;
+    border-radius: 16px;
+    background-color: white;
+    box-shadow: 10px 20px 12px black;
+    font-family: 'Baloo 2', cursive;   
+}
+.signupnavbar{
+    background-color: black;
+    height: 40px;
+    position: sticky;
+    top: 0px;
+}
+img{
+    height: 40px;
+    width: 40px;
+}
+h3 {
+    font-size: 30px;
+    margin: 8px 0 0 0;
+    text-align: center;
+    justify-content: center;
+}
+
+.gotosigninpage{
+    margin: 30px 0px;
+    text-align: center;
+}
+.gotosigninpage a{
+    text-decoration: none;
+}
+.signupsubmit{
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgb(132, 209, 173);
+}
+
+@media (min-width: 992px) { 
+    .signupForm {
+        width: 90%;
+        margin: 5%;
+        justify-content: space-around;
+    }
+ }
+@media (min-width: 0px) { 
+    .signupForm {
+        width: 90%;
+        margin: 5%;
+        margin-top: 1%;
+        justify-content: space-around;
+    }
+ }
+ @media (min-width: 0px) { 
+    .signupcontainer {
+        width: 96%;
+        margin: 2%;
+        justify-content: space-around;
+    }
+ }
+ @media (min-width: 500px) { 
+    .signupcontainer {
+        width: 80%;
+        margin: 10%;
+        margin-bottom: 0%;
+        justify-content: space-around;
+    }
+ }
+ @media (min-width: 992px) { 
+    .signupcontainer {
+        width: 35%;
+        margin: auto;
+        margin-top: 5%;
+       
+    }
+ }

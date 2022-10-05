@@ -1,0 +1,125 @@
+:root {
+    --bg-color: #90CB9D;
+    --header-bg: black;
+    --form-margin: 7px;
+    --margin-left: 20px;
+    --input-width: 80%;
+    --font-style:'baloo 2', cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-style);
+}
+
+/* Header */
+.Login-header {
+    height: 7vh;
+    background-color: var(--header-bg);
+}
+
+.Login-header img {
+    width: 30px;
+    height: 30px;
+    margin: 6px 3px;
+}
+
+/* Body has id login */
+#login {
+    background-color: var(--bg-color);
+}
+
+/* main div which contains whole login page without header */
+.Login-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 93vh;
+}
+
+h4 {
+    margin-top: 15px;
+    margin-left: 40px;
+}
+
+.Login-main input,
+.forget-pin {
+    width: var(--input-width);
+    margin-left: var(--margin-left);
+}
+
+.Login-main input[type="submit"] {
+    align-self: center;
+}
+
+.Login-main input:not(input[type="submit"]) {
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 0px;
+    padding-left: 20px;
+}
+
+.Login-main p {
+    text-align: center;
+    margin-top: 25px;
+}
+
+/*   a div inside main div which */
+.Login-form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 10px 20px 12px 0 rgba(0, 0, 0, 1);
+    width: 300px;
+}
+
+/* styling form */
+.Login-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* styling whole form elements with margin for proper viewing */
+.Login-form>* :not(h3) {
+    margin: var(--form-margin) var(--margin-left);
+}
+
+/* same for another div of form depricated */
+.Login-pin {
+    display: flex;
+    flex-direction: column;
+}
+
+.Login-pin i {
+    margin-top: -40px;
+    margin-left: 200px;
+}
+
+.Login-pin label {
+    text-align: center;
+    margin-top: -5px;
+}
+
+.Login-pin>* {
+    margin: var(--form-margin) 0px;
+}
+
+.forget-pin {
+    margin: 0px var(--form-margin);
+}
+
+.Login-submit-btn input {
+    background-color: #90CB9D;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    width: 96%;
+    align-self: center;
+    margin: 10px 0px;
+}

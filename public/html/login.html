@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Baloo+Bhai+2:wght@600&family=Baloo+Bhaijaan+2:wght@600&family=Baloo+Thambi+2:wght@500&family=Indie+Flower&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../css/login-style.css">
+</head>
+
+<body id="login">
+    <header class="Login-header">
+        <div class="img">
+            <img src="../images/unity-tab.png" alt="LOGO">
+        </div>
+    </header>
+    <div class="Login-main">
+        <div class="Login-form">
+            <h4>Sign in to your account!</h4>
+            <form action="/Log-in" method="post" onsubmit="(e)=>{
+                        e.preventDefault();
+
+                }">
+                <div class="Login-aadhar">
+                    <input type="number" name="aadhar" id="aadhar" placeholder="Aadhar/Mobile Number">
+                </div>
+                <div class="Login-pin">
+                    <label for="username">--or--</label>
+                    <input type="text" name="username" id="username" placeholder="Username">
+                    <input type="password" name="pin" id="pin" placeholder="Enter your 6 digit pin">
+                    <i class="bi bi-eye" id="togglePassword"></i>
+                </div>
+                <div class="forget-pin">
+                    <a href="#">Forgot your pin?</a>
+                </div>
+                <div class="Login-submit-btn">
+                    <input type="submit" value="submit">
+                </div>
+            </form>
+        </div>
+        <p>Do not have an account? &nbsp;&nbsp;<a href="/signup">Register!</a></p>
+    </div>
+    <script src="../js/login-script.js"></script>
+</body>
+
+</html>
