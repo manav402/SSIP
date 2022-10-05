@@ -114,7 +114,12 @@ exports.login = async (req, res) => {
             session.aadhar=user.aadhar;
             session.mobile=user.mobile;
             session.role=user.role;
-            res.status(200).redirect('/');
+            if(user.role=='admin'){
+                res.status(200).redirect('/search');
+            }
+            else{
+                res.status(200).redirect('/');
+            }
         }
         else{
             res.status(404).redirect('/login');
@@ -181,13 +186,31 @@ exports.addResult = async (req, res) => {
 exports.getResult = async (req, res) => {
     try {
         session=req.session;
-        console.log(session.email);
-        // const data=await Data.find({email,resultType});
+        const {type:resultType} = req.query;
+        // console.log(session.email);
+        const email=session.email.toLowerCase();
+        const data=await Data.find({email,resultType});
         res.status(200).json({
             status: 'success',
+            data: {
+                data,
+            },
         });
     }
     catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err.message,
+        });
+    }
+}
+
+exports.logout = async (req, res) => {
+    try {
+        session=req.session;
+        session.destroy();
+        res.redirect('/login');
+    } catch (err) {
         res.status(404).json({
             status: 'fail',
             message: err.message,

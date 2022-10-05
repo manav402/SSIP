@@ -43,6 +43,12 @@ app.post('/data', auth.adminAuth, controller.addResult);
 
 app.get('/get-result', controller.getResult);
 
+app.get('/profile', auth.userAuth, (req, res) => {
+    res.status(200).sendFile(`${__dirname}/public/html/Profile-Field.html`);
+});
+
+app.get('/logout',controller.logout);
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
 });
