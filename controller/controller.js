@@ -7,7 +7,7 @@ const app = express();
 const bcrypt = require('bcrypt');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-let session=require('express-session');
+let session = require('express-session');
 
 const jwt_secret = process.env.JWT_SECRET;
 
@@ -15,8 +15,8 @@ const jwt_secret = process.env.JWT_SECRET;
 exports.signup = async (req, res) => {
     try {
         const { name, DOB, email, aadhar, mobile, gender, pin, role } = req.body;
-        let newRole=role;
-        session=req.session;
+        let newRole = role;
+        session = req.session;
         // console.log(role);
         const user = await User.findOne({ email });
         // console.log(user);
@@ -42,7 +42,7 @@ exports.signup = async (req, res) => {
                 mobile,
                 gender,
                 pin: newPin,
-                role:newRole,
+                role: newRole,
             });
         }
         const maxAge = 3 * 60 * 60;
@@ -53,11 +53,11 @@ exports.signup = async (req, res) => {
             httpOnly: true,
             maxAge: maxAge * 1000,
         });
-        session.name=name;
-        session.email=email;
-        session.aadhar=aadhar;
-        session.mobile=mobile;
-        session.role=newRole;
+        session.name = name;
+        session.email = email;
+        session.aadhar = aadhar;
+        session.mobile = mobile;
+        session.role = newRole;
         res.status(201).redirect('/');
     } catch (err) {
         res.status(404).json({
@@ -71,6 +71,7 @@ exports.login = async (req, res) => {
     try {
         const { aadhar, username: email, pin } = req.body;
         // console.log(req.body);
+        let safePin=false;
         let user = "";
         if (!aadhar && !email) {
             console.log('here1');
@@ -89,17 +90,20 @@ exports.login = async (req, res) => {
             // console.log(user);
         }
         // const user = await User.findOne({ email });
-        const safePin = await bcrypt.compare(pin, user.pin);
         if (!user) {
             res.status(404).redirect('/signup');
+            return;
         }
-        else if(safePin){
-            const maxAge = 3*60*60;
+        else {
+            safePin = await bcrypt.compare(pin, user.pin);
+        }
+        if (safePin) {
+            const maxAge = 3 * 60 * 60;
             const token = jwt.sign({
                 id: user._id,
-                email:user.email,
-                aadhar:user.aadhar,
-                mobile:user.mobile,
+                email: user.email,
+                aadhar: user.aadhar,
+                mobile: user.mobile,
                 role: user.role
             }, jwt_secret, {
                 expiresIn: maxAge,
@@ -108,20 +112,20 @@ exports.login = async (req, res) => {
                 httpOnly: true,
                 maxAge: maxAge * 1000,
             });
-            session=req.session;
-            session.name=user.name;
-            session.email=user.email;
-            session.aadhar=user.aadhar;
-            session.mobile=user.mobile;
-            session.role=user.role;
-            if(user.role=='admin'){
+            session = req.session;
+            session.name = user.name;
+            session.email = user.email;
+            session.aadhar = user.aadhar;
+            session.mobile = user.mobile;
+            session.role = user.role;
+            if (user.role == 'admin') {
                 res.status(200).redirect('/search');
             }
-            else{
+            else {
                 res.status(200).redirect('/');
             }
         }
-        else{
+        else {
             res.status(404).redirect('/login');
         }
     } catch (err) {
@@ -185,11 +189,11 @@ exports.addResult = async (req, res) => {
 
 exports.getResult = async (req, res) => {
     try {
-        session=req.session;
-        const {type:resultType} = req.query;
+        session = req.session;
+        const { type: resultType } = req.query;
         // console.log(session.email);
-        const email=session.email.toLowerCase();
-        const data=await Data.find({email,resultType});
+        const email = session.email.toLowerCase();
+        const data = await Data.find({ email, resultType });
         res.status(200).json({
             status: 'success',
             data: {
@@ -207,7 +211,7 @@ exports.getResult = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
-        session=req.session;
+        session = req.session;
         session.destroy();
         res.redirect('/login');
     } catch (err) {
@@ -218,30 +222,30 @@ exports.logout = async (req, res) => {
     }
 }
 
-exports.update = async (req,res)=>{
-    try{
-        const session=req.session;
-        const email=session.email;
-        const data = await User.findOneAndUpdate({email},req.body,{
-            new:true,
-            runValidators:true,
+exports.update = async (req, res) => {
+    try {
+        const session = req.session;
+        const email = session.email;
+        const data = await User.findOneAndUpdate({ email }, req.body, {
+            new: true,
+            runValidators: true,
         });
-        session.name=data.name;
-        session.email=data.email;
-        session.aadhar=data.aadhar;
-        session.mobile=data.mobile;
-        session.role=data.role;
+        session.name = data.name;
+        session.email = data.email;
+        session.aadhar = data.aadhar;
+        session.mobile = data.mobile;
+        session.role = data.role;
         res.status(200).json({
-            status:'success',
-            data:{
+            status: 'success',
+            data: {
                 data,
             },
         });
     }
-    catch(err){
+    catch (err) {
         res.status(404).json({
-            status:'fail',
-            message:err.message,
+            status: 'fail',
+            message: err.message,
         });
     }
 }
