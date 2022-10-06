@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const auth = require('./auth/auth');
 const session = require('express-session');
+
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(session({ 
@@ -39,7 +40,7 @@ app.post('/Sign-Up', auth.userAuth, controller.signup);
 
 app.get('/', auth.userAuth, controller.home);
 
-app.post('/data', auth.adminAuth, controller.addResult);
+app.post('/data', controller.addResult);
 
 app.get('/get-result', controller.getResult);
 

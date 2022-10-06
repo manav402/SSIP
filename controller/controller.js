@@ -190,10 +190,15 @@ exports.addResult = async (req, res) => {
 exports.getResult = async (req, res) => {
     try {
         session = req.session;
+        let email=session.email;
+        // console.log(email);
         const { type: resultType } = req.query;
         // console.log(session.email);
-        const email = session.email.toLowerCase();
+        // console.log(resultType,email);
+        // email="manavzariya1@gmail.com";
+        // const email = session.email.toLowerCase();
         const data = await Data.find({ email, resultType });
+        console.log(data);
         res.status(200).json({
             status: 'success',
             data: {

@@ -34,15 +34,11 @@ const data=new mongoose.Schema({
         name:{
             type:String,
         },
-    },{strict:false})],
-    obtainedMarks: [new mongoose.Schema({
         mark:{
             type:Number,
         },
-    }, { strict: false })],
-    totalMarks: [new mongoose.Schema({
         total:{type: Number,},
-    }, { strict: false })],
+    },{strict:false})],
     obtainedGrade:[{
         type:String,
     }],
