@@ -1,33 +1,33 @@
 const mongoose = require('mongoose');
 
 const programSchema = new mongoose.Schema({
-    pro_id:{
-        type:String,
+    pro_id: {
+        type: String,
     },
-    pro_name:{
-        type:String,
+    pro_name: {
+        type: String,
     },
-    pro_short_name:{
-        type:String,
+    pro_short_name: {
+        type: String,
     },
-    pro_duration:{
-        type:Number,
+    pro_duration: {
+        type: Number,
     },
-    pro_total_collages:{
-        type:Number,
+    pro_total_collages: {
+        type: Number,
     },
-    collage_name:[
+    collage_name: [
         new mongoose.Schema({
             c_name: {
-                type:String,
+                type: String,
             },
             collage_id: {
-                type:String,
+                type: String,
             }
-        },{strict:false})
+        }, { strict: false })
     ],
-    university:{
-        type:string,
+    university: {
+        type: String,
     }
 });
 

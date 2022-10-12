@@ -26,37 +26,7 @@ app.use(session({
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
-// app.use(express.json());
 
-
-// app.get('/login', )
-
-// app.post('/Log-in', );
-
-// app.get('/signup', );
-
-// // app.post('/Sign-Up', auth.userAuth, controller.signup);
-// app.post('/Sign-Up',);
-
-// app.get('/',controller.home);
-
-// app.post('/data', controller.addResult);
-
-// app.get('/get-result', controller.getAllResult);
-// app.post('/get-result', controller.getResult);
-
-// app.get('/profile', auth.userAuth, (req, res) => {
-//     res.status(200).sendFile(`${__dirname}/public/html/profile.html`);
-// });
-
-// app.get('/logout', controller.logout);
-
-
-// app.patch('/update', auth.userAuth, controller.update);
-
-// app.get('/search', (req, res) => {
-//     res.status(200).sendFile(`${__dirname}/public/html/search.html`);
-// })
 
 app.use('/', base);
 

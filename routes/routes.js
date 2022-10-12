@@ -6,6 +6,10 @@ router
     .route('/')
     .get(controller.getAllUni)
     .post(auth.developerAuth,controller.createUni);
+router
+    .route('/:id')
+    .get(controller.getUni)
 
+    
 router.route('/branch').get(controller.getAllUni);
 module.exports = router;

@@ -17,7 +17,7 @@ base.route('/login')
     .post(controller.login);
 
 base.route('/signup')
-    .get(auth.userAuth, (req, res) => {
+    .get((req, res) => {
         res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/signup.html`));
     })
     .post(controller.signup);
@@ -26,7 +26,7 @@ base.route('/')
     .get(controller.home)
 
 base.route('/profile')
-    .get(auth.userAuth, (req, res) => {
+    .get((req, res) => {
         res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/profile.html`));
     })
 
@@ -34,7 +34,7 @@ base.route('/logout')
     .get(controller.logout)
 
 base.route('/update')
-    .patch(auth.userAuth, controller.update)
+    .patch(controller.update)
 
 base.route('/search')
     .get((req, res) => {

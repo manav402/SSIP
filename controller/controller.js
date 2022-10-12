@@ -1,5 +1,9 @@
 const User = require('../model/User');
 const Data = require('../model/Data');
+const Uni = require('../model/Uni');
+const Collage = require('../model/Collage');
+const Program = require('../model/Program');
+const Branch = require('../model/Branch');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -14,7 +18,7 @@ const jwt_secret = process.env.JWT_SECRET;
 
 exports.signup = async (req, res) => {
     try {
-        const { name, DOB, email, aadhar, mobile, gender, pin, role } = req.body;
+        const { name, DOB, email, aadhar, mobile, gender, pin, role, university_code } = req.body;
         let newRole = role;
         session = req.session;
         // console.log(role);
@@ -44,10 +48,11 @@ exports.signup = async (req, res) => {
                 gender,
                 pin: newPin,
                 role: newRole,
+                university_code
             });
         }
         const maxAge = 3 * 60 * 60;
-        const token = jwt.sign({ id: newUser._id, email, aadhar, mobile, role: newUser.role }, jwt_secret, {
+        const token = jwt.sign({ id: newUser._id, email, aadhar, mobile, role: newUser.role, university_code}, jwt_secret, {
             expiresIn: maxAge,
         });
         res.cookie("jwt", token, {
@@ -59,6 +64,7 @@ exports.signup = async (req, res) => {
         session.aadhar = aadhar;
         session.mobile = mobile;
         session.role = newRole;
+        session.university_code = university_code;
         // res.status(201).redirect('/');
         res.status(201).json({
             status: 'success',
@@ -74,7 +80,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const { aadhar, username: email, pin } = req.body;
+        const { aadhar, username: email, pin,university_code} = req.body;
         console.log(req.body);
         let safePin=false;
         let user = "";
@@ -88,12 +94,18 @@ exports.login = async (req, res) => {
         else if (email && aadhar) {
             // console.log('here2');
             user = await User.findOne({ aadhar });
+            console.log(user.role);
         }
         else if (!aadhar) {
             // console.log('here3');
             user = await User.findOne({ email });
+            console.log(user.role);
         }
-        console.log(user.role);
+        else if (!email) {
+            // console.log('here4');
+            user = await User.findOne({ aadhar });
+            console.log(user.role);
+        }
         // const user = await User.findOne({ email });
         if (!user) {
             res.status(404).redirect('/signup');
@@ -109,7 +121,8 @@ exports.login = async (req, res) => {
                 email: user.email,
                 aadhar: user.aadhar,
                 mobile: user.mobile,
-                role: user.role
+                role: user.role,
+                university_code:user.university_code
             }, jwt_secret, {
                 expiresIn: maxAge,
             });
@@ -123,8 +136,33 @@ exports.login = async (req, res) => {
             session.aadhar = user.aadhar;
             session.mobile = user.mobile;
             session.role = user.role;
+            session.university_code = user.university_code;
             if (user.role === 'admin') {
                 res.status(200).redirect('/search');
+            }
+            else if(user.role === 'dev'){
+                res.status(400).json({
+                    status: 'success',
+                    message: 'hmm devloper it seems and login through ui shame on you and your degree 😑😑😑'
+                });
+            }
+            else if(user.role === 'uni'){
+                    const university = await Uni.findOne({university_code});
+                    console.log(university);
+                    if(!university){
+                        res.status(404).json({
+                            status: 'fail',
+                            message: 'wait what !! imposible we are hacked it seems, help a hecker !!!'
+                        });
+                        return;
+                    }
+                    else{
+                        session.university_code = university.u_code;
+                        res.status(200).json({
+                            status: 'success',
+                            message: `ahh , boss itself you are authorised for this ${university.u_name} university only 😑`
+                        });
+                    }
             }
             else {
                 // res.status(200).redirect('/');
@@ -162,7 +200,7 @@ exports.home = async (req, res) => {
 
 exports.addResult = async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         const { name,aadharNumber,university,year, email, seatNumber, declaredDate, exam, branch, resultType, totalSubject, subject, obtainedMarks, totalMarks, grade, percentile, percentage, currentBack, totalBack, spi, cpi, cgpa } = req.body;
         const newData = await Data.create({
             name,
@@ -209,7 +247,7 @@ exports.getAllResult = async (req, res) => {
         let email=session.email;
         const { type: resultType } = req.query;
         const data = await Data.find({ email, resultType });
-        console.log(data);
+        // console.log(data);
         res.status(200).json({
             status: 'success',
             data: {
@@ -229,7 +267,7 @@ exports.getResult = async (req, res) => {
         session = req.session;
         let data = req.body;
         let aadhar=session.aadhar;
-        console.log(data,aadhar);
+        // console.log(data,aadhar);
         let finalData = await Data.find({aadharNumber:aadhar,university:data.university,seatNumber:data.seatNumber,branch : data.branch,year:data.year});
         res.status(200).json({
             status: 'success',
@@ -294,10 +332,40 @@ exports.getAllUni=(req,res)=>{
     });
 }
 
-exports.createUni=(req,res)=>{
-    res.status(200).json({
-        status: 'success',
-        message:"University created",
-        data:req.body,
-    });
+exports.createUni=async (req,res)=>{
+    try{
+        const data = req.body;
+        const fill= await Uni.create(data);
+        res.status(200).json({
+            status: 'success',
+            message:"University Added Successfuly",
+            data: fill,
+        });
+    }
+    catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err.message,
+        });
+    }
+}
+
+exports.getUni=async (req,res)=>{
+    try{
+        const session = req.session;
+        const university_code = session.university_code;
+        const data = await Uni.findOne({university_code});
+        res.status(200).json({
+            status: 'success',
+            data: {
+                data,
+            },
+        });
+    }
+    catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err.message,
+        });
+    }
 }

@@ -3,8 +3,13 @@ const mongoose = require('mongoose');
 const uniSchema = new mongoose.Schema({
     u_code: {
         type:String,
+        Unique:true,
+        required:[true,'Please enter a code for uni'],
     },
     u_name: {
+        type:String,
+    },
+    u_short_name: {
         type:String,
     },
     u_affilation:{
@@ -24,6 +29,7 @@ const uniSchema = new mongoose.Schema({
     },
     total_Program:{
         type:Number,
+        required:[true,'Please enter the total number of programs'],
     },
     program_name:[
         new mongoose.Schema({
@@ -31,7 +37,7 @@ const uniSchema = new mongoose.Schema({
                 type:String,
             },
             pro_id: {
-                type: string,
+                type: String,
             }            
         },{strict:false})
     ],

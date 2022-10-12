@@ -42,6 +42,9 @@ const userSchema = {
         type:String,
         default:'user',
     },
+    university_code:{
+        type:String,
+    }
 }
 
 const User=mongoose.model('User',userSchema);
