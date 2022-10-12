@@ -273,3 +273,18 @@ exports.update = async (req, res) => {
         });
     }
 }
+
+exports.getAllUni=(req,res)=>{
+    res.status(200).json({
+        status: 'success',
+        message:"All list of universities",
+    });
+}
+
+exports.createUni=(req,res)=>{
+    console.log(req.query);
+    res.status(201).json({
+        status: 'success',
+        message:"Make uni profile",
+    });
+}
