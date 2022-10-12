@@ -8,7 +8,7 @@ const userSchema = {
 
     },
     DOB: {
-        type:Date,
+        type:String,
         required:[true,'A user must have a date of birth'],
     },
     email: {

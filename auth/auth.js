@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const jwt_secret = process.env.JWT_SECRET;
 
-exports.devloperAuth = async (req, res, next) => {
+exports.developerAuth = async (req, res, next) => {
     try {
+        console.log("here");
         if (req.cookies.jwt) {
             const decoded = jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
                 if (err) {
@@ -22,9 +23,13 @@ exports.devloperAuth = async (req, res, next) => {
                     }
                 }
             });
+        }else{
+            res.status(401).json({
+                status:'fail',
+                message:'Unauthorized you silly duck...'
+            })
         }
-    }
-    catch (err) {
+    }    catch (err) {
         res.status(500).json({
             status: 'fail',
             message: err

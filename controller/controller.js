@@ -22,15 +22,16 @@ exports.signup = async (req, res) => {
         // console.log(user);
         let newUser;
         if (user) {
-            return res.status(300).redirect('/login');
+            // return res.status(300).redirect('/login');
+            return res.status(300).json({
+                status: 'fail',
+                message: 'Email already exist'
+            });
         }
         else {
             // console.log('here');
             if (!role) {
                 newRole = 'user';
-            }
-            else {
-                newRole = 'admin';
             }
             // console.log(newRole);
             const newPin = await bcrypt.hash(pin, 12);
@@ -58,7 +59,11 @@ exports.signup = async (req, res) => {
         session.aadhar = aadhar;
         session.mobile = mobile;
         session.role = newRole;
-        res.status(201).redirect('/');
+        // res.status(201).redirect('/');
+        res.status(201).json({
+            status: 'success',
+            message: 'Record created successfully'
+        });
     } catch (err) {
         res.status(404).json({
             status: 'fail',
@@ -70,25 +75,25 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { aadhar, username: email, pin } = req.body;
-        // console.log(req.body);
+        console.log(req.body);
         let safePin=false;
         let user = "";
         if (!aadhar && !email) {
-            console.log('here1');
+            // console.log('here1');
             return res.status(400).json({
                 status: 'fail',
                 message: 'Please provide aadhar or email'
             });
         }
-        else if (!email) {
+        else if (email && aadhar) {
             // console.log('here2');
             user = await User.findOne({ aadhar });
         }
         else if (!aadhar) {
             // console.log('here3');
             user = await User.findOne({ email });
-            // console.log(user);
         }
+        console.log(user.role);
         // const user = await User.findOne({ email });
         if (!user) {
             res.status(404).redirect('/signup');
@@ -118,15 +123,23 @@ exports.login = async (req, res) => {
             session.aadhar = user.aadhar;
             session.mobile = user.mobile;
             session.role = user.role;
-            if (user.role == 'admin') {
+            if (user.role === 'admin') {
                 res.status(200).redirect('/search');
             }
             else {
-                res.status(200).redirect('/');
+                // res.status(200).redirect('/');
+                res.status(200).json({
+                    status: 'success',
+                    message: 'logged in successfully'
+                })
             }
         }
         else {
-            res.status(404).redirect('/login');
+            // res.status(404).redirect('/login');
+            res.status(404).json({
+                status: 'fail',
+                message: 'Incorrect email or pin',
+            });
         }
     } catch (err) {
         res.status(404).json({
@@ -282,9 +295,9 @@ exports.getAllUni=(req,res)=>{
 }
 
 exports.createUni=(req,res)=>{
-    console.log(req.query);
-    res.status(201).json({
+    res.status(200).json({
         status: 'success',
-        message:"Make uni profile",
+        message:"University created",
+        data:req.body,
     });
 }

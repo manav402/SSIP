@@ -6,7 +6,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const auth = require('./auth/auth');
 const session = require('express-session');
-const routes = require('./routes/routes');
+const router = require('./routes/routes');
+const debug=require('./routes/debugger');
+const base = require('./routes/base');
 const port = process.env.PORT;
 
 app.use(express.static(`${__dirname}/public`));
@@ -37,9 +39,10 @@ app.get('/signup', auth.userAuth, (req, res) => {
     res.status(200).sendFile(`${__dirname}/public/html/signup.html`);
 });
 
-app.post('/Sign-Up', auth.userAuth, controller.signup);
+// app.post('/Sign-Up', auth.userAuth, controller.signup);
+app.post('/Sign-Up',controller.signup);
 
-app.get('/', auth.userAuth, controller.home);
+app.get('/',controller.home);
 
 app.post('/data', controller.addResult);
 
@@ -52,13 +55,18 @@ app.get('/profile', auth.userAuth, (req, res) => {
 
 app.get('/logout', controller.logout);
 
+
 app.patch('/update', auth.userAuth, controller.update);
 
 app.get('/search', (req, res) => {
     res.status(200).sendFile(`${__dirname}/public/html/search.html`);
 })
 
-app.use('/university', routes);
+app.use('/',base);
+
+app.use('/university', router);
+
+app.use('/debugging',debug);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
