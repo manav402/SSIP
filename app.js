@@ -27,32 +27,32 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 // app.use(express.json());
 
 
-app.get('/login', (req, res) => {
+app.get('/login',(req, res) => {
     res.status(200).sendFile(`${__dirname}/public/html/login.html`);
 })
 
-app.post('/Log-in', controller.login);
+app.post('/Log-in',controller.login);
 
-app.get('/signup', auth.userAuth, (req, res) => {
+app.get('/signup', auth.adminAuth, (req, res) => {
     res.status(200).sendFile(`${__dirname}/public/html/signup.html`);
 });
 
-app.post('/Sign-Up', auth.userAuth, controller.signup);
+app.post('/Sign-Up', auth.adminAuth, controller.signup);
 
-app.get('/', auth.userAuth, controller.home);
+app.get('/', auth.adminAuth, controller.home);
 
-app.post('/data', controller.addResult);
+app.post('/data',controller.addResult);
 
-app.get('/get-result', controller.getAllResult);
-app.post('/get-result', controller.getResult);
+app.get('/get-result',controller.getAllResult);
+app.post('/get-result',controller.getResult);
 
-app.get('/profile', auth.userAuth, (req, res) => {
+app.get('/profile', auth.adminAuth, (req, res) => {
     res.status(200).sendFile(`${__dirname}/public/html/profile.html`);
 });
 
 app.get('/logout', controller.logout);
 
-app.patch('/update', auth.userAuth, controller.update);
+app.patch('/update', auth.adminAuth, controller.update);
 
 app.get('/search', (req, res) => {
     res.status(200).sendFile(`${__dirname}/public/html/search.html`);

@@ -13,7 +13,7 @@ exports.adminAuth = async (req, res, next) => {
                     })
                 }
                 else {
-                    if (decodedToken.role !== "admin") {
+                    if (decodedToken.role === "admin") {
                         return res.status(401).json({
                             status: 'fail',
                             message: 'You are not authorized to access this page'
@@ -44,7 +44,7 @@ exports.userAuth = async (req, res, next) => {
                 })
             }
             else {
-                if (decodedToken.role !== "user") {
+                if (decodedToken.role === "user") {
                     return res.status(401).json({
                         status: 'fail',
                         message: 'You are not authorized to access this page'
