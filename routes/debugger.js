@@ -15,4 +15,12 @@ debug
         });
     });
 
+debug.route('/data')
+    .post(controller.addResult);
+
+debug.route('/get-result')
+    .get(controller.getAllResult)
+    .post(controller.getResult);
+
+
 module.exports = debug;

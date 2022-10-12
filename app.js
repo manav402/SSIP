@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const auth = require('./auth/auth');
 const session = require('express-session');
 const router = require('./routes/routes');
-const debug=require('./routes/debugger');
+const debug = require('./routes/debugger');
 const base = require('./routes/base');
 const port = process.env.PORT;
 
@@ -29,44 +29,40 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 // app.use(express.json());
 
 
-app.get('/login', (req, res) => {
-    res.status(200).sendFile(`${__dirname}/public/html/login.html`);
-})
+// app.get('/login', )
 
-app.post('/Log-in', controller.login);
+// app.post('/Log-in', );
 
-app.get('/signup', auth.userAuth, (req, res) => {
-    res.status(200).sendFile(`${__dirname}/public/html/signup.html`);
-});
+// app.get('/signup', );
 
-// app.post('/Sign-Up', auth.userAuth, controller.signup);
-app.post('/Sign-Up',controller.signup);
+// // app.post('/Sign-Up', auth.userAuth, controller.signup);
+// app.post('/Sign-Up',);
 
-app.get('/',controller.home);
+// app.get('/',controller.home);
 
-app.post('/data', controller.addResult);
+// app.post('/data', controller.addResult);
 
-app.get('/get-result', controller.getAllResult);
-app.post('/get-result', controller.getResult);
+// app.get('/get-result', controller.getAllResult);
+// app.post('/get-result', controller.getResult);
 
-app.get('/profile', auth.userAuth, (req, res) => {
-    res.status(200).sendFile(`${__dirname}/public/html/profile.html`);
-});
+// app.get('/profile', auth.userAuth, (req, res) => {
+//     res.status(200).sendFile(`${__dirname}/public/html/profile.html`);
+// });
 
-app.get('/logout', controller.logout);
+// app.get('/logout', controller.logout);
 
 
-app.patch('/update', auth.userAuth, controller.update);
+// app.patch('/update', auth.userAuth, controller.update);
 
-app.get('/search', (req, res) => {
-    res.status(200).sendFile(`${__dirname}/public/html/search.html`);
-})
+// app.get('/search', (req, res) => {
+//     res.status(200).sendFile(`${__dirname}/public/html/search.html`);
+// })
 
-app.use('/',base);
+app.use('/', base);
 
 app.use('/university', router);
 
-app.use('/debugging',debug);
+app.use('/debugging', debug);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
