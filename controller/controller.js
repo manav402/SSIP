@@ -138,7 +138,7 @@ exports.login = async (req, res) => {
 
 exports.home = async (req, res) => {
     try {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/Home-Field.html`));
+        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/home.html`));
     } catch (err) {
         res.status(404).json({
             status: 'fail',
@@ -150,9 +150,12 @@ exports.home = async (req, res) => {
 exports.addResult = async (req, res) => {
     try {
         console.log(req.body);
-        const { name, email, seatNumber, declaredDate, exam, branch, resultType, totalSubject, subject, obtainedMarks, totalMarks, grade, percentile, percentage, currentBack, totalBack, spi, cpi, cgpa } = req.body;
+        const { name,aadharNumber,university,year, email, seatNumber, declaredDate, exam, branch, resultType, totalSubject, subject, obtainedMarks, totalMarks, grade, percentile, percentage, currentBack, totalBack, spi, cpi, cgpa } = req.body;
         const newData = await Data.create({
             name,
+            aadharNumber,
+            university,
+            year,
             email,
             seatNumber,
             declaredDate,
@@ -187,22 +190,38 @@ exports.addResult = async (req, res) => {
     }
 }
 
-exports.getResult = async (req, res) => {
+exports.getAllResult = async (req, res) => {
     try {
         session = req.session;
         let email=session.email;
-        // console.log(email);
         const { type: resultType } = req.query;
-        // console.log(session.email);
-        // console.log(resultType,email);
-        // email="manavzariya1@gmail.com";
-        // const email = session.email.toLowerCase();
         const data = await Data.find({ email, resultType });
         console.log(data);
         res.status(200).json({
             status: 'success',
             data: {
                 data,
+            },
+        });
+    }
+    catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err.message,
+        });
+    }
+}
+exports.getResult = async (req, res) => {
+    try {
+        session = req.session;
+        let data = req.body;
+        let aadhar=session.aadhar;
+        console.log(data,aadhar);
+        let finalData = await Data.find({aadharNumber:aadhar,university:data.university,seatNumber:data.seatNumber,branch : data.branch,year:data.year});
+        res.status(200).json({
+            status: 'success',
+            data: {
+                data: finalData,
             },
         });
     }

@@ -6,10 +6,18 @@ const data=new mongoose.Schema({
         required:[true,'A user must have a name'],
         trim:true,
     },
+    aadharNumber: {
+        type:Number,
+    },
+    university:{
+        type:String,
+    },
+    year: {
+        type:Number,
+    },
     email:{
         type:String,
         required:[true,'A user must have an email'],
-        unique:true,
     },
     seatNumber: {
         type:Number,
