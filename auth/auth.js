@@ -47,7 +47,7 @@ exports.uniAuth = async (req, res, next) => {
                     })
                 }
                 else {
-                    if (decodedToken.role !== "university") {
+                    if (decodedToken.role !== "uni") {
                         return res.status(401).json({
                             status: 'fail',
                             message: 'Hey Dude! We dont need you here this is not for you not! Go home...!!!'

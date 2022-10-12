@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const startServer = require('./server');
-const controller = require('./controller/controller');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const auth = require('./auth/auth');
@@ -19,20 +18,13 @@ app.use(session({
     resave: false,
 }));
 
-
-// app.use(cookieParser());
-
-
-
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
+app.use('/',base);
 
+app.use('/university',authUni, router);
 
-app.use('/', base);
-
-app.use('/university', router);
-
-app.use('/debugging', debug);
+app.use('/debugging',debug);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
