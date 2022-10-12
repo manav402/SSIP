@@ -12,7 +12,25 @@ const data=new mongoose.Schema({
     university:{
         type:String,
     },
+    u_code: {
+        type:String,
+    },
+    program:{
+        type:String,
+    },
+    pro_id:{
+        type:String,
+    },
+    collage:{
+        type:String,
+    },
+    collage_id:{
+        type:String,
+    },
     year: {
+        type:Number,
+    },
+    sem:{
         type:Number,
     },
     email:{
@@ -23,16 +41,10 @@ const data=new mongoose.Schema({
         type:Number,
         required:[true,'A user must have a seat number'],
     },
-    declaredDate:{
-        type:Date, 
-    },
     exam:{
         type:String,
     },
     branch:{
-        type:String,
-    },
-    resultType:{
         type:String,
     },
     totalSubject:{

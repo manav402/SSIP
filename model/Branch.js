@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 
-const collageSchema = new mongoose.Schema({
+const branchSchema = new mongoose.Schema({
     collage_id:{
         type:String,
     },
-    collage_name:{
+    branch_id:{
         type:String,
     },
-    collage_short_name:{
+    branch_name:{
         type:String,
     },
-    collage_type:{
+    branch_short_name:{
         type:String,
     },
-    collage_code:{
+    program:{
+        type:String,
+    },
+    pro_id:{
         type:String,
     },
     university:{
@@ -22,21 +25,21 @@ const collageSchema = new mongoose.Schema({
     no_of_students:{
         type:Number,
     },
-    no_of_course:{
+    no_of_subjects:{
         type:Number,
     },
-    courses: [
+    subjects: [
         new mongoose.Schema({
-            courses_name: {
+            subject_name: {
                 type:String,
             },
-            courses_id:{
+            subject_id:{
                 type:String,
             }
         },{strict:false})
     ],
-
 });
 
-const Collage = mongoose.model("Collage", collageSchema);
-module.exports = Collage;
+const Branch = mongoose.model("Branch", branchSchema);
+
+module.exports = Branch;
