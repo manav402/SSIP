@@ -31,6 +31,8 @@ app.use('/debugging', debug);
 app.use(express.static(staticPath));
 app.set('view engine', 'ejs');
 
+// added comment by manan
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
 });
