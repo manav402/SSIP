@@ -35,7 +35,6 @@ const collageSchema = new mongoose.Schema({
             }
         },{strict:false})
     ],
-
 });
 
 const Collage = mongoose.model("Collage", collageSchema);

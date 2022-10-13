@@ -28,6 +28,9 @@ const programSchema = new mongoose.Schema({
     ],
     university: {
         type: String,
+    },
+    u_code: {
+        type: String,
     }
 });
 

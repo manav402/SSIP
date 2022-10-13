@@ -22,6 +22,9 @@ const branchSchema = new mongoose.Schema({
     university: {
         type: String,
     },
+    u_code: {
+        type: String,
+    },
     no_of_students: {
         type: Number,
     },

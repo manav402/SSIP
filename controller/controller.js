@@ -87,6 +87,12 @@ exports.login = async (req, res) => {
                 'login',
                 { errorOnLogin: 'Please provide aadhar or email', errorThere: true });
         }
+        if (!pin) {
+            // console.log('here1');
+            return res.status(400).render(
+                'login',
+                { errorOnLogin: 'Please provide password !!', errorThere: true });
+        }
         else if (email && aadhar) {
             // console.log('here2');
             user = await User.findOne({ aadhar });
@@ -104,7 +110,7 @@ exports.login = async (req, res) => {
         }
         // const user = await User.findOne({ email });
         if (!user) {
-            res.status(404).redirect('/signup');
+            res.status(404).render('signup');
             return;
         }
         else {
@@ -134,10 +140,10 @@ exports.login = async (req, res) => {
             session.role = user.role;
             session.university_code = user.university_code;
             if (user.role === 'admin') {
-                res.status(200).redirect('/search');
+                res.status(200).render('search');
             }
             else if (user.role === 'dev') {
-                res.status(400).json({
+                res.status(400).render({
                     status: 'success',
                     message: 'hmm devloper it seems and login through ui shame on you and your degree 😑😑😑'
                 });
@@ -146,26 +152,21 @@ exports.login = async (req, res) => {
                 const university = await Uni.findOne({ university_code });
                 console.log(university);
                 if (!university) {
-                    res.status(404).json({
-                        status: 'fail',
+                    res.status(404).render('login', {
                         message: 'wait what !! imposible we are hacked it seems, help a hecker !!!'
                     });
                     return;
                 }
                 else {
                     session.university_code = university.u_code;
-                    res.status(200).json({
-                        status: 'success',
+                    res.status(200).json( {
                         message: `ahh , boss itself you are authorised for this ${university.u_name} university only 😑`
                     });
                 }
             }
             else {
                 // res.status(200).redirect('/');
-                res.status(200).json({
-                    status: 'success',
-                    message: 'logged in successfully'
-                })
+                res.status(200).redirect('/');
             }
         }
         else {
@@ -346,7 +347,7 @@ exports.getUni = async (req, res) => {
     try {
         const session = req.session;
         const university_code = session.university_code;
-        const data = await Uni.findOne({ university_code });
+        const data = await Uni.find({ university_code });
         res.status(200).json({
             status: 'success',
             data: {
@@ -359,5 +360,67 @@ exports.getUni = async (req, res) => {
             status: 'fail',
             message: err.message,
         });
+    }
+}
+
+exports.searchData = async (req,res)=>{
+    try{
+        const query = req.query;
+        console.log(query);
+        const {u_code,branch_id,collage_id,pro_id}=req.query;
+        let data="null";
+        if(branch_id){
+            data= await Branch.find(req.query);
+        }
+        else if(collage_id && !branch_id){
+            delete req.query.pro_id;
+            data = await Collage.find(req.query);
+        }
+        else if(!collage_id && pro_id){
+            data= await Program.find({u_code,branch_id});
+        }
+        else if(!branch_id){
+            data = await Uni.find({university_code:u_code});
+        }
+        res.status(200).json({
+            status: 'success',
+            message: 'found',
+            data
+        });
+    }catch(err){
+        res.status(404).json({
+            status: 'fail',
+            message: err.message,
+        });
+    }
+}
+
+exports.addData = async(req,res)=>{
+    try{
+        const { u_code, branch_id, collage_id, pro_id }=req.body;
+        let data="null";
+        if(branch_id){
+            data=Branch.create(req.body);
+        }
+        else if(collage_id){
+            data=Collage.create(req.body);
+        }
+        else if(pro_id){
+            data = Program.create(req.body);
+        }
+        else if(u_code){
+            data=Uni.create(req.body);
+        }
+        res.status(200).json({
+            status: 'ok',
+            message: 'success',
+            data
+        });
+    }
+    catch(err){
+        res.status(404).json({
+            status: 'fail',
+            message:err.message,
+        })
     }
 }
