@@ -13,6 +13,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 let session = require('express-session');
 
+
 const jwt_secret = process.env.JWT_SECRET;
 
 
@@ -26,11 +27,11 @@ exports.signup = async (req, res) => {
         // console.log(user);
         let newUser;
         if (user) {
-            // return res.status(300).redirect('/login');
-            return res.status(300).json({
-                status: 'fail',
-                message: 'Email already exist'
-            });
+            return res.status(300).render('signup',{errorThere:true,errorOnLogin: "user is alredy exist please login!!"});
+            // return res.status(300).json({
+            //     status: 'fail',
+            //     message: 'Email already exist'
+            // });
         }
         else {
             // console.log('here');
@@ -77,15 +78,17 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const { aadhar, username: email, pin, university_code } = req.body;
+        console.log(req.url);
+        const { username: data, pin } = req.body;
         console.log(req.body);
         let safePin = false;
         let user = "";
-        if (!aadhar && !email) {
-            // console.log('here1');
-            return res.status(400).render(
+        // let type="aadhar";
+        if (!data && !pin) {
+            console.log('here1');
+            res.status(400).render(
                 'login',
-                { errorOnLogin: 'Please provide aadhar or email', errorThere: true });
+                { errorOnLogin: 'Please provide username or pin', errorThere: true });
         }
         if (!pin) {
             // console.log('here1');
@@ -93,24 +96,24 @@ exports.login = async (req, res) => {
                 'login',
                 { errorOnLogin: 'Please provide password !!', errorThere: true });
         }
-        else if (email && aadhar) {
+        else if (data.length===10) {
             // console.log('here2');
-            user = await User.findOne({ aadhar });
-            console.log(user.role);
+            user = await User.findOne({ mobile:data });
+            // console.log(user.role);
         }
-        else if (!aadhar) {
+        else if (data.includes('@')) {
             // console.log('here3');
-            user = await User.findOne({ email });
-            console.log(user.role);
+            user = await User.findOne({ email:data });
+            // console.log(user.role);
         }
-        else if (!email) {
+        else{
             // console.log('here4');
-            user = await User.findOne({ aadhar });
-            console.log(user.role);
+            user = await User.findOne({ aadhar:data });
+            // console.log(user.role);
         }
         // const user = await User.findOne({ email });
         if (!user) {
-            res.status(404).render('signup');
+            res.status(404).redirect('/signup');
             return;
         }
         else {
@@ -149,8 +152,8 @@ exports.login = async (req, res) => {
                 });
             }
             else if (user.role === 'uni') {
-                const university = await Uni.findOne({ university_code });
-                console.log(university);
+                const university = await Uni.findOne({university_code: user.university_code});
+                // console.log(university);
                 if (!university) {
                     res.status(404).render('login', {
                         message: 'wait what !! imposible we are hacked it seems, help a hecker !!!'
@@ -176,13 +179,16 @@ exports.login = async (req, res) => {
         }
     } catch (err) {
         res.status(501).render('error', { errorCode: 404, errorMessage: err });
-
     }
 }
 
 exports.home = async (req, res) => {
     try {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/home.html`));
+        session = req.session;
+        const query = req.query;
+        // if(!query){
+            res.status(200).render('home',{name:session.name,isFound:false});
+        // }
     } catch (err) {
         res.status(404).json({
             status: 'fail',
@@ -191,6 +197,7 @@ exports.home = async (req, res) => {
     }
 }
 
+// created for api calling
 exports.addResult = async (req, res) => {
     try {
         // console.log(req.body);
@@ -234,6 +241,7 @@ exports.addResult = async (req, res) => {
     }
 }
 
+// created for api calling
 exports.getAllResult = async (req, res) => {
     try {
         session = req.session;
@@ -255,6 +263,8 @@ exports.getAllResult = async (req, res) => {
         });
     }
 }
+
+// after search
 exports.getResult = async (req, res) => {
     try {
         session = req.session;
@@ -283,34 +293,6 @@ exports.logout = async (req, res) => {
         session.destroy();
         res.redirect('/login');
     } catch (err) {
-        res.status(404).json({
-            status: 'fail',
-            message: err.message,
-        });
-    }
-}
-
-exports.update = async (req, res) => {
-    try {
-        const session = req.session;
-        const email = session.email;
-        const data = await User.findOneAndUpdate({ email }, req.body, {
-            new: true,
-            runValidators: true,
-        });
-        session.name = data.name;
-        session.email = data.email;
-        session.aadhar = data.aadhar;
-        session.mobile = data.mobile;
-        session.role = data.role;
-        res.status(200).json({
-            status: 'success',
-            data: {
-                data,
-            },
-        });
-    }
-    catch (err) {
         res.status(404).json({
             status: 'fail',
             message: err.message,
@@ -422,5 +404,30 @@ exports.addData = async(req,res)=>{
             status: 'fail',
             message:err.message,
         })
+    }
+}
+
+exports.profile=async (req, res)=>{
+    try {
+        session = req.session;
+        const email = session.email;
+        const user = await User.findOne({ username: email });
+        res.status(201).render('profile',{user});
+    }
+    catch (err) {
+        res.status(404).render('error',{errorCode:404, errorMessage:err});
+    }
+}
+
+exports.updateProfile = async (req, res)=>{
+    try{
+        console.log(req.body);
+        const aadhar = req.session.aadhar;
+        console.log(aadhar);
+        const user = await User.findOneAndUpdate({aadhar},req.body,{runValidators:true,new:true});
+        console.log(user);
+        res.status(200).render('profile',{user});
+    }catch(err){
+        res.status(404).render('error',{errorCode:404,errorMessage:err});
     }
 }

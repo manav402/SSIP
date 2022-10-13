@@ -10,7 +10,8 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
 base.route('/login')
     .get((req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/login.html`));
+        // res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/login.html`));
+        res.status(200).render('login', { errorThere: false });
     })
     .post(controller.login);
 
@@ -21,18 +22,14 @@ base.route('/signup')
     .post(controller.signup);
 
 base.route('/')
-    .get(controller.home)
+    .get(controller.home);
 
 base.route('/profile')
-    .get((req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/profile.html`));
-    })
+    .get(controller.profile)
+    .patch(controller.updateProfile);
 
 base.route('/logout')
     .get(controller.logout)
-
-base.route('/update')
-    .patch(controller.update)
 
 base.route('/search')
     .get((req, res) => {

@@ -9,9 +9,12 @@ const router = require('./routes/routes');
 const debug = require('./routes/debugger');
 const base = require('./routes/base');
 const path = require('path');
+var methodOverride = require('method-override');
+
 const port = process.env.PORT;
 
 const staticPath = path.join(__dirname, 'public');
+app.use(methodOverride('_method'));
 
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());

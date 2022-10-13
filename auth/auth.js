@@ -1,130 +1,109 @@
-const jwt = require('jsonwebtoken');
-const jwt_secret = process.env.JWT_SECRET;
+const jwt = require('jsonwebtoken')
+const jwt_secret = process.env.JWT_SECRET
 
 exports.developerAuth = async (req, res, next) => {
-    try {
-        console.log("here");
-        if (req.cookies.jwt) {
-            const decoded = jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
-                if (err) {
-                    return res.status(401).json({
-                        message: 'Unauthorized',
-                    })
-                }
-                else {
-                    if (decodedToken.role !== "dev") {
-                        return res.status(401).json({
-                            status: 'fail',
-                            message: 'Even if you are developer we not even think about you get some life dude!!!'
-                        })
-                    }
-                    else {
-                        next();
-                    }
-                }
-            });
-        }else{
-            res.status(401).json({
-                status:'fail',
-                message:'Unauthorized you silly duck...'
+  try {
+    console.log('here')
+    if (req.cookies.jwt) {
+      const decoded = jwt.verify(
+        req.cookies.jwt,
+        jwt_secret,
+        (err, decodedToken) => {
+          if (err) {
+            return res.status(401).json({
+              message: 'Unauthorized',
             })
-        }
-    }    catch (err) {
-        res.status(500).json({
-            status: 'fail',
-            message: err
-        })
+          } else {
+            if (decodedToken.role !== 'dev') {
+                        return res.status(401).render('error', {errorCode:100, errorMessage:"Even if you are developer we not even think about you get some life dude!!!"});
+
+            } else {
+              next()
+            }
+          }
+        },
+      )
+    } else {
+      res.status(401).json({
+        status: 'fail',
+        message: 'Unauthorized you silly duck...',
+      })
     }
+  } catch (err) {
+    res.status(500).render('error', { errorCode: 404, errorMessage: err })
+  }
 }
 
 exports.uniAuth = async (req, res, next) => {
-    try {
-        if (req.cookies.jwt) {
-            jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
-                if (err) {
-                    return res.status(401).json({
-                        message: 'Unauthorized',
-                    })
-                }
-                else {
-                    if (decodedToken.role !== "uni") {
-                        return res.status(401).json({
-                            status: 'fail',
-                            message: 'Hey Dude! We dont need you here this is not for you not! Go home...!!!'
-                        })
-                    }
-                    else {
-                        next();
-                    }
-                }
-            });
+  try {
+    if (req.cookies.jwt) {
+      jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
+        if (err) {
+          return res.status(401).json({
+            message: 'Unauthorized',
+          })
+        } else {
+          if (decodedToken.role !== 'uni') {
+                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
+
+          } else {
+            next()
+          }
         }
+      })
     }
-    catch (err) {
-        res.status(500).json({
-            status: 'fail',
-            message: err
-        })
-    }
+  } catch (err) {
+    res.status(500).render('error', { errorCode: 404, errorMessage: err })
+  }
 }
 
 exports.adminAuth = async (req, res, next) => {
-    try {
-        const token = req.cookies.jwt;
-        if (token) {
-            jwt.verify(token, jwt_secret, (err, decodedToken) => {
-                if (err) {
-                    return res.status(401).json({
-                        status: 'fail',
-                        error: err,
-                        message: 'admin ☕ 😂...💥😂...💥😂'
-                    })
-                }
-                else {
-                    if (decodedToken.role !== "admin") {
-                        return res.status(401).json({
-                            status: 'fail',
-                            message: 'admin ☕ 😂...💥😂...💥😂'
-                        })
-                    }
-                    else {
-                        next();
-                    }
-                }
-            })
-        }
-    } catch (err) {
-        res.status(404).json({
+  try {
+    const token = req.cookies.jwt
+    if (token) {
+      jwt.verify(token, jwt_secret, (err, decodedToken) => {
+        if (err) {
+          return res.status(401).json({
             status: 'fail',
-            message: err,
-        });
+            error: err,
+            message: 'admin ☕ 😂...💥😂...💥😂',
+          })
+        } else {
+          if (decodedToken.role !== 'admin') {
+            return res
+              .status(401)
+              .render('error', { errorCode: 100, errorMessage: 'not a admin dude get some jobs you lazy!!' });
+          } else {
+            next()
+          }
+        }
+      })
     }
+  } catch (err) {
+    res.status(500).render('error', { errorCode: 404, errorMessage: err })
+  }
 }
 
 exports.userAuth = async (req, res, next) => {
-    const token = req.cookies.jwt;
-    if (token) {
-        jwt.verify(token, jwt_secret, (err, decodedToken) => {
-            if (err) {
-                return res.status(401).json({
-                    status: 'fail',
-                    message: 'You are not authorized to access this page',
-                    error: err
-                })
-            }
-            else {
-                if (decodedToken.role !== "user") {
-                    return res.status(401).json({
-                        status: 'fail',
-                        message: 'Only user is allowed go get some life dude!!! 👻',
-                    })
-                }
-                else {
-                    next();
-                }
-            }
+  const token = req.cookies.jwt
+  if (token) {
+    jwt.verify(token, jwt_secret, (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({
+          status: 'fail',
+          message: 'You are not authorized to access this page',
         })
-    } else {
-        return res.status(401).redirect('/login');
-    }
+      } else {
+        if (decodedToken.role !== 'user') {
+          return res
+            .status(401)
+            .render('error', { errorCode: 100, errorMessage: "hmm you can't even access users page" })``
+        } else {
+          next()
+        }
+      }
+    })
+  } else {
+    return res.status(401).redirect('/login')
+  }
 }

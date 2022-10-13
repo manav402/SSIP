@@ -1,20 +1,20 @@
-html {
-    height: 120%;
-  }
+
   body {
     margin:0;
     padding:0;
     font-family: sans-serif;
     /* background: linear-gradient(#03043a, #331055); */
     background-color: #243b55;
+    min-height: 150vh;
   }
   
   .login-box {
     position: absolute;
-    margin-top: 3%;
+    margin-top: 15%;
+    margin-bottom: 15rem;
     top: 50%;
     left: 50%;
-    width: 500px;
+    width: 55%;
     padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.5);
