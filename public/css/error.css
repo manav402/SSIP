@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, rgb(226, 60, 31), rgb(44, 211, 169));
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.errorBox {
+    height: 94vh;
+    display: contents;
+}
+
+.errorBox .errMsg {
+    text-align: center;
+    color: rgb(43, 226, 195);
+    font-size: xxx-large;
+    font-family: fantasy;
+}
+
+.errorBox .errCode {
+    text-align: center;
+    color: black;
+    font-size: xx-large;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.errorBox .errorText {
+    text-align: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    color: white;
+    font-weight: 500;
+}

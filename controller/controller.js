@@ -52,7 +52,7 @@ exports.signup = async (req, res) => {
             });
         }
         const maxAge = 3 * 60 * 60;
-        const token = jwt.sign({ id: newUser._id, email, aadhar, mobile, role: newUser.role, university_code}, jwt_secret, {
+        const token = jwt.sign({ id: newUser._id, email, aadhar, mobile, role: newUser.role, university_code }, jwt_secret, {
             expiresIn: maxAge,
         });
         res.cookie("jwt", token, {
@@ -71,25 +71,21 @@ exports.signup = async (req, res) => {
             message: 'Record created successfully'
         });
     } catch (err) {
-        res.status(404).json({
-            status: 'fail',
-            message: err,
-        });
+        res.status(501).render('error', { errorCode: 404, errorMessage: err });
     }
 }
 
 exports.login = async (req, res) => {
     try {
-        const { aadhar, username: email, pin,university_code} = req.body;
+        const { aadhar, username: email, pin, university_code } = req.body;
         console.log(req.body);
-        let safePin=false;
+        let safePin = false;
         let user = "";
         if (!aadhar && !email) {
             // console.log('here1');
-            return res.status(400).json({
-                status: 'fail',
-                message: 'Please provide aadhar or email'
-            });
+            return res.status(400).render(
+                'login',
+                { errorOnLogin: 'Please provide aadhar or email', errorThere: true });
         }
         else if (email && aadhar) {
             // console.log('here2');
@@ -122,7 +118,7 @@ exports.login = async (req, res) => {
                 aadhar: user.aadhar,
                 mobile: user.mobile,
                 role: user.role,
-                university_code:user.university_code
+                university_code: user.university_code
             }, jwt_secret, {
                 expiresIn: maxAge,
             });
@@ -140,29 +136,29 @@ exports.login = async (req, res) => {
             if (user.role === 'admin') {
                 res.status(200).redirect('/search');
             }
-            else if(user.role === 'dev'){
+            else if (user.role === 'dev') {
                 res.status(400).json({
                     status: 'success',
                     message: 'hmm devloper it seems and login through ui shame on you and your degree 😑😑😑'
                 });
             }
-            else if(user.role === 'uni'){
-                    const university = await Uni.findOne({university_code});
-                    console.log(university);
-                    if(!university){
-                        res.status(404).json({
-                            status: 'fail',
-                            message: 'wait what !! imposible we are hacked it seems, help a hecker !!!'
-                        });
-                        return;
-                    }
-                    else{
-                        session.university_code = university.u_code;
-                        res.status(200).json({
-                            status: 'success',
-                            message: `ahh , boss itself you are authorised for this ${university.u_name} university only 😑`
-                        });
-                    }
+            else if (user.role === 'uni') {
+                const university = await Uni.findOne({ university_code });
+                console.log(university);
+                if (!university) {
+                    res.status(404).json({
+                        status: 'fail',
+                        message: 'wait what !! imposible we are hacked it seems, help a hecker !!!'
+                    });
+                    return;
+                }
+                else {
+                    session.university_code = university.u_code;
+                    res.status(200).json({
+                        status: 'success',
+                        message: `ahh , boss itself you are authorised for this ${university.u_name} university only 😑`
+                    });
+                }
             }
             else {
                 // res.status(200).redirect('/');
@@ -174,16 +170,12 @@ exports.login = async (req, res) => {
         }
         else {
             // res.status(404).redirect('/login');
-            res.status(404).json({
-                status: 'fail',
-                message: 'Incorrect email or pin',
-            });
+            res.status(501).render('error', { errorCode: 404, errorMessage: err });
+
         }
     } catch (err) {
-        res.status(404).json({
-            status: 'fail',
-            message: err.message,
-        });
+        res.status(501).render('error', { errorCode: 404, errorMessage: err });
+
     }
 }
 
@@ -201,7 +193,7 @@ exports.home = async (req, res) => {
 exports.addResult = async (req, res) => {
     try {
         // console.log(req.body);
-        const { name,aadharNumber,university,year, email, seatNumber, declaredDate, exam, branch, resultType, totalSubject, subject, obtainedMarks, totalMarks, grade, percentile, percentage, currentBack, totalBack, spi, cpi, cgpa } = req.body;
+        const { name, aadharNumber, university, year, email, seatNumber, declaredDate, exam, branch, resultType, totalSubject, subject, obtainedMarks, totalMarks, grade, percentile, percentage, currentBack, totalBack, spi, cpi, cgpa } = req.body;
         const newData = await Data.create({
             name,
             aadharNumber,
@@ -244,7 +236,7 @@ exports.addResult = async (req, res) => {
 exports.getAllResult = async (req, res) => {
     try {
         session = req.session;
-        let email=session.email;
+        let email = session.email;
         const { type: resultType } = req.query;
         const data = await Data.find({ email, resultType });
         // console.log(data);
@@ -266,9 +258,9 @@ exports.getResult = async (req, res) => {
     try {
         session = req.session;
         let data = req.body;
-        let aadhar=session.aadhar;
+        let aadhar = session.aadhar;
         // console.log(data,aadhar);
-        let finalData = await Data.find({aadharNumber:aadhar,university:data.university,seatNumber:data.seatNumber,branch : data.branch,year:data.year});
+        let finalData = await Data.find({ aadharNumber: aadhar, university: data.university, seatNumber: data.seatNumber, branch: data.branch, year: data.year });
         res.status(200).json({
             status: 'success',
             data: {
@@ -325,20 +317,20 @@ exports.update = async (req, res) => {
     }
 }
 
-exports.getAllUni=(req,res)=>{
+exports.getAllUni = (req, res) => {
     res.status(200).json({
         status: 'success',
-        message:"All list of universities",
+        message: "All list of universities",
     });
 }
 
-exports.createUni=async (req,res)=>{
-    try{
+exports.createUni = async (req, res) => {
+    try {
         const data = req.body;
-        const fill= await Uni.create(data);
+        const fill = await Uni.create(data);
         res.status(200).json({
             status: 'success',
-            message:"University Added Successfuly",
+            message: "University Added Successfuly",
             data: fill,
         });
     }
@@ -350,11 +342,11 @@ exports.createUni=async (req,res)=>{
     }
 }
 
-exports.getUni=async (req,res)=>{
-    try{
+exports.getUni = async (req, res) => {
+    try {
         const session = req.session;
         const university_code = session.university_code;
-        const data = await Uni.findOne({university_code});
+        const data = await Uni.findOne({ university_code });
         res.status(200).json({
             status: 'success',
             data: {

@@ -6,8 +6,9 @@ router
     .route('/')
     .get(controller.getAllUni)
     .post(auth.developerAuth,controller.createUni);
+
 router
-    .route('/:id')
+    .route('/program')
     .get(controller.getUni)
 
     
