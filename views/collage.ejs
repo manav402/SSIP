@@ -82,9 +82,6 @@
         </table>
         <h1>Branches:</h1>
         <ul>
-            <!-- <li><a href="course.html">Information Technology</a></li>
-            <li><a href="#">Mechanical Engineering</a></li>
-            <li><a href="#">Power Electronics Engineering</a></li> -->
             <% for(let i=0;i<data.no_of_course;i++){ %>
                 <li><a href="/?u_code=<%=data.u_code%>&pro_id=<%= data.pro_id %>&collage_id<%= data.collage_id %>&branch_id=<%= data.course_id %>">
                         <%= data.courses[i].courses_name %>

@@ -37,6 +37,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>">Add Program</a>
+                            <!-- <a class="nav-link" href="/university/add-program">Add Program</a> -->
                         </li><br>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="#">Add College</a>
@@ -102,9 +103,9 @@
         <ul>
             <!-- <li><a href="program.html">Bachelor of Engineering (BE)</a></li> -->
             <!-- <li><a href="#">Diploma Engineering (DE)</a></li> -->
-            <% for(let i=0;i<data.total_Program;i++){ %>
-                <a href="?u_code=<%=data.u_code%>&pro_id=<%= data.program_name[i].p_id %>"><li><%= data.program_name[i].p_name %></li></a>
-            <%}%>
+            <% data2.forEach((obj)=>{ %>
+                <li><a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>"><%= obj.pro_name %></a></li>
+            <%});%>
         </ul>
         <a href="/university/create?u_code=<%= data.u_code %>"><button class="button">Add Program</button></a>
     </div>

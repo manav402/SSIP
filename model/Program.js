@@ -20,9 +20,11 @@ const programSchema = new mongoose.Schema({
         new mongoose.Schema({
             c_name: {
                 type: String,
+                default: null,
             },
             collage_id: {
                 type: String,
+                default: null,
             }
         }, { strict: false })
     ],
