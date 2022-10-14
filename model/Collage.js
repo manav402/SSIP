@@ -19,6 +19,15 @@ const collageSchema = new mongoose.Schema({
     university:{
         type:String,
     },
+    u_code:{
+        type:String,
+    },
+    pro_name:{
+        type:String,
+    },
+    pro_id:{
+        type:String,
+    },
     no_of_students:{
         type:Number,
     },

@@ -26,9 +26,9 @@ app.use(session({
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
-app.use('/', base);
+app.use('/',base);
 
-app.use('/university', auth.uniAuth, router);
+app.use('/university',router);
 
 app.use('/debugging', debug);
 app.use(express.static(staticPath));

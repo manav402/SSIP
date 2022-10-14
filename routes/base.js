@@ -16,23 +16,23 @@ base.route('/login')
     .post(controller.login);
 
 base.route('/signup')
-    .get((req, res) => {
+    .get(auth.userAuth,(req, res) => {
         res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/signup.html`));
     })
-    .post(controller.signup);
+    .post(auth.userAuth,controller.signup);
 
 base.route('/')
-    .get(controller.home);
+    .get(auth.userAuth,controller.home);
 
 base.route('/profile')
-    .get(controller.profile)
-    .patch(controller.updateProfile);
+    .get(auth.userAuth,controller.profile)
+    .patch(auth.userAuth,controller.updateProfile);
 
 base.route('/logout')
     .get(controller.logout)
 
 base.route('/search')
-    .get((req, res) => {
+    .get(auth.notUni,(req, res) => {
         res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/search.html`));
     });
 

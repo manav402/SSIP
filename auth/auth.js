@@ -97,7 +97,7 @@ exports.userAuth = async (req, res, next) => {
         if (decodedToken.role !== 'user') {
           return res
             .status(401)
-            .render('error', { errorCode: 100, errorMessage: "hmm you can't even access users page" })``
+            .render('error', { errorCode: 100, errorMessage: "hmm you can't even access users page" });
         } else {
           next()
         }
@@ -105,5 +105,97 @@ exports.userAuth = async (req, res, next) => {
     })
   } else {
     return res.status(401).redirect('/login')
+  }
+}
+
+exports.notUni = async (req,res,next)=>{
+  try {
+    if (req.cookies.jwt) {
+      jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
+        if (err) {
+          return res.status(401).json({
+            message: 'Unauthorized',
+          })
+        } else {
+          if (decodedToken.role === 'uni') {
+                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
+
+          } else {
+            next()
+          }
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).render('error', { errorCode: 404, errorMessage: err })
+  }
+}
+
+exports.notAdmin = async (req, res, next) => {
+  try {
+    if (req.cookies.jwt) {
+      jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
+        if (err) {
+          return res.status(401).json({
+            message: 'Unauthorized',
+          })
+        } else {
+          if (decodedToken.role === 'admin') {
+                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
+
+          } else {
+            next()
+          }
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).render('error', { errorCode: 404, errorMessage: err })
+  }
+}
+
+exports.notUser = async (req, res, next) => {
+  try {
+    if (req.cookies.jwt) {
+      jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
+        if (err) {
+          return res.status(401).json({
+            message: 'Unauthorized',
+          })
+        } else {
+          if (decodedToken.role === 'user') {
+                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
+
+          } else {
+            next()
+          }
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).render('error', { errorCode: 404, errorMessage: err })
+  }
+}
+
+exports.notDev=async (req, res,next)=>{
+  try {
+    if (req.cookies.jwt) {
+      jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
+        if (err) {
+          return res.status(401).json({
+            message: 'Unauthorized',
+          })
+        } else {
+          if (decodedToken.role === 'dev') {
+                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
+
+          } else {
+            next()
+          }
+        }
+      })
+    }
+  } catch (err) {
+    res.status(500).render('error', { errorCode: 404, errorMessage: err })
   }
 }

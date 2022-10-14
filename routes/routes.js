@@ -5,7 +5,7 @@ const auth = require('../auth/auth');
 router
     .route('/create')
     .get(controller.getAllUni)
-    .post(auth.developerAuth,controller.createUni);
+    .post(controller.createUni);
 
 router
     .route('/')
