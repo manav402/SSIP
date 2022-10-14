@@ -103,7 +103,7 @@
             <!-- <li><a href="program.html">Bachelor of Engineering (BE)</a></li> -->
             <!-- <li><a href="#">Diploma Engineering (DE)</a></li> -->
             <% for(let i=0;i<data.total_Program;i++){ %>
-                <li><a href="?u_code=<%=data.u_code%>&pro_id=<%= data.program_name[i].p_id %>"><%= data.program_name[i].p_name %></a></li>
+                <a href="?u_code=<%=data.u_code%>&pro_id=<%= data.program_name[i].p_id %>"><li><%= data.program_name[i].p_name %></li></a>
             <%}%>
         </ul>
         <a href="/university/create?u_code=<%= data.u_code %>"><button class="button">Add Program</button></a>

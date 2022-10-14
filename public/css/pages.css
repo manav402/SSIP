@@ -1,4 +1,14 @@
-hr{
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+  body {
+    min-height: 100%;
+  }
+  hr{
     color: white;
   }
   .offcanvas{
@@ -25,6 +35,8 @@ hr{
       padding-top: 1%;
     }
     ul{
+      width: 100%;
+      padding: 0;
      list-style: none; 
      position: relative;
      display: inline-block;
@@ -32,13 +44,14 @@ hr{
     }
     #contents{
         margin: 5%;
+        margin-bottom: 0;
     }
     #contents li{
      background-color: rgb(36, 59, 85);
+     position: relative;
      margin: 1%;
      margin-left: 0;
      padding: 2%;
-     width: 400px;
      border-radius: 10px;
      float: left;
     }
@@ -51,28 +64,12 @@ hr{
       font-size: larger;
     }
     table{
+      box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
         width: fit-content;
     }
     th,td{
         font-size: larger;
-    }
-    @media(max-width: 800px){
-        #contents{
-        margin: 5%;
-        margin-top: 15%;
-    }
-    .offcanvas{
-    margin-top: 55px;
-    margin-left: 0;
-    background-color: rgb(0, 0, 0, 0.88);
-    width: 30% !important;
-  }
-  .nav-link{
-    text-align: center ;
-      border-radius: 30px;
-      margin-top: 5%;
-      padding: 1%;
-    }
+        padding-left: 5%;
     }
     .button{
       text-align: center ;
@@ -82,4 +79,33 @@ hr{
      display: block;
      background-color: rgb(0, 0, 0, 0.88);
       color: rgb(255, 255, 255);
+    }
+    @media(max-width: 600px){
+        #contents{
+        margin: 5%;
+        margin-top: 15%;
+    }
+    #contents li{
+      
+      position: relative;
+ 
+      margin: 1%;
+      margin-left: 0;
+      padding: 2%;
+      /* width: 300px; */
+      border-radius: 10px;
+      float: left;
+     }
+    .offcanvas{
+    margin-top: 55px;
+    margin-left: 0;
+    background-color: rgb(36, 59, 85);
+    width: 100% !important;
+  }
+  .nav-link{
+    text-align: center ;
+      border-radius: 30px;
+      margin-top: 5%;
+      padding: 1%;
+    }
     }

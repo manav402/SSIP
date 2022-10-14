@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="/css/pages.css" rel="stylesheet">
-    <link href="/css/navbar.css" rel="stylesheet">
+    <!-- <link href="/css/navbar.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -85,9 +85,9 @@
             <li><a href="#">L.D. College of Engineering</a></li>
             <li><a href="#">Government Engg. College, Gandhinagar</a></li> -->
             <% for(let i=0;i<data.pro_total_collages;i++){ %>
-                <li><a href="?u_code=<%=data.u_code%>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage_name[i].collage_id %>">
+                <a href="?u_code=<%=data.u_code%>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage_name[i].collage_id %>"><li>
                         <%= data.collage_name[i].c_name %>
-                    </a></li>
+                    </li></a>
                 <%}%>
         </ul>
         <button class="button">Add College</button>
