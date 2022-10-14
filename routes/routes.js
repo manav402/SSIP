@@ -4,7 +4,7 @@ const router = express.Router();
 const auth = require('../auth/auth');
 router
     .route('/create')
-    .get(controller.getAllUni)
+    .get(controller.getAddPages)
     .post(controller.createUni);
 
 router
@@ -12,5 +12,5 @@ router
     .get(controller.searchData)
     .post(controller.addData);
     
-router.route('/branch').get(controller.getAllUni);
+// router.route('/branch').get(controller.getAllUni);
 module.exports = router;

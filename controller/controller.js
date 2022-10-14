@@ -35,12 +35,10 @@ exports.signup = async (req, res) => {
     // console.log(user);
     let newUser
     if (user) {
-      return res
-        .status(300)
-        .render('signup', {
-          errorThere: true,
-          errorOnLogin: 'user is alredy exist please login!!',
-        })
+      return res.status(300).render('signup', {
+        errorThere: true,
+        errorOnLogin: 'user is alredy exist please login!!',
+      })
       // return res.status(300).json({
       //     status: 'fail',
       //     message: 'Email already exist'
@@ -109,21 +107,17 @@ exports.login = async (req, res) => {
     // let type="aadhar";
     if (!data && !pin) {
       console.log('here1')
-      res
-        .status(400)
-        .render('login', {
-          errorOnLogin: 'Please provide username or pin',
-          errorThere: true,
-        })
+      res.status(400).render('login', {
+        errorOnLogin: 'Please provide username or pin',
+        errorThere: true,
+      })
     }
     if (!pin) {
       // console.log('here1');
-      return res
-        .status(400)
-        .render('login', {
-          errorOnLogin: 'Please provide password !!',
-          errorThere: true,
-        })
+      return res.status(400).render('login', {
+        errorOnLogin: 'Please provide password !!',
+        errorThere: true,
+      })
     } else if (data.length === 10) {
       // console.log('here2');
       user = await User.findOne({ mobile: data })
@@ -192,15 +186,16 @@ exports.login = async (req, res) => {
           return
         } else {
           session.university_code = university.u_code
-          res.status(200).redirect('/university?u_code='+university.u_code);
+          res.status(200).redirect('/university?u_code=' + university.u_code)
         }
       } else {
         // res.status(200).redirect('/');
         res.status(200).redirect('/')
       }
     } else {
-      // res.status(404).redirect('/login');
-      res.status(501).render('error', { errorCode: 404, errorMessage: err })
+      res.status(404).render('/login',{errorOnLogin: 'Please provide password !!',
+        errorThere: true});
+    //   res.status(501).render('error', { errorCode: 404, errorMessage: err })
     }
   } catch (err) {
     res.status(501).render('error', { errorCode: 404, errorMessage: err })
@@ -351,21 +346,42 @@ exports.logout = async (req, res) => {
   }
 }
 
-exports.getAllUni = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'All list of universities',
-  })
+exports.getAddPages = async (req, res) => {
+  try {
+    // const data = req.query;
+    // const data = req.query;
+    // console.log(data);
+    const { u_code, collage_id, pro_id } = req.query;
+    // const session = req.session;
+    // const fill = await Uni.create(data)
+    if (collage_id) {
+        const data = await Collage.findOne({ u_code,pro_id,collage_id });
+        res.status(200).render('add-Branch',{data});
+    } else if (pro_id) {
+        const data = await Program.findOne({ u_code,pro_id });
+        res.status(200).render('add-collage',{data});
+    } else if (u_code) {
+        const data = await Collage.findOne({ u_code });
+        res.status(200).render('add-program',{data});
+    } else {
+        console.log("you fucked up");
+      res.status(200).render('error', { errorCode: 404, errorMessage: "some error occured in query" })
+    }
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err.message,
+    })
+  }
 }
 
 exports.createUni = async (req, res) => {
   try {
-    const data = req.body
-    const fill = await Uni.create(data)
+    // const fill = await Uni.create(data)
     res.status(200).json({
       status: 'success',
-      message: 'University Added Successfuly',
-      data: fill,
+      message: 'Data has been submitted',
+      data: data,
     })
   } catch (err) {
     res.status(404).json({
@@ -401,20 +417,21 @@ exports.searchData = async (req, res) => {
     let data = 'null'
     if (branch_id) {
       data = await Branch.findOne(req.query)
-      res.status(200).render("university",{data:data})
+      res.status(200).render('university', { data: data })
     } else if (collage_id && !branch_id) {
       delete req.query.pro_id
       data = await Collage.findOne(req.query)
-      res.status(200).render("collage",{data:data})
+      res.status(200).render('collage', { data: data })
     } else if (!collage_id && pro_id) {
-        data = await Program.findOne({ u_code, branch_id })
-        res.status(200).render("program",{data:data})
+      data = await Program.findOne({ u_code, branch_id })
+      res.status(200).render('program', { data: data })
     } else if (!branch_id) {
-        data = await Uni.findOne({  u_code })
-        res.status(200).render("university",{data:data})
-    }
-    else{
-        res.status(200).render('error', { errorCode: 100, errorMessage: "some error occured" });
+      data = await Uni.findOne({ u_code })
+      res.status(200).render('university', { data: data })
+    } else {
+      res
+        .status(200)
+        .render('error', { errorCode: 100, errorMessage: 'some error occured' })
     }
   } catch (err) {
     return res
@@ -426,13 +443,15 @@ exports.searchData = async (req, res) => {
 exports.addData = async (req, res) => {
   try {
     const { u_code, branch_id, collage_id, pro_id } = req.body
+    console.log(req.body);
     let data = 'null'
     if (branch_id) {
       data = Branch.create(req.body)
     } else if (collage_id) {
       data = Collage.create(req.body)
     } else if (pro_id) {
-      data = Program.create(req.body)
+        console.log(req.body);
+    //   data = Program.create(req.body)
     } else if (u_code) {
       data = Uni.create(req.body)
     }
