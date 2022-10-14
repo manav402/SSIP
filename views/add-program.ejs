@@ -155,35 +155,30 @@
 
     <div class="login-box">
         <div>
-            <p style="color:white;">You Are addeding to this <%= data.university %> 
+            <p style="color:white;">You Are adding to this <%= data.university %> 
             </p>
         </div>
         <h2>Program Details</h2>
-        <form action="/university?u_code=<%= data.u_code %>" method="post" onsubmit="(e,this)=>{
-                        
-                        
-                        // this.submit();
-
-                }">
-            <!-- <div class="user-box">
-        <input type="text" name="" onfocus="fun(this, 'User Name')" onfocusout="focusOutFun(this)" required="">
-        <label>Program_id</label>
-      </div> -->
-            <!-- <div class="user-box" style="display:none">
+        <form action="/university?u_code=<%= data.u_code %>" method="post" onsubmit="addId(this)">
+            <div class="user-box" style="display:none">
                 <input type="text" name="pro_id" id="pro_id" value="">
                 <label>Program_id</label>
             </div>
             <div class="user-box" style="display:none">
                 <input type="text" name="u_code" id="u_code" value="">
                 <label>u_code</label>
-            </div> -->
+            </div>
+            <div class="user-box" style="display:none">
+                <input type="text" name="collage_name" id="collage_name" value="">
+                <label>u_code</label>
+            </div>
             <div class="user-box">
                 <input type="text" name="pro_name" onfocus="fun(this, 'bachelor of engineering')"
                     onfocusout="focusOutFun(this)" required="">
                 <label>Program_name</label>
             </div>
             <div class="user-box">
-                <input type="text" name="pro_short_name" onfocus="fun(this, 'BE')" onfocusout="focusOutFun(this)" required=""
+                <input type="text" name="pro_short_name" id="short" onfocus="fun(this, 'BE')" onfocusout="focusOutFun(this)" required=""
                     placeholder="">
                 <label>Program_short_name</label>
             </div>
@@ -222,6 +217,12 @@
         document.getElementById("contents").style.marginLeft = "5%";
         toggle = 1;
       }
+    }
+    function addId(obj) {
+        // console.log(obj);
+        document.getElementById("u_code").value = "<%= data.u_code %>";
+        document.getElementById("pro_id").value = "<%= data.u_code %>_"+document.querySelector("#short").value.toUpperCase();
+        obj.submit();
     }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"

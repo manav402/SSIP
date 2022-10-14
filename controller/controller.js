@@ -193,9 +193,11 @@ exports.login = async (req, res) => {
         res.status(200).redirect('/')
       }
     } else {
-      res.status(404).render('/login',{errorOnLogin: 'Please provide password !!',
-        errorThere: true});
-    //   res.status(501).render('error', { errorCode: 404, errorMessage: err })
+      res.status(404).render('/login', {
+        errorOnLogin: 'Please provide password !!',
+        errorThere: true,
+      })
+      //   res.status(501).render('error', { errorCode: 404, errorMessage: err })
     }
   } catch (err) {
     res.status(501).render('error', { errorCode: 404, errorMessage: err })
@@ -354,18 +356,23 @@ exports.getAddPages = async (req, res) => {
     const { u_code, collage_id, pro_id } = req.query;
     // const session = req.session;
     // const fill = await Uni.create(data)
+    // console.log(u_code, collage_id);
     if (collage_id) {
-        const data = await Collage.findOne({ u_code,pro_id,collage_id });
-        res.status(200).render('add-Branch',{data});
+      const data = await Collage.findOne({ u_code, pro_id, collage_id })
+      res.status(200).render('add-Branch', { data })
     } else if (pro_id) {
-        const data = await Program.findOne({ u_code,pro_id });
-        res.status(200).render('add-collage',{data});
+      const data = await Program.findOne({ u_code, pro_id })
+      res.status(200).render('add-collage', { data })
     } else if (u_code) {
-        const data = await Collage.findOne({ u_code });
-        res.status(200).render('add-program',{data});
+      const data = await Collage.findOne({ u_code })
+      // console.log(data);
+      res.status(200).render('add-program', { data })
     } else {
-        console.log("you fucked up");
-      res.status(200).render('error', { errorCode: 404, errorMessage: "some error occured in query" })
+      console.log('you fucked up')
+      res.status(200).render('error', {
+        errorCode: 404,
+        errorMessage: 'some error occured in query',
+      })
     }
   } catch (err) {
     res.status(404).json({
@@ -414,7 +421,9 @@ exports.searchData = async (req, res) => {
   try {
     const query = req.query
     const { u_code, branch_id, collage_id, pro_id } = req.query
-    let data = 'null'
+    // console.log(req.params.u_code)
+    let data = 'null';
+    let data2;
     if (branch_id) {
       data = await Branch.findOne(req.query)
       res.status(200).render('university', { data: data })
@@ -426,8 +435,10 @@ exports.searchData = async (req, res) => {
       data = await Program.findOne({ u_code, branch_id })
       res.status(200).render('program', { data: data })
     } else if (!branch_id) {
-      data = await Uni.findOne({ u_code })
-      res.status(200).render('university', { data: data })
+      data = await Uni.findOne({ u_code });
+      data2 = await Program.find({ u_code});
+      // console.log(data,"university data");
+      res.status(200).render('university', { data: data,data2:data2 })
     } else {
       res
         .status(200)
@@ -442,16 +453,16 @@ exports.searchData = async (req, res) => {
 
 exports.addData = async (req, res) => {
   try {
-    const { u_code, collage_id, pro_id } = req.body
-    console.log(req.body);
-    let data = 'null';
+    const { u_code, collage_id, pro_id } = req.query;
+    // console.log(req.body);
+    let data = 'null'
     if (collage_id) {
-      data = Branch.create(req.body)
+      data = Branch.create(req.body,{ runValidators: true, new: true })
     } else if (pro_id) {
-        data = Collage.create(req.body)
+      data = Collage.create(req.body,{ runValidators: true, new: true })
     } else if (u_code) {
-        console.log(req.body);
-    //   data = Program.create(req.body)
+      // console.log(req.body)
+        data = Program.create(req.body,{ runValidators: true, new: true })
     }
     res.status(200).json({
       status: 'ok',
