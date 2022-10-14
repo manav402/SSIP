@@ -159,21 +159,24 @@
             </p>
         </div>
         <h2>Program Details</h2>
-        <form action="/university?u_code=<%= data.u_code %>?pro_id=GTU_DE" method="post" onsubmit="(e,this)=>{
-                        e.preventDefault();
-                        const pro_id = `<%= data.u_code %>`+this.pro_short_name.value.toUpperCase();
-                        const u_id = `<%= data.u_code%>`;
+        <form action="/university?u_code=<%= data.u_code %>" method="post" onsubmit="(e,this)=>{
                         
-                        this.assign(pro_id);
-                        this.assign(u_id);
-
-                        this.submit();
+                        
+                        // this.submit();
 
                 }">
             <!-- <div class="user-box">
         <input type="text" name="" onfocus="fun(this, 'User Name')" onfocusout="focusOutFun(this)" required="">
         <label>Program_id</label>
       </div> -->
+            <!-- <div class="user-box" style="display:none">
+                <input type="text" name="pro_id" id="pro_id" value="">
+                <label>Program_id</label>
+            </div>
+            <div class="user-box" style="display:none">
+                <input type="text" name="u_code" id="u_code" value="">
+                <label>u_code</label>
+            </div> -->
             <div class="user-box">
                 <input type="text" name="pro_name" onfocus="fun(this, 'bachelor of engineering')"
                     onfocusout="focusOutFun(this)" required="">
@@ -224,43 +227,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>program</title>
-    <link rel="stylesheet" href="program.css">
-</head>
-
-<body>
-
 </body>
 
 </html>

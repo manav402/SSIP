@@ -442,18 +442,16 @@ exports.searchData = async (req, res) => {
 
 exports.addData = async (req, res) => {
   try {
-    const { u_code, branch_id, collage_id, pro_id } = req.body
+    const { u_code, collage_id, pro_id } = req.body
     console.log(req.body);
-    let data = 'null'
-    if (branch_id) {
+    let data = 'null';
+    if (collage_id) {
       data = Branch.create(req.body)
-    } else if (collage_id) {
-      data = Collage.create(req.body)
     } else if (pro_id) {
+        data = Collage.create(req.body)
+    } else if (u_code) {
         console.log(req.body);
     //   data = Program.create(req.body)
-    } else if (u_code) {
-      data = Uni.create(req.body)
     }
     res.status(200).json({
       status: 'ok',
