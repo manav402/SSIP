@@ -26,6 +26,7 @@ app.use(session({
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
+//govind added this...
 app.use('/',base);
 
 app.use('/university',router);
