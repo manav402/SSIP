@@ -385,45 +385,45 @@ padding-bottom: auto; */
                                                         <%= res.total %>
                                                     </td>
                                                     <%});%>
-
-                                                        <div class="panel-footer">
-                                                            <div class="row text-center">
-                                                                <div class="col-sm-6 col-xs-6 w-100">
-                                                                    <ul
-                                                                        class="pagination visible-xs pull-right text-left w-100 d-flex justify-content-center">
-                                                                        <li>
-                                                                            <table>
-                                                                                <tr class="mb-2 border border-2">
-                                                                                    <td class="px-3">SPI: </td>
-                                                                                    <td class="px-3">
-                                                                                        <%= results.spi %>
-                                                                                    </td>
-                                                                                <tr class="mb-2 border border-2">
-                                                                                    <td class="px-3">CPI: </td>
-                                                                                    <td class="px-3">
-                                                                                        <%= results.cpi %>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr class="mb-2 border border-2">
-                                                                                    <td class="px-3">CGPA: </td>
-                                                                                    <td class="px-3">
-                                                                                        <%= results.cgpa %>
-                                                                                    </td>
-                                                                                </tr>
-                                                </tr>
-                                    </table>
-                                    </li>
-                                    </ul>
+                                                    
+                                <div class="panel-footer">
+                                    <div class="row text-center">
+                                        <div class="col-sm-6 col-xs-6 w-100">
+                                            <ul
+                                                class="pagination visible-xs pull-right text-left w-100 d-flex justify-content-center">
+                                                    <table>
+                                                        <tr class="mb-2 border border-2">
+                                                            <td class="px-3">SPI: </td>
+                                                            <td class="px-3">
+                                                                <%= results.spi %>
+                                                            </td>
+                                                        <tr class="mb-2 border border-2">
+                                                            <td class="px-3">CPI: </td>
+                                                            <td class="px-3">
+                                                                <%= results.cpi %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="mb-2 border border-2">
+                                                            <td class="px-3">CGPA: </td>
+                                                            <td class="px-3">
+                                                                <%= results.cgpa %>
+                                                            </td>
+                                                        </tr>
+                                                        </tr>
+                                                    </table>
+                                                </li>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-    </div>
-    </div>
-    </div>
-    </section>
-    <% }%>
+                </div>
+            </section>
+            <% }else{%>
+                <h3>Ooops!! No data found!</h3>
+                <%}%>
         <br>
         </div>
         </div>

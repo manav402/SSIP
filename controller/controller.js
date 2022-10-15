@@ -11,13 +11,14 @@ const app = express()
 const bcrypt = require('bcrypt')
 const path = require('path')
 const jwt = require('jsonwebtoken')
-let session = require('express-session')
+let sessions = require('express-session')
 const { findOne } = require('../model/User')
 
 const jwt_secret = process.env.JWT_SECRET
 
 exports.signup = async (req, res) => {
   try {
+    console.log('creating data')
     const {
       name,
       DOB,
@@ -29,13 +30,15 @@ exports.signup = async (req, res) => {
       role,
       university_code,
     } = req.body
+    // console.log(req.body)
     let newRole = role
-    session = req.session
-    // console.log(role);
+    sessions = req.session;
+    // console.log(role)
     const user = await User.findOne({ email })
-    // console.log(user);
+    // console.log(user)
     let newUser
     if (user) {
+      console.log('user alredy exist')
       return res.status(300).render('signup', {
         errorThere: true,
         errorOnLogin: 'user is alredy exist please login!!',
@@ -45,28 +48,32 @@ exports.signup = async (req, res) => {
       //     message: 'Email already exist'
       // });
     } else {
-      // console.log('here');
+      // console.log('here5')
       if (!role) {
         newRole = 'user'
       }
       // console.log(newRole);
-      const newPin = await bcrypt.hash(pin, 12)
-      newUser = await User.create({
-        name,
-        DOB,
-        email,
-        aadhar,
-        mobile,
-        gender,
-        pin: newPin,
-        role: newRole,
-        university_code,
-      })
+      const newPin = await bcrypt.hash(pin, 12);
+      newUser = await User.create(
+        {
+          name,
+          DOB,
+          email,
+          aadhar,
+          mobile,
+          gender,
+          pin: newPin,
+          role: newRole,
+          university_code,
+        }
+      );     
+      console.log('user created with name', newUser.name);
     }
     const maxAge = 3 * 60 * 60
     const token = jwt.sign(
       {
         id: newUser._id,
+        name,
         email,
         aadhar,
         mobile,
@@ -82,12 +89,13 @@ exports.signup = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     })
-    session.name = name
-    session.email = email
-    session.aadhar = aadhar
-    session.mobile = mobile
-    session.role = newRole
-    session.university_code = university_code
+    sessions.name = name;
+    sessions.email = email;
+    sessions.aadhar = aadhar;
+    sessions.mobile = mobile;
+    sessions.role = newRole;
+    sessions.university_code = university_code;
+    console.log(sessions);
     res.status(201).redirect('/');
     // res.status(201).json({
     //   status: 'success',
@@ -100,6 +108,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
+    // this.logout();
     console.log(req.url)
     const { username: data, pin } = req.body
     console.log(req.body)
@@ -144,6 +153,7 @@ exports.login = async (req, res) => {
       const token = jwt.sign(
         {
           id: user._id,
+          name: user.name,
           email: user.email,
           aadhar: user.aadhar,
           mobile: user.mobile,
@@ -159,13 +169,13 @@ exports.login = async (req, res) => {
         httpOnly: true,
         maxAge: maxAge * 1000,
       })
-      session = req.session
-      session.name = user.name
-      session.email = user.email
-      session.aadhar = user.aadhar
-      session.mobile = user.mobile
-      session.role = user.role
-      session.university_code = user.university_code
+      sessions = req.session
+      sessions.name = user.name
+      sessions.email = user.email
+      sessions.aadhar = user.aadhar
+      sessions.mobile = user.mobile
+      sessions.role = user.role
+      sessions.university_code = user.university_code
       if (user.role === 'admin') {
         res.status(200).redirect('/search')
       } else if (user.role === 'dev') {
@@ -186,7 +196,7 @@ exports.login = async (req, res) => {
           })
           return
         } else {
-          session.university_code = university.u_code
+          sessions.university_code = university.u_code
           res.status(200).redirect('/university?u_code=' + university.u_code)
         }
       } else {
@@ -207,11 +217,17 @@ exports.login = async (req, res) => {
 
 exports.home = async (req, res) => {
   try {
-    session = req.session
+    sessions = req.session
     const query = req.query
     // if(!query){
-    let data = null;
-    res.status(200).render('home', { name: session.name, isFound: false, results: data, isThereRes: false, notFound: false })
+    let data = null
+    res.status(200).render('home', {
+      name: sessions.name,
+      isFound: false,
+      results: data,
+      isThereRes: false,
+      notFound: false,
+    })
     // }
   } catch (err) {
     res.status(404).json({
@@ -253,9 +269,12 @@ exports.addResult = async (req, res) => {
       spi,
       cpi,
       cgpa,
-    } = req.body;
-    console.log(req.body);
-    const newData = await Data.create(req.body, { runValidators: true, new: true });
+    } = req.body
+    console.log(req.body)
+    const newData = await Data.create(req.body, {
+      runValidators: true,
+      new: true,
+    })
     // const newData = await Data.create({
     //   name,
     //   aadharNumber,
@@ -297,8 +316,8 @@ exports.addResult = async (req, res) => {
 // created for api calling
 exports.getAllResult = async (req, res) => {
   try {
-    session = req.session
-    let email = session.email
+    sessions = req.session
+    let email = sessions.email
     const { type: resultType } = req.query
     const data = await Data.find({ email, resultType })
     // console.log(data);
@@ -319,9 +338,9 @@ exports.getAllResult = async (req, res) => {
 // after search
 exports.getResult = async (req, res) => {
   try {
-    session = req.session
+    sessions = req.session
     let data = req.body
-    let aadhar = session.aadhar
+    let aadhar = sessions.aadhar
     // console.log(data,aadhar);
     let finalData = await Data.find({
       aadharNumber: aadhar,
@@ -346,8 +365,9 @@ exports.getResult = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    session = req.session
-    session.destroy()
+    sessions = req.session
+    // req.session = null;
+    sessions.destroy()
     res.clearCookie('jwt')
     res.redirect('/login')
   } catch (err) {
@@ -363,7 +383,7 @@ exports.getAddPages = async (req, res) => {
     // const data = req.query;
     // const data = req.query;
     // console.log(data);
-    const { u_code, collage_id, pro_id } = req.query;
+    const { u_code, collage_id, pro_id } = req.query
     // const session = req.session;
     // const fill = await Uni.create(data)
     // console.log(u_code, collage_id);
@@ -409,8 +429,8 @@ exports.createUni = async (req, res) => {
 
 exports.getUni = async (req, res) => {
   try {
-    const session = req.session
-    const university_code = session.university_code
+    sessions = req.session
+    const university_code = sessions.university_code
     const data = await Uni.find({ university_code })
     res.status(200).json({
       status: 'success',
@@ -431,12 +451,12 @@ exports.searchData = async (req, res) => {
     const query = req.query
     const { u_code, branch_id, collage_id, pro_id } = req.query
     // console.log(req.params.u_code)
-    let data = 'null';
-    let data2;
+    let data = 'null'
+    let data2
     if (branch_id) {
-      data = await Branch.findOne(req.query);
+      data = await Branch.findOne(req.query)
       // res.status(200).render('error', { data, errorCode: 404, errorMessage: 'No Data Found' })
-      res.status(200).render('course', { data: data });
+      res.status(200).render('course', { data: data })
     } else if (collage_id && !branch_id) {
       delete req.query.pro_id
       data = await Collage.findOne(req.query)
@@ -447,8 +467,8 @@ exports.searchData = async (req, res) => {
       data2 = await Collage.find({ u_code, pro_id })
       res.status(200).render('program', { data: data, data2: data2 })
     } else if (!pro_id) {
-      data = await Uni.findOne({ u_code });
-      data2 = await Program.find({ u_code });
+      data = await Uni.findOne({ u_code })
+      data2 = await Program.find({ u_code })
       // console.log(data,"university data");
       res.status(200).render('university', { data: data, data2: data2 })
     } else {
@@ -465,7 +485,7 @@ exports.searchData = async (req, res) => {
 
 exports.addData = async (req, res) => {
   try {
-    const { u_code, collage_id, pro_id } = req.query;
+    const { u_code, collage_id, pro_id } = req.query
     // console.log(req.body);
     let data = 'null'
     if (collage_id) {
@@ -475,9 +495,8 @@ exports.addData = async (req, res) => {
     } else if (u_code) {
       // console.log(req.body)
       data = Program.create(req.body, { runValidators: true, new: true })
-    }
-    else {
-      data = Uni, create(req.body, { runValidators: true, new: true })
+    } else {
+      ;(data = Uni), create(req.body, { runValidators: true, new: true })
     }
     res.status(200).json({
       status: 'ok',
@@ -494,9 +513,9 @@ exports.addData = async (req, res) => {
 
 exports.profile = async (req, res) => {
   try {
-    session = req.session
-    const email = session.email
-    console.log(req.session.email);
+    sessions = req.session
+    const email = sessions.email
+    console.log(req.sessions.email)
     const user = await User.findOne({ username: email })
     res.status(201).render('profile', { user })
   } catch (err) {
@@ -520,36 +539,45 @@ exports.updateProfile = async (req, res) => {
   }
 }
 
-
 exports.fetchResult = async (req, res) => {
   try {
-    session = req.session;
-    const { type } = req.query;
+    sessions = req.session
+    const { type } = req.query
     // console.log(resultType,type);
-    console.log(session, "xyz");
-    const data = await Data.findOne({ resultType: type, email: session.email, aadharNumber: session.aadhar });
+    console.log(sessions, 'xyz')
+    const data = await Data.findOne({
+      resultType: type,
+      email: session.email,
+      aadharNumber: session.aadhar,
+    })
     // res.status(200).rander('home',{data});
-    console.log(data);
+    console.log(data)
     // const {name}=data;
     if (data) {
-      console.log("yes");
-      res.status(200).render('home', { results: data, isThereRes: "true", name: data.name });
+      console.log('yes')
+      res
+        .status(200)
+        .render('home', { results: data, isThereRes: 'true', name: data.name })
+    } else {
+      console.log('no')
+      res
+        .status(200)
+        .render('home', { results: data, isThereRes: 'false', name: data.name })
     }
-    else {
-      console.log("no");
-      res.status(200).render('home', { results: data, isThereRes: "false", name: data.name });
-
-    }
-
   } catch (err) {
-    let data = null;
-    res.status(404).render('home', { results: data, isThereRes: false, name: session.name, notFound: true });
+    let data = null
+    res.status(404).render('home', {
+      results: data,
+      isThereRes: false,
+      name: session.name,
+      notFound: true,
+    })
   }
 }
 
 exports.renderSearch = async (req, res) => {
   try {
-    session = req.session;
+    session = req.session
     if (session.role == 'user') {
       res.status(200).render('search', { isStudent: true, isThereRes: false });
     }
@@ -567,25 +595,51 @@ exports.renderSearch = async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(404).render('error', { errorCode: 404, errorMessage: err });
+    res.status(404).render('error', { errorCode: 404, errorMessage: err })
   }
 }
 
 exports.findSearchResult = async (req, res) => {
   try {
-    const { sem, university, branch, year, aadhar, seatNumber } = req.body;
+    let data = ''
+    const { sem, university, branch, year, aadharNumber, seatNumber } = req.body
     if (sem) {
-      session = req.session;
-      const data = await Data.findOne({ email: session.email, aadharNumber: session.aadhar, sem });
-      res.status(200).render('search', { isStudent: true, isThereRes: true, results: data });
-    }
-    else {
-      console.log(req.body);
-      const newAadhar = parseInt(aadhar);
-      console.log(typeof (newAadhar));
-      const data = await Data.findOne({ aadharNumber: newAadhar, seatNumber, year })
-      console.log(data);
-      res.status(200).render('search', { isStudent: true, isThereRes: true, results: data });
+      session = req.session
+      data = await Data.findOne({
+        email: session.email,
+        aadharNumber: session.aadhar,
+        sem,
+      })
+      if (!data) {
+        res.status(200).render('search', {
+          isStudent: true,
+          isThereRes: false,
+          results: data,
+        })
+      }
+      res
+        .status(200)
+        .render('search', { isStudent: true, isThereRes: true, results: data })
+    } else {
+      console.log(req.body)
+      // const newAadhar = parseInt(aadhar);
+      // console.log(typeof (aadhar));
+      // console.log(aadharNumber, seatNumber,year);
+      data = await Data.findOne({
+        aadharNumber: aadharNumber,
+        seatNumber,
+        year,
+      })
+      if (!data) {
+        res.status(200).render('search', {
+          isStudent: false,
+          isThereRes: false,
+          results: data,
+        })
+      }
+      res
+        .status(200)
+        .render('search', { isStudent: false, isThereRes: true, results: data })
     }
   } catch (error) {
     res.status(404).render('error', { errorCode: 404, errorMessage: error })

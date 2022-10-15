@@ -5,7 +5,7 @@ const data=new mongoose.Schema({
         type:String,
     },
     aadharNumber: {
-        type:Number,
+        type:String,
     },
     university:{
         type:String,
@@ -29,13 +29,13 @@ const data=new mongoose.Schema({
         type:String,
     },
     sem:{
-        type:Number,
+        type:String,
     },
     email:{
         type:String,
     },
     seatNumber: {
-        type:Number,
+        type:String,
     },
     exam:{
         type:String,

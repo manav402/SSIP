@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const userSchema = {
     name: {
         type:String,
-        required:[true,'A user must have a name'],
         trim:true,
 
     },
@@ -12,7 +11,6 @@ const userSchema = {
     },
     email: {
         type:String,
-        required:[true,'A user must have an email'],
         unique:true,
         lowercase:true,
         trim:true,
@@ -23,18 +21,15 @@ const userSchema = {
     },
     mobile:{
         type:Number,
-        required:[true,'A user must have a mobile number'],
         unique:true,
         trim:true,
     },
     gender:{
         type:String,
-        required:[true,'A user must have a gender'],
         trim:true,
     },
     pin:{
         type:String,
-        required:[true,'A user must have a pin'],
         trim:true,
     },
     role:{
