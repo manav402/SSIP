@@ -33,7 +33,7 @@ base.route('/logout')
 
 base.route('/search')
     .get(auth.notUni,(req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/search.html`));
+        res.status(200).render('search');
     });
 
 
