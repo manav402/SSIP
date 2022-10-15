@@ -114,7 +114,7 @@ exports.adminAuth = async (req, res, next) => {
 
 exports.userAuth = async (req, res, next) => {
   const token = req.cookies.jwt
-  console.log(token)
+  console.log(token);
   if (token) {
     jwt.verify(token, jwt_secret, (err, decodedToken) => {
       console.log(decodedToken,"token role")
@@ -126,6 +126,7 @@ exports.userAuth = async (req, res, next) => {
       }
       else if(decodedToken){
         if (decodedToken.role === 'user') {
+          console.log("you are user here is your access 🙂");
           next();
         } else {
           return res.status(401).render('error', {

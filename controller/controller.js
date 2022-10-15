@@ -513,11 +513,15 @@ exports.addData = async (req, res) => {
 
 exports.profile = async (req, res) => {
   try {
-    sessions = req.session
-    const email = sessions.email
-    console.log(req.sessions.email)
-    const user = await User.findOne({ username: email })
-    res.status(201).render('profile', { user })
+    console.log("in login function")
+    sessions = req.session;
+    const email=sessions.email;
+    console.log("in login function2",email)
+    console.log(req.session.email);
+    console.log("in login function3",req.session.email)
+    const userLogin = await User.findOne({ username: req.session.email,aadhar:req.session.aadhar })
+    console.log(userLogin);
+    res.status(201).render('profile', { user:userLogin })
   } catch (err) {
     res.status(404).render('error', { errorCode: 404, errorMessage: err })
   }
@@ -547,8 +551,8 @@ exports.fetchResult = async (req, res) => {
     console.log(sessions, 'xyz')
     const data = await Data.findOne({
       resultType: type,
-      email: session.email,
-      aadharNumber: session.aadhar,
+      email: sessions.email,
+      aadharNumber: sessions.aadhar,
     })
     // res.status(200).rander('home',{data});
     console.log(data)
@@ -569,7 +573,7 @@ exports.fetchResult = async (req, res) => {
     res.status(404).render('home', {
       results: data,
       isThereRes: false,
-      name: session.name,
+      name: sessions.name,
       notFound: true,
     })
   }
@@ -577,8 +581,8 @@ exports.fetchResult = async (req, res) => {
 
 exports.renderSearch = async (req, res) => {
   try {
-    session = req.session
-    if (session.role == 'user') {
+    sessions = req.session
+    if (sessions.role == 'user') {
       res.status(200).render('search', { isStudent: true, isThereRes: false })
     } else {
       res.status(200).render('search', { isStudent: false, isThereRes: false })
@@ -593,10 +597,10 @@ exports.findSearchResult = async (req, res) => {
     let data = ''
     const { sem, university, branch, year, aadharNumber, seatNumber } = req.body
     if (sem) {
-      session = req.session
+      sessions = req.session
       data = await Data.findOne({
-        email: session.email,
-        aadharNumber: session.aadhar,
+        email: sessions.email,
+        aadharNumber: sessions.aadhar,
         sem,
       })
       if (!data) {
