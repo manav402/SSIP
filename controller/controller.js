@@ -483,6 +483,7 @@ exports.profile = async (req, res) => {
   try {
     session = req.session
     const email = session.email
+    console.log(email,session);
     const user = await User.findOne({ username: email })
     res.status(201).render('profile', { user })
   } catch (err) {
