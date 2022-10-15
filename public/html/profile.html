@@ -10,7 +10,7 @@
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
   <style>
     body {
-      background-color: #90cb9d;
+      background-color: lightcyan;
     }
 
     hr {
@@ -43,6 +43,7 @@
       text-decoration: none;
       color: black;
     }
+
 
     .container {
       margin-top: 100px;
@@ -108,7 +109,7 @@
             <div class="container mt-0 px-5 w-75">
               <div class="row px-5">
                 <div class="col px-5">
-                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4 bg-white border-light">
                     <ol class="breadcrumb mb-0">
                       <li class="breadcrumb-item"><a href="/">Home</a></li>
                       <li class="breadcrumb-item active" aria-current="page">My Profile</li>
@@ -211,13 +212,14 @@
           </div>
           <br>
           <div class="text-center">
-            <button type="button" class="btn btn-primary btn-lg btn-block w-50" type="submit">Submit</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block w-50 bg-info border-light"
+              type="submit">Submit</button>
           </div>
           <br>
         </form>
         </section>
         <script>
-          let date=document.querySelector("#date").value=new Date();
+          let date = document.querySelector("#date").value = new Date();
           var toggle = 1;
           function fun() {
             if (toggle == 1) {
