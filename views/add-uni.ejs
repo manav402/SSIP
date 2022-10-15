@@ -373,7 +373,7 @@
                 <label>University Name</label>
             </div>
             <div class="user-box">
-                <input type="text" name="u_name" onfocus="fun(this, 'GTU')" onfocusout="focusOutFun(this)" required="">
+                <input type="text" name="u_name" id="short" onfocus="fun(this, 'GTU')" onfocusout="focusOutFun(this)" required="">
                 <label>University Short Name</label>
             </div>
             <div class="user-box">
@@ -434,7 +434,7 @@
     }
     function addId(obj) {
         // console.log(obj);
-        document.getElementById("u_code").value = "<%= data.u_code %>";
+        document.getElementById("u_code").value = document.getElementById("short").toUpperCase();
         obj.submit();
       }
     </script>
