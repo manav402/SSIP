@@ -251,7 +251,8 @@ exports.addResult = async (req, res) => {
       spi,
       cpi,
       cgpa,
-    } = req.body
+    } = req.body;
+    console.log(req.body);
     const newData = await Data.create(req.body,{ runValidators: true, new: true });
     // const newData = await Data.create({
     //   name,
