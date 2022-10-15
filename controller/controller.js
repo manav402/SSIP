@@ -426,14 +426,16 @@ exports.searchData = async (req, res) => {
     let data2;
     if (branch_id) {
       data = await Branch.findOne(req.query)
-      res.status(200).render('university', { data: data })
+      res.status(200).render('error', { data, errorCode: 404, errorMessage: 'No Data Found' })
     } else if (collage_id && !branch_id) {
       delete req.query.pro_id
       data = await Collage.findOne(req.query)
-      res.status(200).render('collage', { data: data })
+      data2 = await Branch.find({ u_code, pro_id, collage_id})
+      res.status(200).render('collage', { data: data,data2: data2 })
     } else if (!collage_id && pro_id) {
       data = await Program.findOne({ u_code, branch_id })
-      res.status(200).render('program', { data: data })
+      data2 = await Collage.find({ u_code, pro_id })
+      res.status(200).render('program', { data: data,data2: data2 })
     } else if (!branch_id) {
       data = await Uni.findOne({ u_code });
       data2 = await Program.find({ u_code});

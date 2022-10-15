@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const data=new mongoose.Schema({
     name: {
         type:String,
-        required:[true,'A user must have a name'],
-        trim:true,
     },
     aadharNumber: {
         type:Number,
@@ -35,11 +33,9 @@ const data=new mongoose.Schema({
     },
     email:{
         type:String,
-        required:[true,'A user must have an email'],
     },
     seatNumber: {
         type:Number,
-        required:[true,'A user must have a seat number'],
     },
     exam:{
         type:String,
@@ -47,7 +43,7 @@ const data=new mongoose.Schema({
     branch:{
         type:String,
     },
-    totalSubject:{
+    totalSubject:{ 
         type:Number,
     },
     subject:[new mongoose.Schema({
@@ -57,11 +53,16 @@ const data=new mongoose.Schema({
         mark:{
             type:Number,
         },
-        total:{type: Number,},
+        total:{
+            type: Number,
+        },
+        passing_marks:{
+            type:Number,
+        },
+        grade:{
+            type:String,
+        }
     },{strict:false})],
-    obtainedGrade:[{
-        type:String,
-    }],
     acquireMarks:{
         type:Number,
     },

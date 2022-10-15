@@ -17,7 +17,7 @@ base.route('/login')
 
 base.route('/signup')
     .get(auth.userAuth,(req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/signup.html`));
+        res.status(200).render('signup',{errorThere:false});    
     })
     .post(auth.userAuth,controller.signup);
 

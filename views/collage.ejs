@@ -39,7 +39,7 @@
                             <a class="nav-link" href="/create?u_code=<%= data.u_code %>">Add Program</a>
                         </li><br>
                         <li class="nav-item">
-                            <a class="nav-link" href="/create?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage>">Add Course</a>
+                            <a class="nav-link" href="/create?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage%>">Add Course</a>
                         </li><br>
                     </ul>
                 </div>
@@ -82,11 +82,12 @@
         </table>
         <h1>Branches:</h1>
         <ul>
-            <% for(let i=0;i<data.no_of_course;i++){ %>
-                <li><a href="/?u_code=<%=data.u_code%>&pro_id=<%= data.pro_id %>&collage_id<%= data.collage_id %>&branch_id=<%= data.course_id %>">
-                        <%= data.courses[i].courses_name %>
-                    </a></li>
-                <%}%>
+
+                    <% data2.forEach((obj)=>{ %>
+                        <li><a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>&collage_id=<%= obj.collage_id %>&branch_id=<%= obj.branch_id %>  ">
+                                <%= obj.branch_name %>
+                            </a></li>
+                        <%});%>
         </ul><br><br>
         <button class="button">Add Branch</button>
     </div>
