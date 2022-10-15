@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const jwt_secret = process.env.JWT_SECRET
-
+let session = require('express-session')
 exports.developerAuth = async (req, res, next) => {
   try {
     console.log('here')
@@ -117,28 +117,41 @@ exports.userAuth = async (req, res, next) => {
   console.log(token)
   if (token) {
     jwt.verify(token, jwt_secret, (err, decodedToken) => {
-      console.log(decodedToken)
+      console.log(decodedToken,"token role")
       if (err) {
         return res.status(401).json({
           status: 'fail',
           message: 'You are not authorized to access this page',
         })
-      } else {
-        if (decodedToken.role != 'user') {
+      }
+      else if(decodedToken){
+        if (decodedToken.role === 'user') {
+          next();
+        } else {
           return res.status(401).render('error', {
             errorCode: 100,
             errorMessage: "hmm you can't even access users page",
           })
-        } else {
-          next()
         }
+    }
+    else{
+      const x= req.url.indexOf('/signup');
+      if(x!==-1) {
+        next();
       }
+      else{
+        return res.status(401).render('error', {
+          errorCode: 100,
+          errorMessage: 'unauthorized',
+        })
+      }
+    }
     })
   } else {
     const x = req.url.indexOf('/signup')
     console.log(x, typeof x)
     // console.log("here");
-    if (x == 0) {
+    if (x === 0) {
       // console.log(req.url.indexOf("/signup"),"manav");
       // res.status(200).render('',{errorThere:false});
       console.log('page is working Yaaay 🥳')

@@ -11,7 +11,7 @@ const app = express()
 const bcrypt = require('bcrypt')
 const path = require('path')
 const jwt = require('jsonwebtoken')
-let session = require('express-session')
+let sessions = require('express-session')
 const { findOne } = require('../model/User')
 
 const jwt_secret = process.env.JWT_SECRET
@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
     } = req.body
     // console.log(req.body)
     let newRole = role
-    session = req.session;
+    sessions = req.session;
     // console.log(role)
     const user = await User.findOne({ email })
     // console.log(user)
@@ -65,8 +65,7 @@ exports.signup = async (req, res) => {
           pin: newPin,
           role: newRole,
           university_code,
-        },
-        { new: true },
+        }
       );     
       console.log('user created with name', newUser.name);
     }
@@ -90,13 +89,13 @@ exports.signup = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     })
-    session.name = name;
-    session.email = email;
-    session.aadhar = aadhar;
-    session.mobile = mobile;
-    session.role = newRole;
-    session.university_code = university_code;
-    console.log(session,signup);
+    sessions.name = name;
+    sessions.email = email;
+    sessions.aadhar = aadhar;
+    sessions.mobile = mobile;
+    sessions.role = newRole;
+    sessions.university_code = university_code;
+    console.log(sessions);
     res.status(201).redirect('/');
     // res.status(201).json({
     //   status: 'success',
@@ -109,7 +108,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    this.logout();
+    // this.logout();
     console.log(req.url)
     const { username: data, pin } = req.body
     console.log(req.body)
@@ -170,13 +169,13 @@ exports.login = async (req, res) => {
         httpOnly: true,
         maxAge: maxAge * 1000,
       })
-      session = req.session
-      session.name = user.name
-      session.email = user.email
-      session.aadhar = user.aadhar
-      session.mobile = user.mobile
-      session.role = user.role
-      session.university_code = user.university_code
+      sessions = req.session
+      sessions.name = user.name
+      sessions.email = user.email
+      sessions.aadhar = user.aadhar
+      sessions.mobile = user.mobile
+      sessions.role = user.role
+      sessions.university_code = user.university_code
       if (user.role === 'admin') {
         res.status(200).redirect('/search')
       } else if (user.role === 'dev') {
@@ -197,7 +196,7 @@ exports.login = async (req, res) => {
           })
           return
         } else {
-          session.university_code = university.u_code
+          sessions.university_code = university.u_code
           res.status(200).redirect('/university?u_code=' + university.u_code)
         }
       } else {
@@ -218,12 +217,12 @@ exports.login = async (req, res) => {
 
 exports.home = async (req, res) => {
   try {
-    session = req.session
+    sessions = req.session
     const query = req.query
     // if(!query){
     let data = null
     res.status(200).render('home', {
-      name: session.name,
+      name: sessions.name,
       isFound: false,
       results: data,
       isThereRes: false,
@@ -317,8 +316,8 @@ exports.addResult = async (req, res) => {
 // created for api calling
 exports.getAllResult = async (req, res) => {
   try {
-    session = req.session
-    let email = session.email
+    sessions = req.session
+    let email = sessions.email
     const { type: resultType } = req.query
     const data = await Data.find({ email, resultType })
     // console.log(data);
@@ -339,9 +338,9 @@ exports.getAllResult = async (req, res) => {
 // after search
 exports.getResult = async (req, res) => {
   try {
-    session = req.session
+    sessions = req.session
     let data = req.body
-    let aadhar = session.aadhar
+    let aadhar = sessions.aadhar
     // console.log(data,aadhar);
     let finalData = await Data.find({
       aadharNumber: aadhar,
@@ -366,9 +365,9 @@ exports.getResult = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    session = req.session
+    sessions = req.session
     // req.session = null;
-    session.destroy()
+    sessions.destroy()
     res.clearCookie('jwt')
     res.redirect('/login')
   } catch (err) {
@@ -430,8 +429,8 @@ exports.createUni = async (req, res) => {
 
 exports.getUni = async (req, res) => {
   try {
-    const session = req.session
-    const university_code = session.university_code
+    sessions = req.session
+    const university_code = sessions.university_code
     const data = await Uni.find({ university_code })
     res.status(200).json({
       status: 'success',
@@ -514,9 +513,9 @@ exports.addData = async (req, res) => {
 
 exports.profile = async (req, res) => {
   try {
-    session = req.session
-    const email = session.email
-    console.log(req.session.email)
+    sessions = req.session
+    const email = sessions.email
+    console.log(req.sessions.email)
     const user = await User.findOne({ username: email })
     res.status(201).render('profile', { user })
   } catch (err) {
@@ -542,10 +541,10 @@ exports.updateProfile = async (req, res) => {
 
 exports.fetchResult = async (req, res) => {
   try {
-    session = req.session
+    sessions = req.session
     const { type } = req.query
     // console.log(resultType,type);
-    console.log(session, 'xyz')
+    console.log(sessions, 'xyz')
     const data = await Data.findOne({
       resultType: type,
       email: session.email,

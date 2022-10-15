@@ -26,7 +26,7 @@ app.use(session({
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 // this is not a comment
-app.use('/',auth.notDev,auth.notUni,base);
+app.use('/',base);
 
 app.use('/university',auth.uniAuth,router);
 
