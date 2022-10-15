@@ -376,7 +376,6 @@ exports.getAddPages = async (req, res) => {
       // console.log(data);
       res.status(200).render('add-program', { data })
     } else {
-      console.log('you fucked up')
       res.status(200).render('error', {
         errorCode: 404,
         errorMessage: 'some error occured in query',
