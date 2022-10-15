@@ -209,7 +209,8 @@ exports.home = async (req, res) => {
     session = req.session
     const query = req.query
     // if(!query){
-    res.status(200).render('home', { name: session.name, isFound: false })
+    let data = null;
+    res.status(200).render('home', { name: session.name, isFound: false, results: data, isThereRes: false })
     // }
   } catch (err) {
     res.status(404).json({
@@ -527,7 +528,7 @@ exports.fetchResult = async (req,res)=>{
     const data = await Data.findOne({resultType:type,email:session.email,aadharNumber:session.aadhar});
     // res.status(200).rander('home',{data});
     console.log(data);
-    res.status(200).json({statusCode:200,data,message:'success'});
+    res.status(200).render('home',{results: data, isThereRes: "true", name: data.name});
 
   }catch(err){
     
