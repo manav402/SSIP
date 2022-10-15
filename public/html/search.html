@@ -10,13 +10,13 @@
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <style>
     body {
-      background-color: #90CB9D;
+      background-color: lightcyan;
     }
 
     hr {
       color: white;
-      background-color: white;
-      border: 1px solid white;
+      background-color: black;
+      border: 1px solid darkcyan;
     }
 
     .offcanvas {
@@ -48,7 +48,7 @@
 
     .container {
       margin-top: 100px;
-      color: white;
+      color: black;
     }
 
     #contents {
@@ -160,123 +160,122 @@
               </ul>
             </div>
           </div>
-        </div>
-      </nav>
-      <div id="contents">
-        <h1>Selection Criteria:</h1>
+        </nav>
+        <div id="contents">
+          <h1>Selection Criteria:</h1>
 
 
-        <select name="university" required>
-          <option value="-1" selected>Select University</option>
-          <option value="GTU">GUJARAT TECHNOLOGICAL UNIVERSITY</option>
-          <option value="PARUL UNIVERSITY">PARUL UNIVERSITY</option>
-          <option value="GUJARAT UNIVERSITY">GUJARAT UNIVERSITY</option>
-          <option value="AHMEDABAD UNIVERSITY">AHMEDABAD UNIVERSITY</option>
-          <option value="NIRMA UNIVERSITY">NIRMA UNIVERSITY</option>
-          <option value="INDUS UNIVERSITY">INDUS UNIVERSITY</option>
-          <option value="OTHER">OTHER</option>
-        </select>
+          <select name="university" required>
+            <option value="-1" selected>Select University</option>
+            <option value="GTU">GUJARAT TECHNOLOGICAL UNIVERSITY</option>
+            <option value="PARUL UNIVERSITY">PARUL UNIVERSITY</option>
+            <option value="GUJARAT UNIVERSITY">GUJARAT UNIVERSITY</option>
+            <option value="AHMEDABAD UNIVERSITY">AHMEDABAD UNIVERSITY</option>
+            <option value="NIRMA UNIVERSITY">NIRMA UNIVERSITY</option>
+            <option value="INDUS UNIVERSITY">INDUS UNIVERSITY</option>
+            <option value="OTHER">OTHER</option>
+          </select>
 
 
 
-        <select name="branch" required>
-          <option value="-1" selected>Branch/Stream</option>
-          <option value="Diploma Engineering">Diploma Engineering</option>
-          <option value="BE">BE</option>
-          <option value="ME">ME</option>
-          <option value="MBA">MBA</option>
-          <option value="BCOM">BCOM</option>
-          <option value="BA">BA</option>
-          <option value="OTHER">OTHER</option>
-        </select>
-        <input type=number name="year" id="Passing Year" placeholder="Passing Year">
-        <input type="text" name="aadharNumber" placeholder="Aadhar Number" value="">
-        <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
+          <select name="branch" required>
+            <option value="-1" selected>Branch/Stream</option>
+            <option value="Diploma Engineering">Diploma Engineering</option>
+            <option value="BE">BE</option>
+            <option value="ME">ME</option>
+            <option value="MBA">MBA</option>
+            <option value="BCOM">BCOM</option>
+            <option value="BA">BA</option>
+            <option value="OTHER">OTHER</option>
+          </select>
+          <input type=number name="year" id="Passing Year" placeholder="Passing Year">
+          <input type="text" name="aadharNumber" placeholder="Aadhar Number" value="">
+          <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
 
-        <input type="text" name="seatNumber" id="Seat Number" placeholder="Enter Your Seat Number">
+          <input type="text" name="seatNumber" id="Seat Number" placeholder="Enter Your Seat Number">
 
-        <button class="find" type="submit">Find</button>
-        <br>
-        </form>
-        <hr>
-        <h1>Output:</h1>
-        <br>
-        <table cellpadding="2px">
-          <tr>
-            <td colspan="3">Examination: ___</td>
-            <td colspan="2">Branch: __</td>
-          </tr>
-          <tr>
-            <td colspan="3">Name: ____________</td>
-            <td colspan="2">Email: ___________</td>
-          </tr>
-          <tr>
-            <td colspan="3">Seat Number: ________________</td>
-            <td colspan="2">Declared Date: ___________</td>
-          </tr>
-          <tr>
-            <td>Subject Code</td>
-            <td>Subject Name</td>
-            <td>Total Marks</td>
-            <td>Obtained Marks</td>
-            <td>Grade</td>
-          </tr>
-          <tr>
-            <td>6545</td>
-            <td>nxSHDIea</td>
-            <td>45</td>
-            <td>40</td>
-            <td>aa</td>
-          </tr>
-          <tr>
-            <td>6545</td>
-            <td>nxSHDIea</td>
-            <td>45</td>
-            <td>40</td>
-            <td>aa</td>
-          </tr>
-          <tr>
-            <td>6545</td>
-            <td>nxSHDIea</td>
-            <td>45</td>
-            <td>40</td>
-            <td>aa</td>
-          </tr>
-          <tr>
-            <td>6545</td>
-            <td>nxSHDIea</td>
-            <td>45</td>
-            <td>40</td>
-            <td>aa</td>
-          </tr>
-          <tr>
-            <td>6545</td>
-            <td>nxSHDIea</td>
-            <td>45</td>
-            <td>40</td>
-            <td>aa</td>
-          </tr>
-          <tr>
-            <td>Grade</td>
-            <td>Percentile</td>
-            <td>SPI</td>
-            <td>CGPA</td>
-            <td>CPI</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td colspan="3">Current BackLog: __</td>
-            <td colspan="2">Total Backlog: __</td>
-          </tr>
-        </table>
-        <br>
-    </div>
+          <button class="find" type="submit">Find</button>
+          <br>
+    </form>
+    <hr>
+    <h1>Output:</h1>
+    <br>
+    <table cellpadding="2px">
+      <tr>
+        <td colspan="3">Examination: ___</td>
+        <td colspan="2">Branch: __</td>
+      </tr>
+      <tr>
+        <td colspan="3">Name: ____________</td>
+        <td colspan="2">Email: ___________</td>
+      </tr>
+      <tr>
+        <td colspan="3">Seat Number: ________________</td>
+        <td colspan="2">Declared Date: ___________</td>
+      </tr>
+      <tr>
+        <td>Subject Code</td>
+        <td>Subject Name</td>
+        <td>Total Marks</td>
+        <td>Obtained Marks</td>
+        <td>Grade</td>
+      </tr>
+      <tr>
+        <td>6545</td>
+        <td>nxSHDIea</td>
+        <td>45</td>
+        <td>40</td>
+        <td>aa</td>
+      </tr>
+      <tr>
+        <td>6545</td>
+        <td>nxSHDIea</td>
+        <td>45</td>
+        <td>40</td>
+        <td>aa</td>
+      </tr>
+      <tr>
+        <td>6545</td>
+        <td>nxSHDIea</td>
+        <td>45</td>
+        <td>40</td>
+        <td>aa</td>
+      </tr>
+      <tr>
+        <td>6545</td>
+        <td>nxSHDIea</td>
+        <td>45</td>
+        <td>40</td>
+        <td>aa</td>
+      </tr>
+      <tr>
+        <td>6545</td>
+        <td>nxSHDIea</td>
+        <td>45</td>
+        <td>40</td>
+        <td>aa</td>
+      </tr>
+      <tr>
+        <td>Grade</td>
+        <td>Percentile</td>
+        <td>SPI</td>
+        <td>CGPA</td>
+        <td>CPI</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="3">Current BackLog: __</td>
+        <td colspan="2">Total Backlog: __</td>
+      </tr>
+    </table>
+    <br>
+  </div>
   </div>
   </div>
   <script>
