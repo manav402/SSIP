@@ -252,7 +252,8 @@ exports.addResult = async (req, res) => {
       spi,
       cpi,
       cgpa,
-    } = req.body
+    } = req.body;
+    console.log(req.body);
     const newData = await Data.create(req.body,{ runValidators: true, new: true });
     // const newData = await Data.create({
     //   name,
@@ -346,6 +347,7 @@ exports.logout = async (req, res) => {
   try {
     session = req.session
     session.destroy()
+    res.clearCookie('jwt')
     res.redirect('/login')
   } catch (err) {
     res.status(404).json({
@@ -375,7 +377,6 @@ exports.getAddPages = async (req, res) => {
       // console.log(data);
       res.status(200).render('add-program', { data })
     } else {
-      console.log('you fucked up')
       res.status(200).render('error', {
         errorCode: 404,
         errorMessage: 'some error occured in query',
@@ -432,8 +433,9 @@ exports.searchData = async (req, res) => {
     let data = 'null';
     let data2;
     if (branch_id) {
-      data = await Branch.findOne(req.query)
-      res.status(200).render('error', { data, errorCode: 404, errorMessage: 'No Data Found' })
+      data = await Branch.findOne(req.query);
+      // res.status(200).render('error', { data, errorCode: 404, errorMessage: 'No Data Found' })
+      res.status(200).render('course',{data:data});
     } else if (collage_id && !branch_id) {
       delete req.query.pro_id
       data = await Collage.findOne(req.query)

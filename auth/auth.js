@@ -103,8 +103,17 @@ exports.userAuth = async (req, res, next) => {
         }
       }
     })
-  } else {
-    return res.status(401).redirect('/login');
+  }
+  else {
+    // console.log(req.url.indexOf("/signup"));/
+    if(req.url.indexOf("/signup")===0){
+      // console.log(req.url.indexOf("/signup"),"manav");
+      res.status(200).render('signup',{errorThere:false});
+    }
+    else{
+      // console.log(req.url.indexOf("/signup"),"manan");
+      res.status(404).redirect('/login');
+    }
   }
 }
 
