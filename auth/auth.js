@@ -104,7 +104,7 @@ exports.userAuth = async (req, res, next) => {
       }
     })
   } else {
-    return res.status(401).redirect('/login')
+    return res.status(401).redirect('/login');
   }
 }
 
