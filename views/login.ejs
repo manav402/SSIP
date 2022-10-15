@@ -22,16 +22,31 @@
         .login-box {
             margin: 0;
         }
+
         .forget-pin {
             margin-left: 0;
         }
+
         .login-box .forget-pin a,
         .login-box .notAcc {
             margin-top: 0;
             padding-left: 0;
             text-decoration: none;
             color: white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
+
+        .login-box .notAcc:hover {
+            text-decoration: underline;
+        }
+
+
+        /*
+        .log:hover {
+            color: aliceblue;
+            background-color: black;
+        } */
     </style>
 </head>
 
@@ -48,7 +63,7 @@
             </strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    <% } %>
+        <% } %>
             <!-- <div class="Login-main">
                 <div class="Login-form">
                     <h4>Sign in to your account!</h4>
@@ -80,28 +95,28 @@
                 <h2>Login</h2>
                 <form action="login" autocomplete="off" method="post">
                     <div class="user-box">
-                        <input type="text" name="username" onfocus="fun(this, 'Enter username')" onfocusout="focusOutFun(this)" value="">
+                        <input type="text" name="username" onfocus="fun(this, 'Enter username')"
+                            onfocusout="focusOutFun(this)" value="">
                         <label>Aadhar No./ Mobile No./ Username</label>
                     </div>
                     <div class="user-box">
-                        <input type="password" name="pin" onfocus="fun(this, 'Enter Password')" onfocusout="focusOutFun(this)">
+                        <input type="password" name="pin" onfocus="fun(this, 'Enter Password')"
+                            onfocusout="focusOutFun(this)">
                         <label>Password</label>
                     </div>
                     <div class="forget-pin">
                         <a href="#">Forgot your pin?</a>
                     </div>
                     <br>
-                        <!-- <button type="submit"> -->
-                            <a href="" style="margin: 0;">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <input type="submit" value="Login" style="background: transparent; color: #03e9f4;border: none;">
-                            <!-- Login -->
-                        </a>
+                    <!-- <button type="submit"> -->
+                    <a href="" style="margin: 0;">
+                        <input type="submit" class="log" value="Login" onMouseOver="this.style.background='black'"
+                            onMouseOut="this.style.background='rgb(36, 59, 85)'"
+                            style="background: rgb(36, 59, 85, 0.7); border-radius: 10px; color: white; border: 2px solid #173454; padding: 10px 20px 10px 20px;">
+                        <!-- Login -->
+                    </a>
                 </form>
-                <p>Do not have an account? &nbsp;&nbsp;<a class="notAcc" href="/signup"> Register! </a></p>
+                <p>Do not have an account? &nbsp;&nbsp;<a class=" notAcc" href="/signup"> Register! </a></p>
             </div>
             <script src="/js/js.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

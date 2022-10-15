@@ -36,7 +36,7 @@ base.route('/logout')
 
 base.route('/search')
     .get(auth.notUni,(req, res) => {
-        res.status(200).render('course');
+        res.status(200).render('search');
     });
 
 
