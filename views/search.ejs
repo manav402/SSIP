@@ -247,65 +247,64 @@ padding-bottom: auto; */
                         </div>
                 </nav>
                 <% if(isStudent){%>
-                <div id="contents">
-                    <h1>Selection Criteria:</h1>
+                    <div id="contents">
+                        <h1>Selection Criteria:</h1>
 
 
 
 
-                    <select name="sem" required>
-                        <option value="-1" selected>Sem</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                    </select>
-                    <!-- <input type=number name="year" id="Passing Year" placeholder="Passing Year"> -->
-                    <!-- <input type="text" name="aadharNumber" placeholder="Aadhar Number" value=""> -->
-                    <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
+                        <select name="sem" required>
+                            <option value="-1" selected>Sem</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                        <!-- <input type=number name="year" id="Passing Year" placeholder="Passing Year"> -->
+                        <!-- <input type="text" name="aadharNumber" placeholder="Aadhar Number" value=""> -->
+                        <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
 
-                    <!-- <input type="text" name="seatNumber" id="Seat Number" placeholder="Enter Your Seat Number"> -->
-                    <%}else{%>
-                        <div id="contents">
-                    <h1>Selection Criteria:</h1>
+                        <!-- <input type="text" name="seatNumber" id="Seat Number" placeholder="Enter Your Seat Number"> -->
+                        <%}else{%>
+                            <div id="contents">
+                                <h1>Selection Criteria:</h1>
 
 
-                    <select name="university" required>
-                        <option value="-1" selected>Select University</option>
-                        <option value="GTU">GTU</option>
-                        <option value="PARUL UNIVERSITY">PARUL UNIVERSITY</option>
-                        <option value="GUJARAT UNIVERSITY">GUJARAT UNIVERSITY</option>
-                        <option value="AHMEDABAD UNIVERSITY">AHMEDABAD UNIVERSITY</option>
-                        <option value="NIRMA UNIVERSITY">NIRMA UNIVERSITY</option>
-                        <option value="INDUS UNIVERSITY">INDUS UNIVERSITY</option>
-                        <option value="OTHER">OTHER</option>
-                    </select>
+                                <select name="university" required onchange="universityChange(this)">
+                                    <option value="-1" selected>Select University</option>
+                                    <% universitys.forEach((data)=>{ %>
+                                        <option <% if(data.u_code == uniSelected) {%>Selected<%} %> value="<%= data.u_code %>">
+                                            <%= data.u_name %>
+                                        </option>
+                                        <% }); %>
+                                </select>
 
 
 
-                    <select name="branch" required>
-                        <option value="-1" selected>Branch/Stream</option>
-                        <option value="Diploma Engineering">Diploma Engineering</option>
-                        <option value="BE">BE</option>
-                        <option value="ME">ME</option>
-                        <option value="MBA">MBA</option>
-                        <option value="BCOM">BCOM</option>
-                        <option value="BA">BA</option>
-                        <option value="OTHER">OTHER</option>
-                    </select>
-                    <input type="text" name="year" id="Passing Year" placeholder="Passing Year">
-                    <input type="text" name="aadharNumber" placeholder="Aadhar Number" value="">
-                    <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
+                                <select name="branch" required>
+                                    <option value="-1" selected>Branch/Stream</option>
+                                    <% if(programs){ %>
+                                        <% programs.forEach((dataP)=>{ %>
+                                            <option value="<%= dataP.pro_id %>">
+                                                <%= dataP.pro_name %>
+                                            </option>
+                                            <% }); %>
+                                                <% } %>
+                                </select>
+                                <input type="text" name="year" id="Passing Year" placeholder="Passing Year">
+                                <input type="text" name="aadharNumber" placeholder="Aadhar Number" value="">
+                                <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
 
-                    <input type="text" name="seatNumber" id="Seat Number" placeholder="Enter Your Seat Number">
-                    
-                    <%}%>
-                    <button class="find" type="submit">Find</button>
-                    <br>
+                                <input type="text" name="seatNumber" id="Seat Number"
+                                    placeholder="Enter Your Seat Number">
+
+                                <%}%>
+                                    <button class="find" type="submit">Find</button>
+                                    <br>
         </form>
         <% if(isThereRes){ %>
             <hr>
@@ -356,7 +355,7 @@ padding-bottom: auto; */
                                                 </table>
                                             </div>
                                         </div>
-        
+
                                     </div>
                                 </div>
                                 <div class="panel-body table-responsive">
@@ -426,25 +425,32 @@ padding-bottom: auto; */
                 <h3>Ooops!! No data found!</h3>
                 <%}%>
         <br>
-    </div>
-    </div>
-    </div>
-    <script>
-        var toggle = 1;
-        function fun() {
-            if (toggle == 1) {
-                document.getElementById("contents").style.marginLeft = "25%";
-                toggle = 0;
+        </div>
+        </div>
+        </div>
+        <script>
+            var toggle = 1;
+            function fun() {
+                if (toggle == 1) {
+                    document.getElementById("contents").style.marginLeft = "25%";
+                    toggle = 0;
+                }
+                else {
+                    document.getElementById("contents").style.marginLeft = "0%";
+                    toggle = 1;
+                }
             }
-            else {
-                document.getElementById("contents").style.marginLeft = "0%";
-                toggle = 1;
+            function universityChange(data) {
+                let xmlHttpReq = new XMLHttpRequest();
+                let linktosubmit = window.location.href.split('?')[0] + "?u_code=" + data.value;
+                
+                document.location.href = linktosubmit;
+                console.log("GET Request send... On ", linktosubmit);
             }
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous"></script>
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>
