@@ -523,7 +523,6 @@ exports.updateProfile = async (req, res) => {
 exports.fetchResult = async (req,res)=>{
   try{
     session = req.session;
-    console.log(req.query);
     const {type} = req.query;
     // console.log(resultType,type);
     console.log(session,"xyz");
@@ -533,7 +532,7 @@ exports.fetchResult = async (req,res)=>{
     res.status(200).render('home',{results: data, isThereRes: "true", name: data.name});
 
   }catch(err){
-    
+    res.status(404).render('error', { errorCode: 404, errorMessage:"no data found"});
   }
 
 }

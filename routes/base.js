@@ -16,7 +16,8 @@ base.route('/login')
     .post(controller.login);
 
 base.route('/get-result')
-    .get(controller.fetchResult);
+    .get(controller.fetchResult)
+    .post(controller.fetchResult);
 
 base.route('/signup')
     .get(auth.userAuth,(req, res) => {
