@@ -28,7 +28,9 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active bg-black" href="/university"><%= data.u_name %></a>
+                            <a class="nav-link active bg-black" href="/university">
+                                <%= data.u_name %>
+                            </a>
                         </li>
                         <hr>
                         <li class="nav-item">
@@ -39,6 +41,12 @@
                             <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>">Add Program</a>
                             <!-- <a class="nav-link" href="/university/add-program">Add Program</a> -->
                         </li><br>
+                        <hr>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                LogOut
+                            </a>
+                        </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="#">Add College</a>
                         </li><br>
@@ -52,51 +60,69 @@
     </nav>
     <div id="contents">
         <h1>University</h1>
-        <table> 
+        <table>
             <tr>
                 <th>Name</th>
                 <th>:</th>
-                <td><%= data.u_name %></td>
+                <td>
+                    <%= data.u_name %>
+                </td>
             </tr>
             <tr>
                 <th>Short Name</th>
                 <th>:</th>
-                <td><%= data.u_short_name %></td>
+                <td>
+                    <%= data.u_short_name %>
+                </td>
             </tr>
             <tr>
                 <th>Affilation</th>
                 <th>:</th>
-                <td><%= data.u_affilation %></td>
+                <td>
+                    <%= data.u_affilation %>
+                </td>
             </tr>
             <tr>
                 <th>University Code</th>
                 <th>:</th>
-                <td><%= data.u_code %></td>
+                <td>
+                    <%= data.u_code %>
+                </td>
             </tr>
             <tr>
                 <th>Vice Chancellor</th>
                 <th>:</th>
-                <td><%= data.vc_name %></td>
+                <td>
+                    <%= data.vc_name %>
+                </td>
             </tr>
             <tr>
                 <th>Vice chancellor number</th>
                 <th>:</th>
-                <td><%= data.vc_number %></td>
+                <td>
+                    <%= data.vc_number %>
+                </td>
             </tr>
             <tr>
                 <th>Chancellor</th>
                 <th>:</th>
-                <td><%= data.head_name %></td>
+                <td>
+                    <%= data.head_name %>
+                </td>
             </tr>
             <tr>
                 <th>Head Number</th>
                 <th>:</th>
-                <td><%= data.head_number %></td>
+                <td>
+                    <%= data.head_number %>
+                </td>
             </tr>
             <tr>
                 <th>Total Programs</th>
                 <th>:</th>
-                <td><%= data.total_Program %></td>
+                <td>
+                    <%= data.total_Program %>
+                </td>
             </tr>
         </table>
         <h1>Programs:</h1>
@@ -104,8 +130,12 @@
             <!-- <li><a href="program.html">Bachelor of Engineering (BE)</a></li> -->
             <!-- <li><a href="#">Diploma Engineering (DE)</a></li> -->
             <% data2.forEach((obj)=>{ %>
-                <li><a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>"><%= obj.pro_name %></a></li>
-            <%});%>
+                <a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>">
+                    <li>
+                        <%= obj.pro_name %>
+                    </li>
+                </a>
+                <%});%>
         </ul>
         <a href="/university/create?u_code=<%= data.u_code %>"><button class="button">Add Program</button></a>
     </div>

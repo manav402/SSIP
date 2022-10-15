@@ -5,12 +5,13 @@
 }
 
 body {
-    background: linear-gradient(to bottom, rgb(226, 60, 31), rgb(44, 211, 169));
+    background: black;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     display: flex;
     align-items: center;
+    color:white;
 }
 
 .errorBox {
@@ -27,7 +28,7 @@ body {
 
 .errorBox .errCode {
     text-align: center;
-    color: black;
+    color: white;
     font-size: xx-large;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;

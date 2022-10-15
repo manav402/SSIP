@@ -41,7 +41,12 @@
                         </li><br>
                         <li class="nav-item">
                             <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>?pro_id=<%= data.pro_id%>?branch_id=<%= data.branch_id%>">Add Course</a>
-                        </li><br>
+                        </li><br><hr>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                LogOut
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -82,9 +87,9 @@
             <li><a href="#">L.D. College of Engineering</a></li>
             <li><a href="#">Government Engg. College, Gandhinagar</a></li> -->
             <% data2.forEach((obj)=>{ %>
-               <li><a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>&collage_id=<%= obj.collage_id %> ">
-                    <%= obj.collage_name %>
-                        </a></li>
+               <a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>&collage_id=<%= obj.collage_id %> ">
+                <li>  <%= obj.collage_name %>
+                        </li></a>
             <%});%>
         </ul>
         <button class="button">Add College</button>
