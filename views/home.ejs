@@ -127,9 +127,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% results.subject.forEach((res)=>{ %>
+                                        <% results.subject.forEach((res,index)=>{ %>
                                             <tr>
-                                                <td clas>1</td>
+                                                <td clas><%= index+1 %></td>
                                                 <td>
                                                     <%= res.name %>
                                                 </td>
@@ -185,7 +185,9 @@
             </div>
             </div>
         </section>
-        <% } %>
+        <% } else { if(notFound){ %>
+            <div class="container"><h4 class="m-0">Data not found</h4></div>
+        <% }} %>
             <script>
                 var toggle = 1;
                 function fun() {
