@@ -285,81 +285,128 @@ padding-bottom: auto; */
         <hr>
         <h1>Output:</h1>
         <br>
-        <section id="resultOfStuent" style="margin-bottom: 5rem;">
-            <div class="container w-100">
-                <div class="row">
-                    <div class="col-md-offset-1 col-md-10" style="width: 100%;">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col col-sm-3 col-xs-
-                                        12">
-                                        <h4 class="title">Result of <span>Student</span></h4>
+        <% if(isThereRes){ %>
+            <section id="resultOfStuent" style="margin-bottom: 5rem;">
+                <div class="container w-100">
+                    <div class="row">
+                        <div class="col-md-offset-1 col-md-10" style="width: 100%;">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col col-sm-3 col-xs-
+                                        12 w-100">
+                                            <h4 class="title">Result of <span>Student</span></h4>
+                                            <div class="aboutInfo">
+                                                <table class="w-100" style="font-weight: 700;">
+                                                    <tr>
+                                                        <td>Student: </td>
+                                                        <td>
+                                                            <%= results.name %>
+                                                        </td>
+                                                        <td>University: </td>
+                                                        <td>
+                                                            <%= results.university %>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Program: </td>
+                                                        <td>
+                                                            <%= results.program %>
+                                                        </td>
+                                                        <td>College: </td>
+                                                        <td>
+                                                            <%= results.collage %>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Year: </td>
+                                                        <td>
+                                                            <%= results.year %>
+                                                        </td>
+                                                        <td>Semester: </td>
+                                                        <td>
+                                                            <%= results.sem %>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+        
                                     </div>
-
                                 </div>
-                            </div>
-                            <div class="panel-body table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Subject Name</th>
-                                            <th>Age</th>
-                                            <th>Job Title</th>
-                                            <th>City</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Vincent Williamson</td>
-                                            <td>31</td>
-                                            <td>iOS Developer</td>
-                                            <td>Sinaai-Waas</td>
-                                            <td>
-                                                <ul class="action-list">
-                                                    <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Taylor Reyes</td>
-                                            <td>22</td>
-                                            <td>UI/UX Developer</td>
-                                            <td>Baileux</td>
-                                            <td>
-                                                <ul class="action-list">
-                                                    <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Justin Block</td>
-                                            <td>26</td>
-                                            <td>Frontend Developer</td>
-                                            <td>Overland Park</td>
-                                            <td>
-                                                <ul class="action-list">
-                                                    <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
+                                <div class="panel-body table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Subject Name</th>
+                                                <th>Marks</th>
+                                                <th>Total Marks</th>
+                                                <th>Grade</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% results.subject.forEach((res,index)=>{ %>
+                                                <tr>
+                                                    <td clas>
+                                                        <%= index+1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%= res.name %>
+                                                    </td>
+                                                    <td>
+                                                        <%= res.mark %>
+                                                    </td>
+                                                    <td>
+                                                        <%= res.total %>
+                                                    </td>
+                                                    <td>
+                                                        <%= res.grade %>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+        
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row text-center">
+                                        <div class="col-sm-6 col-xs-6 w-100">
+                                            <ul
+                                                class="pagination visible-xs pull-right text-left w-100 d-flex justify-content-center">
+                                                <li>
+                                                    <table>
+                                                        <tr class="mb-2 border border-2">
+                                                            <td class="px-3">SPI: </td>
+                                                            <td class="px-3">
+                                                                <%= results.spi %>
+                                                            </td>
+                                                        <tr class="mb-2 border border-2">
+                                                            <td class="px-3">CPI: </td>
+                                                            <td class="px-3">
+                                                                <%= results.cpi %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="mb-2 border border-2">
+                                                            <td class="px-3">CGPA: </td>
+                                                            <td class="px-3">
+                                                                <%= results.cgpa %>
+                                                            </td>
+                                                        </tr>
+                                                        </tr>
+                                                    </table>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+                </div>
+            </section>
+            <% }%>
         <br>
     </div>
     </div>
