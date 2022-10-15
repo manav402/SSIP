@@ -87,11 +87,11 @@ exports.signup = async (req, res) => {
     session.mobile = mobile
     session.role = newRole
     session.university_code = university_code
-    // res.status(201).redirect('/');
-    res.status(201).json({
-      status: 'success',
-      message: 'Record created successfully',
-    })
+    res.status(201).redirect('/');
+    // res.status(201).json({
+    //   status: 'success',
+    //   message: 'Record created successfully',
+    // })
   } catch (err) {
     res.status(501).render('error', { errorCode: 404, errorMessage: err })
   }
@@ -436,7 +436,7 @@ exports.searchData = async (req, res) => {
       data = await Program.findOne({ u_code, branch_id })
       data2 = await Collage.find({ u_code, pro_id })
       res.status(200).render('program', { data: data,data2: data2 })
-    } else if (!branch_id) {
+    } else if (!pro_id) {
       data = await Uni.findOne({ u_code });
       data2 = await Program.find({ u_code});
       // console.log(data,"university data");
@@ -466,6 +466,9 @@ exports.addData = async (req, res) => {
       // console.log(req.body)
         data = Program.create(req.body,{ runValidators: true, new: true })
     }
+    else{
+      data= Uni,create(req.body,{ runValidators: true, new: true})
+    }
     res.status(200).json({
       status: 'ok',
       message: 'success',
@@ -483,7 +486,7 @@ exports.profile = async (req, res) => {
   try {
     session = req.session
     const email = session.email
-    console.log(email,session);
+    console.log(req.session.email);
     const user = await User.findOne({ username: email })
     res.status(201).render('profile', { user })
   } catch (err) {
