@@ -554,7 +554,17 @@ exports.renderSearch = async (req, res) => {
       res.status(200).render('search', { isStudent: true, isThereRes: false });
     }
     else {
-      res.status(200).render('search', { isStudent: false, isThereRes: false });
+      const { u_code } = req.query;
+      console.log(u_code);
+      if(u_code){
+        const data = await Uni.find({});
+        const dataP = await Program.find({u_code});
+        console.log(dataP);
+        res.status(200).render('search', { isStudent: false, isThereRes: false, universitys: data,uniSelected: u_code, programs: dataP })
+      } else {
+        const data = await Uni.find({});
+        res.status(200).render('search', { isStudent: false, isThereRes: false, universitys: data, uniSelected: false, programs: null});
+      }
     }
   } catch (err) {
     res.status(404).render('error', { errorCode: 404, errorMessage: err });
