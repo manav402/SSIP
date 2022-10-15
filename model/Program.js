@@ -16,16 +16,6 @@ const programSchema = new mongoose.Schema({
     pro_total_collages: {
         type: Number,
     },
-    collage_name: [
-        new mongoose.Schema({
-            c_name: {
-                type: String,
-            },
-            collage_id: {
-                type: String,
-            }
-        }, { strict: false })
-    ],
     university: {
         type: String,
     },

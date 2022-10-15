@@ -10,32 +10,29 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
 base.route('/login')
     .get((req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/login.html`));
+        // res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/login.html`));
+        res.status(200).render('login', { errorThere: false });
     })
     .post(controller.login);
 
 base.route('/signup')
-    .get((req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/signup.html`));
+    .get(auth.userAuth,(req, res) => {
+        res.status(200).render('signup',{errorThere:false});    
     })
-    .post(controller.signup);
+    .post(auth.userAuth,controller.signup);
 
 base.route('/')
-    .get(controller.home)
+    .get(auth.userAuth,controller.home);
 
 base.route('/profile')
-    .get((req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/profile.html`));
-    })
+    .get(auth.userAuth,controller.profile)
+    .patch(auth.userAuth,controller.updateProfile);
 
 base.route('/logout')
     .get(controller.logout)
 
-base.route('/update')
-    .patch(controller.update)
-
 base.route('/search')
-    .get((req, res) => {
+    .get(auth.notUni,(req, res) => {
         res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/search.html`));
     });
 

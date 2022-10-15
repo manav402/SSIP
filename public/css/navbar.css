@@ -1,0 +1,101 @@
+hr {
+    color: white;
+}
+
+.offcanvas {
+    margin-top: 55px;
+    margin-left: 0;
+    background-color: rgb(0, 0, 0, 0.88);
+    width: 25% !important;
+}
+
+.nav-link {
+    text-align: center;
+    border-radius: 30px;
+    margin-top: 20%;
+    padding: 2%;
+}
+
+.nav-link:hover {
+    background-color: rgb(255, 255, 255, 0.88);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.title {
+    color: rgb(255, 255, 255);
+}
+
+.title:hover {
+    font-size: larger;
+}
+
+h1 {
+    border-radius: 30px;
+    padding-top: 1%;
+}
+
+ul {
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    margin: 0;
+}
+
+#contents {
+
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+
+}
+
+#contents li {
+    background-color: blue;
+    margin: 1%;
+    margin-left: 0;
+    padding: 2%;
+    width: 30%;
+    border-radius: 10px;
+    float: left;
+}
+
+#contents li:hover {
+    background-color: rgb(0, 0, 255, 0.58);
+}
+
+#contents a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: larger;
+}
+
+table {
+    width: fit-content;
+}
+
+th,
+td {
+    font-size: larger;
+}
+
+@media(max-width: 600px) {
+    #contents {
+        margin: 5%;
+        margin-top: 15%;
+    }
+
+    .offcanvas {
+        margin-top: 55px;
+        margin-left: 0;
+        background-color: rgb(0, 0, 0, 0.88);
+        width: 30% !important;
+    }
+
+    .nav-link {
+        text-align: center;
+        border-radius: 30px;
+        margin-top: 5%;
+        padding: 1%;
+    }
+}

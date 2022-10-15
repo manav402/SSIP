@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program</title>
+    <link rel="" href="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="/css/pages.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" onclick="fun()" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-start" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel"
+                data-bs-scroll="true" data-bs-backdrop="false">
+                <div class="offcanvas-body fixed-start">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <span class="title"><b>Existing</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active bg-black" href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id%>&collage_id=<%= data.collage_id%>"><%= data.collage_name %></a>
+                        </li>
+                        <hr>
+                        <li class="nav-item">
+                            <span class="title"><b>New</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/create?u_code=<%= data.u_code %>">Add Program</a>
+                        </li><br>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/create?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage%>">Add Course</a>
+                        </li><br>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="contents">
+        <h1>College</h1>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>:</th>
+                <td><%= data.collage_name %></td>
+            </tr>
+            <tr>
+                <th>College Short Form</th>
+                <th>:</th>
+                <td><%= data.collage_short_name %></td>
+            </tr>
+            <tr>
+                <th>College Type</th>
+                <th>:</th>
+                <td><%= data.collage_type %></td>
+            </tr>
+            <tr>
+                <th>College Code</th>
+                <th>:</th>
+                <td><%= data.collage_code %></td>
+            </tr>
+            <tr>
+                <th>University</th>
+                <th>:</th>
+                <td><%= data.university %></td>
+            </tr>
+            <tr>
+                <th>Total Courses / Branches</th>
+                <th>:</th>
+                <td><%= data.no_of_course %></td>
+            </tr>
+        </table>
+        <h1>Branches:</h1>
+        <ul>
+
+                    <% data2.forEach((obj)=>{ %>
+                        <li><a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>&collage_id=<%= obj.collage_id %>&branch_id=<%= obj.branch_id %>  ">
+                                <%= obj.branch_name %>
+                            </a></li>
+                        <%});%>
+        </ul><br><br>
+        <button class="button">Add Branch</button>
+    </div>
+    <script>
+        var toggle = 1;
+        function fun() {
+            if (toggle == 1) {
+                document.getElementById("contents").style.marginLeft = "30%";
+                toggle = 0;
+            }
+            else {
+                document.getElementById("contents").style.marginLeft = "5%";
+                toggle = 1;
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

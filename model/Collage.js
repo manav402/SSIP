@@ -19,22 +19,21 @@ const collageSchema = new mongoose.Schema({
     university:{
         type:String,
     },
+    u_code:{
+        type:String,
+    },
+    pro_name:{
+        type:String,
+    },
+    pro_id:{
+        type:String,
+    },
     no_of_students:{
         type:Number,
     },
     no_of_course:{
         type:Number,
-    },
-    courses: [
-        new mongoose.Schema({
-            courses_name: {
-                type:String,
-            },
-            courses_id:{
-                type:String,
-            }
-        },{strict:false})
-    ],
+    }
 });
 
 const Collage = mongoose.model("Collage", collageSchema);

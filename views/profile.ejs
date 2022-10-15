@@ -104,7 +104,7 @@
                 </div>
             </nav>
             <section">
-                <form action="update" method="patch">
+                <form action="/profile?_method=PATCH" method="post">
                     <div class="row">
                         <div class="container mt-0 px-5 w-75">
                             <div class="row px-5">
@@ -124,7 +124,7 @@
                                         <div class="card-body text-center">
                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                                                 alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                                            <h5 class="my-3 text-muted">Manan Vadher</h5>
+                                            <h5 class="my-3 text-muted"><%= user.name %></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -146,8 +146,8 @@
                                                         <p class="mb-0 text-dark">Full Name</p>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"><input type="text"
-                                                                value="MANAN VADHER"></p>
+                                                        <p class="text-muted mb-0"><input type="text" name="name"
+                                                                value="<%= user.name %>"></p>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -156,8 +156,8 @@
                                                         <p class="mb-0 text-dark">Email</p>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"><input type="gmail"
-                                                                value="xyz@gmail.com"></p>
+                                                        <p class="text-muted mb-0"><input type="gmail" name="email"
+                                                                value="<%= user.email %>"></p>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -166,8 +166,8 @@
                                                         <p class="mb-0 text-dark">Mobile</p>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"><input type="number"
-                                                                value="9723186718"></p>
+                                                        <p class="text-muted mb-0"><input type="number" name="mobile"
+                                                                value="<%= user.mobile %>"></p>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -176,8 +176,8 @@
                                                         <p class="mb-0 text-dark">DOB</p>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"><input type="date" id="date"
-                                                                value=""></p>
+                                                        <p class="text-muted mb-0"><input type="text" id="date" name="DOB"
+                                                                value="<%= user.DOB %>"></p>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -186,7 +186,7 @@
                                                         <p class="mb-0 text-dark">Gender</p>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"><input type="text" value="MALE"></p>
+                                                        <p class="text-muted mb-0"><input type="text" name="gender" value="<%= user.gender %>"></p>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -195,20 +195,10 @@
                                                         <p class="mb-0 text-dark">Aadhar</p>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"><input type="number"
-                                                                value="972117423477"></p>
+                                                        <p class="text-muted mb-0"><%= user.aadhar %></p>
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <p class="mb-0 text-dark">Address</p>
-                                                    </div>
-                                                    <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"><input type="text"
-                                                                value="Ahmedabad, India"></p>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -218,8 +208,8 @@
                     </div>
                     <br>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary btn-lg btn-block w-50"
-                            type="submit">Submit</button>
+                        <input class="btn btn-primary btn-lg btn-block w-50"
+                            type="submit">
                     </div>
                     <br>
                 </form>

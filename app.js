@@ -9,9 +9,12 @@ const router = require('./routes/routes');
 const debug = require('./routes/debugger');
 const base = require('./routes/base');
 const path = require('path');
+var methodOverride = require('method-override');
+
 const port = process.env.PORT;
 
 const staticPath = path.join(__dirname, 'public');
+app.use(methodOverride('_method'));
 
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
@@ -25,7 +28,7 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 // this is not a comment
 app.use('/', base);
 
-app.use('/university', auth.uniAuth, router);
+app.use('/university',router);
 
 app.use('/debugging', debug);
 app.use(express.static(staticPath));

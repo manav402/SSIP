@@ -30,17 +30,7 @@ const uniSchema = new mongoose.Schema({
     total_Program:{
         type:Number,
         required:[true,'Please enter the total number of programs'],
-    },
-    program_name:[
-        new mongoose.Schema({
-            p_name: {
-                type:String,
-            },
-            pro_id: {
-                type: String,
-            }            
-        },{strict:false})
-    ],
+    }
 });
 
 const Uni = mongoose.model("uni", uniSchema);

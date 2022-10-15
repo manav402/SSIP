@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/program.css">
+        <link href="/css/navbar.css" rel="stylesheet">
+        <script src="/js/js.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" onclick="fun3()" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-start" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel"
+                data-bs-scroll="true" data-bs-backdrop="false">
+                <div class="offcanvas-body fixed-start">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <span class="title"><b>Existing</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active bg-black" href="#">BE/BTECH</a>
+                        </li>
+                        <hr>
+                        <li class="nav-item">
+                            <span class="title"><b>New</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?u_code=<%= data.u_code %>">Add Program</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>">Add College</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="login-box">
+        <div>
+        <p style="color:white;">You Are addeding to this <%= data.university %> -> <%= data.pro_name %> -> <%= data.collage_name %></p>
+        </div>
+        <h2>Branch Details Add</h2>
+        <form>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, '016')" onfocusout="focusOutFun(this)" required="">
+                <label>Branch_id</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, 'Information Technology')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Branch_name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, 'IT')" onfocusout="focusOutFun(this)" required="">
+                <label>Branch_short_name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, 'Bachelor of Engineering')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Program</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, 'GTU_BE')" onfocusout="focusOutFun(this)" required="">
+                <label>Program_id</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, 'Gujarat Technological University')"
+                    onfocusout="focusOutFun(this)" required="">
+                <label>University</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, '90')" onfocusout="focusOutFun(this)" required="">
+                <label>No_of_students</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" onfocus="fun(this, '40')" onfocusout="focusOutFun(this)" required="">
+                <label>No_of_subjects</label>
+            </div>
+            <a href="#" style="margin: 0;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </a>
+        </form>
+    </div>
+
+    <script>
+        var toggle = 1;
+        function fun3() {
+            if (toggle == 1) {
+                document.getElementById("contents").style.marginLeft = "30%";
+                toggle = 0;
+            }
+            else {
+                document.getElementById("contents").style.marginLeft = "5%";
+                toggle = 1;
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
