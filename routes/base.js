@@ -38,5 +38,7 @@ base.route('/logout')
 base.route('/search')
     .get(controller.renderSearch);
 
+base.route('/get-search-result').post(controller.findSearchResult);
+
 
 module.exports = base;

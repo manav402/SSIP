@@ -12,6 +12,7 @@ const bcrypt = require('bcrypt')
 const path = require('path')
 const jwt = require('jsonwebtoken')
 let session = require('express-session')
+const { findOne } = require('../model/User')
 
 const jwt_secret = process.env.JWT_SECRET
 
@@ -523,7 +524,7 @@ exports.updateProfile = async (req, res) => {
 exports.fetchResult = async (req, res) => {
   try {
     session = req.session;
-    const {type} = req.query;
+    const { type } = req.query;
     // console.log(resultType,type);
     console.log(session, "xyz");
     const data = await Data.findOne({ resultType: type, email: session.email, aadharNumber: session.aadhar });
@@ -540,22 +541,43 @@ exports.fetchResult = async (req, res) => {
 
     }
 
-  }catch(err){
-    let data =null;
-    res.status(404).render('home', {results: data, isThereRes: false, name: session.name, notFound: true});
+  } catch (err) {
+    let data = null;
+    res.status(404).render('home', { results: data, isThereRes: false, name: session.name, notFound: true });
   }
 }
 
-exports.renderSearch = async (req,res)=>{
-  try{
-    session=req.session;
-    if(session.role=='user'){
-      res.status(200).render('search',{isStudent:true,isThereRes:false});
+exports.renderSearch = async (req, res) => {
+  try {
+    session = req.session;
+    if (session.role == 'user') {
+      res.status(200).render('search', { isStudent: true, isThereRes: false });
     }
-    else{
-      res.status(200).render('search',{isStudent:false,isThereRes:false});
+    else {
+      res.status(200).render('search', { isStudent: false, isThereRes: false });
     }
-  }catch(err){
-    res.status(404).render('error', { errorCode: 404, errorMessage: err});
+  } catch (err) {
+    res.status(404).render('error', { errorCode: 404, errorMessage: err });
+  }
+}
+
+exports.findSearchResult = async (req, res) => {
+  try {
+    const { sem, university, branch, year, aadhar, seatNumber } = req.body;
+    if (sem) {
+      session = req.session;
+      const data = await Data.findOne({ email: session.email, aadharNumber: session.aadhar, sem });
+      res.status(200).render('search', { isStudent: true, isThereRes: true, results: data });
+    }
+    else {
+      console.log(req.body);
+      const newAadhar = parseInt(aadhar);
+      console.log(typeof (newAadhar));
+      const data = await Data.findOne({ aadharNumber: newAadhar, seatNumber, year })
+      console.log(data);
+      res.status(200).render('search', { isStudent: true, isThereRes: true, results: data });
+    }
+  } catch (error) {
+    res.status(404).render('error', { errorCode: 404, errorMessage: error })
   }
 }

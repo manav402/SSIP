@@ -26,7 +26,7 @@ const data=new mongoose.Schema({
         type:String,
     },
     year: {
-        type:Number,
+        type:String,
     },
     sem:{
         type:Number,
