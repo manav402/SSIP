@@ -193,7 +193,7 @@ exports.login = async (req, res) => {
         res.status(200).redirect('/')
       }
     } else {
-      res.status(404).render('/login', {
+      res.status(404).render('login', {
         errorOnLogin: 'Please provide password !!',
         errorThere: true,
       })
