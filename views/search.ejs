@@ -373,7 +373,7 @@ padding-bottom: auto; */
                                         <tbody>
                                             <% results.subject.forEach((res,index)=>{ %>
                                                 <tr>
-                                                    <td clas>
+                                                    <td class>
                                                         <%= index+1 %>
                                                     </td>
                                                     <td>
@@ -385,15 +385,8 @@ padding-bottom: auto; */
                                                     <td>
                                                         <%= res.total %>
                                                     </td>
-                                                    <td>
-                                                        <%= res.grade %>
-                                                    </td>
-                                                </tr>
-                                                <% }); %>
-        
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                    <%});%>
+                                                    
                                 <div class="panel-footer">
                                     <div class="row text-center">
                                         <div class="col-sm-6 col-xs-6 w-100">
