@@ -523,8 +523,7 @@ exports.updateProfile = async (req, res) => {
 exports.fetchResult = async (req, res) => {
   try {
     session = req.session;
-    console.log(req.query);
-    const { type } = req.query;
+    const {type} = req.query;
     // console.log(resultType,type);
     console.log(session, "xyz");
     const data = await Data.findOne({ resultType: type, email: session.email, aadharNumber: session.aadhar });
@@ -543,6 +542,8 @@ exports.fetchResult = async (req, res) => {
 
   } catch (err) {
 
+  }catch(err){
+    res.status(404).render('error', { errorCode: 404, errorMessage:"no data found"});
   }
 
 }
