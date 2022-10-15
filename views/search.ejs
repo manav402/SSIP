@@ -392,7 +392,6 @@ padding-bottom: auto; */
                                         <div class="col-sm-6 col-xs-6 w-100">
                                             <ul
                                                 class="pagination visible-xs pull-right text-left w-100 d-flex justify-content-center">
-                                                <li>
                                                     <table>
                                                         <tr class="mb-2 border border-2">
                                                             <td class="px-3">SPI: </td>
@@ -414,7 +413,6 @@ padding-bottom: auto; */
                                                         </tr>
                                                     </table>
                                                 </li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -424,7 +422,9 @@ padding-bottom: auto; */
                 </div>
                 </div>
             </section>
-            <% }%>
+            <% }else{%>
+                <h3>Ooops!! No data found!</h3>
+                <%}%>
         <br>
     </div>
     </div>

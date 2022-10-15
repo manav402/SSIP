@@ -85,16 +85,18 @@ exports.adminAuth = async (req, res, next) => {
 }
 
 exports.userAuth = async (req, res, next) => {
-  const token = req.cookies.jwt
+  const token = req.cookies.jwt;
+  console.log(token);
   if (token) {
     jwt.verify(token, jwt_secret, (err, decodedToken) => {
+      console.log(decodedToken);
       if (err) {
         return res.status(401).json({
           status: 'fail',
           message: 'You are not authorized to access this page',
         })
       } else {
-        if (decodedToken.role !== 'user') {
+        if (decodedToken.role != 'user') {
           return res
             .status(401)
             .render('error', { errorCode: 100, errorMessage: "hmm you can't even access users page" });
@@ -105,15 +107,19 @@ exports.userAuth = async (req, res, next) => {
     })
   }
   else {
-    // console.log(req.url.indexOf("/signup"));/
-    if(req.url.indexOf("/signup")===0){
+    const x=req.url.indexOf("/signup");
+    console.log(x,typeof (x));
+    // console.log("here");
+    if(x==0){
       // console.log(req.url.indexOf("/signup"),"manav");
-      res.status(200).render('signup',{errorThere:false});
+      // res.status(200).render('',{errorThere:false});
+      console.log("page is working Yaaay 🥳");
+      next();
     }
     else{
-      // console.log(req.url.indexOf("/signup"),"manan");
-      res.status(404).redirect('/login');
+      res.status(500).redirect('/signup');
     }
+    // res.status(200).render('error', { errorCode: 404, errorMessage: "signup problem" });
   }
 }
 
