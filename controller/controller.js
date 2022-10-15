@@ -529,11 +529,33 @@ exports.fetchResult = async (req, res) => {
     const data = await Data.findOne({ resultType: type, email: session.email, aadharNumber: session.aadhar });
     // res.status(200).rander('home',{data});
     console.log(data);
-    res.status(200).render('home',{results: data, isThereRes: true, name: data.name, notFound: false});
+    // const {name}=data;
+    if (data) {
+      console.log("yes");
+      res.status(200).render('home', { results: data, isThereRes: "true", name: data.name });
+    }
+    else {
+      console.log("no");
+      res.status(200).render('home', { results: data, isThereRes: "false", name: data.name });
+
+    }
 
   }catch(err){
     let data =null;
     res.status(404).render('home', {results: data, isThereRes: false, name: session.name, notFound: true});
   }
+}
 
+exports.renderSearch = async (req,res)=>{
+  try{
+    session=req.session;
+    if(session.role=='user'){
+      res.status(200).render('search',{isStudent:true});
+    }
+    else{
+      res.status(200).render('search',{isStudent:false});
+    }
+  }catch(err){
+    res.status(404).render('error', { errorCode: 404, errorMessage: err});
+  }
 }
