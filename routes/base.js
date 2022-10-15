@@ -36,9 +36,7 @@ base.route('/logout')
     .get(controller.logout)
 
 base.route('/search')
-    .get(auth.notUni,(req, res) => {
-        res.status(200).render('search');
-    });
+    .get(controller.renderSearch);
 
 
 module.exports = base;

@@ -540,10 +540,18 @@ exports.fetchResult = async (req, res) => {
 
     }
 
-  } catch (err) {
-
   }catch(err){
     res.status(404).render('error', { errorCode: 404, errorMessage:"no data found"});
   }
+}
 
+exports.renderSearch = async (req,res)=>{
+  try{
+    session=req.session;
+    if(session.role=='user'){
+      res.status(200).render('search',{isStudent:true});
+    }
+  }catch(err){
+    res.status(404).render('error', { errorCode: 404, errorMessage: err});
+  }
 }

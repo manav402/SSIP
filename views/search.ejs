@@ -246,7 +246,31 @@ padding-bottom: auto; */
                             </div>
                         </div>
                 </nav>
+                <% if(isStudent){%>
                 <div id="contents">
+                    <h1>Selection Criteria:</h1>
+
+
+
+
+                    <select name="sem" required>
+                        <option value="-1" selected>Sem</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <!-- <input type=number name="year" id="Passing Year" placeholder="Passing Year"> -->
+                    <!-- <input type="text" name="aadharNumber" placeholder="Aadhar Number" value=""> -->
+                    <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
+
+                    <!-- <input type="text" name="seatNumber" id="Seat Number" placeholder="Enter Your Seat Number"> -->
+                    <%}else{%>
+                        <div id="contents">
                     <h1>Selection Criteria:</h1>
 
 
@@ -278,7 +302,8 @@ padding-bottom: auto; */
                     <!-- <input type="date" name="Date Of Birth" id="Date Of Birth(dd/mm/yy)"><br><br> -->
 
                     <input type="text" name="seatNumber" id="Seat Number" placeholder="Enter Your Seat Number">
-
+                    
+                    <%}%>
                     <button class="find" type="submit">Find</button>
                     <br>
         </form>
