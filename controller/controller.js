@@ -210,7 +210,7 @@ exports.home = async (req, res) => {
     const query = req.query
     // if(!query){
     let data = null;
-    res.status(200).render('home', { name: session.name, isFound: false, results: data, isThereRes: false })
+    res.status(200).render('home', { name: session.name, isFound: false, results: data, isThereRes: false, notFound: false })
     // }
   } catch (err) {
     res.status(404).json({
@@ -529,10 +529,11 @@ exports.fetchResult = async (req,res)=>{
     const data = await Data.findOne({resultType:type,email:session.email,aadharNumber:session.aadhar});
     // res.status(200).rander('home',{data});
     console.log(data);
-    res.status(200).render('home',{results: data, isThereRes: "true", name: data.name});
+    res.status(200).render('home',{results: data, isThereRes: true, name: data.name, notFound: false});
 
   }catch(err){
-    res.status(404).render('error', { errorCode: 404, errorMessage:"no data found"});
+    let data =null;
+    res.status(404).render('home', {results: data, isThereRes: false, name: session.name, notFound: true});
   }
 
 }
