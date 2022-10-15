@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program</title>
+    <script src="js.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <style>
+        * {
+            font-weight: bold;
+            /* height: 100%; */
+        }
+
+        body {
+            height: 140vh;
+        }
+
+        hr {
+            color: white;
+        }
+
+        .offcanvas {
+            margin-top: 55px;
+            margin-left: 0;
+            background-color: rgb(0, 0, 0, 0.88);
+            width: 25% !important;
+        }
+
+        .nav-link {
+            text-align: center;
+            border-radius: 30px;
+            margin-top: 5%;
+            padding: 2%;
+        }
+
+        .nav-link:hover {
+            background-color: rgb(0, 0, 0, 0.88);
+            color: rgb(255, 255, 255);
+        }
+
+        .title {
+            color: rgb(255, 255, 255);
+        }
+
+        h1 {
+            border-radius: 30px;
+            padding-top: 1%;
+        }
+
+        ul {
+            list-style: none;
+            position: relative;
+            display: inline-block;
+            margin: 0;
+        }
+
+        #contents {
+            margin: 5%;
+        }
+
+        #contents li {
+            background-color: blue;
+            margin: 1%;
+            margin-left: 0;
+            padding: 2%;
+            width: 30%;
+            border-radius: 10px;
+            float: left;
+        }
+
+        #contents li:hover {
+            background-color: rgb(0, 0, 255, 0.58);
+        }
+
+        #contents a {
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            font-size: larger;
+        }
+
+        table {
+            width: fit-content;
+        }
+
+        th,
+        td {
+            font-size: larger;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-color: #243b55;
+        }
+
+        .login-box {
+            position: absolute;
+            top: 75%;
+            margin-bottom: 20px;
+            left: 50%;
+            width: 500px;
+            padding: 40px;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, .5);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+            border-radius: 10px;
+        }
+
+        .login-box h2 {
+            margin: 0 0 30px;
+            padding: 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .login-box .user-box {
+            position: relative;
+        }
+
+        .login-box .user-box input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 1px solid #fff;
+            outline: none;
+            background: transparent;
+        }
+
+        .login-box .user-box label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #fff;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .login-box .user-box input:focus~label,
+        .login-box .user-box input:valid~label {
+            top: -20px;
+            left: 0;
+            color: #03e9f4;
+            font-size: 12px;
+        }
+
+        .login-box form a {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            color: #03e9f4;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: .5s;
+            margin-top: 40px;
+            letter-spacing: 4px
+        }
+
+        .login-box a:hover {
+            background: #03e9f4;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4;
+        }
+
+        .login-box a span {
+            position: absolute;
+            display: block;
+        }
+
+        .login-box a span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #03e9f4);
+            animation: btn-anim1 1s linear infinite;
+        }
+
+        @keyframes btn-anim1 {
+            0% {
+                left: -100%;
+            }
+
+            50%,
+            100% {
+                left: 100%;
+            }
+        }
+
+        .login-box a span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #03e9f4);
+            animation: btn-anim2 1s linear infinite;
+            animation-delay: .25s
+        }
+
+        @keyframes btn-anim2 {
+            0% {
+                top: -100%;
+            }
+
+            50%,
+            100% {
+                top: 100%;
+            }
+        }
+
+        .login-box a span:nth-child(3) {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, #03e9f4);
+            animation: btn-anim3 1s linear infinite;
+            animation-delay: .5s
+        }
+
+        @keyframes btn-anim3 {
+            0% {
+                right: -100%;
+            }
+
+            50%,
+            100% {
+                right: 100%;
+            }
+        }
+
+        .login-box a span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, #03e9f4);
+            animation: btn-anim4 1s linear infinite;
+            animation-delay: .75s
+        }
+
+        @keyframes btn-anim4 {
+            0% {
+                bottom: -100%;
+            }
+
+            50%,
+            100% {
+                bottom: 100%;
+            }
+        }
+
+        @media(max-width: 600px) {
+            #contents {
+                margin: 5%;
+                margin-top: 15%;
+            }
+
+            .offcanvas {
+                margin-top: 55px;
+                margin-left: 0;
+                background-color: rgb(0, 0, 0, 0.88);
+                width: 30% !important;
+            }
+
+            .nav-link {
+                text-align: center;
+                border-radius: 30px;
+                margin-top: 5%;
+                padding: 1%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" onclick="fun2()" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-start" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel"
+                data-bs-scroll="true" data-bs-backdrop="false">
+                <div class="offcanvas-body fixed-start">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <span class="title"><b>Existing</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active bg-black"
+                                href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a>
+                        </li>
+                        <hr>
+                        <li class="nav-item">
+                            <span class="title"><b>New</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?u_code=<%= data.u_code %>">Add Program</a>
+                        </li><br>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>">Add
+                                College</a>
+                        </li><br>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage_id %> ">Add
+                                Course</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- <div id="contents">
+        <h1>Program</h1>
+      <table>
+        <tr>
+            <th>Name</th>
+            <th>:</th>
+            <td>Bachelor of Engineering</td>
+        </tr>
+        <tr>
+            <th>Tenure</th>
+            <th>:</th>
+            <td>4 Years</td>
+        </tr>
+        <tr>
+            <th>Short Form</th>
+            <th>:</th>
+            <td>BE</td>
+        </tr>
+        </table>
+        <h1>Colleges:</h1>
+        <ul>
+            <li><a href="vgec.html">Vishwakarma Govt. Engg. College</a></li>
+            <li><a href="#">L.D. College of Engineering</a></li>
+            <li><a href="#">Government Engg. College, Gandhinagar</a></li>
+        </ul>
+    </div> -->
+    <div class="login-box" id="">
+        <h2>University Details</h2>
+        <form action="/university" method="post" onsubmit="addId(this);">
+            <div class="user-box">
+                <input type="text" name="u_code" id="u_code" onfocus="fun(this, '01')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>University Code</label>
+            </div>
+            <div class="user-box" style="display:hidden;">
+                <input type="text" name="u_name" value="">
+                <label>University Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="u_name" onfocus="fun(this, 'GTU')" onfocusout="focusOutFun(this)" required="">
+                <label>University Short Name</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="u_affilation" onfocus="fun(this, 'AICTE')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>University Affilation</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="vc_name" onfocus="fun(this, 'navin seth')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Name of Vice Chancellor</label>
+            </div>
+            <div class="user-box">
+                <input type="number" name="vc_numbe" onfocus="fun(this, '1234567890')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Number of Vice Chancellor</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="vc_name" onfocus="fun(this, 'unknown')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Name of Vice Chancellor</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="unknown" onfocus="fun(this, '1234567890')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Head Name</label>
+            </div>
+            <div class="user-box">
+                <input type="number" name="head_number" onfocus="fun(this, '2')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Head Number</label>
+            </div>
+            <div class="user-box">
+                <input type="number" name="total_program" onfocus="fun(this, '')" onfocusout="focusOutFun(this)"
+                    required="">
+                <label>Total Program</label>
+            </div>
+            <a href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </a>
+        </form>
+    </div>
+    <script>
+    var toggle = 1;
+    function fun2() {
+      if (toggle == 1) {
+        document.getElementById("contents").style.marginLeft = "30%";
+        toggle = 0;
+      }
+      else {
+        document.getElementById("contents").style.marginLeft = "5%";
+        toggle = 1;
+      }
+    }
+    function addId(obj) {
+        // console.log(obj);
+        document.getElementById("u_code").value = "<%= data.u_code %>";
+        obj.submit();
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
