@@ -15,6 +15,9 @@ base.route('/login')
     })
     .post(controller.login);
 
+base.route('/get-result')
+    .get(controller.fetchResult);
+
 base.route('/signup')
     .get(auth.userAuth,(req, res) => {
         res.status(200).render('signup',{errorThere:false});    
@@ -33,7 +36,7 @@ base.route('/logout')
 
 base.route('/search')
     .get(auth.notUni,(req, res) => {
-        res.status(200).sendFile(path.resolve(`${__dirname}/../public/html/search.html`));
+        res.status(200).render('search');
     });
 
 

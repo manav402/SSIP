@@ -46,6 +46,9 @@ const data=new mongoose.Schema({
     totalSubject:{ 
         type:Number,
     },
+    resultType:{
+        type:String,
+    },
     subject:[new mongoose.Schema({
         name:{
             type:String,
@@ -65,33 +68,43 @@ const data=new mongoose.Schema({
     },{strict:false})],
     acquireMarks:{
         type:Number,
+        default:0,
     },
     totalMark:{
         type:Number,
+        default:0,
     },
     grade:{
         type:String,
+        default:null,
     },
     percentile:{
         type:Number,
+        default:null,
     },
     percentage:{
         type:Number,
+        default:null,
     },
     currentBack:{
         type:Number,
+        default:null,
     },
     totalBack:{
         type:Number,
+        default:0,
     },
     spi:{
         type:Number,
+        default:null,
     },
     cpi:{   
         type:Number,
+        default:null,
     },
     cgpa:{
         type:Number,
+        default:null,
     },
 },{strict:false});
 

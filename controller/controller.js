@@ -228,16 +228,21 @@ exports.addResult = async (req, res) => {
       aadharNumber,
       university,
       year,
+      u_code,
+      program,
+      pro_id,
+      collage,
+      collage_id,
+      sem,
       email,
       seatNumber,
-      declaredDate,
       exam,
       branch,
-      resultType,
       totalSubject,
+      resultType,
       subject,
-      obtainedMarks,
-      totalMarks,
+      acquiredMarks,
+      totalMark,
       grade,
       percentile,
       percentage,
@@ -246,31 +251,33 @@ exports.addResult = async (req, res) => {
       spi,
       cpi,
       cgpa,
-    } = req.body
-    const newData = await Data.create({
-      name,
-      aadharNumber,
-      university,
-      year,
-      email,
-      seatNumber,
-      declaredDate,
-      exam,
-      branch,
-      resultType,
-      totalSubject,
-      subject,
-      obtainedMarks,
-      totalMarks,
-      grade,
-      percentile,
-      percentage,
-      currentBack,
-      totalBack,
-      spi,
-      cpi,
-      cgpa,
-    })
+    } = req.body;
+    console.log(req.body);
+    const newData = await Data.create(req.body,{ runValidators: true, new: true });
+    // const newData = await Data.create({
+    //   name,
+    //   aadharNumber,
+    //   university,
+    //   year,
+    //   email,
+    //   seatNumber,
+    //   declaredDate,
+    //   exam,
+    //   branch,
+    //   resultType,
+    //   totalSubject,
+    //   subject,
+    //   obtainedMarks,
+    //   totalMarks,
+    //   grade,
+    //   percentile,
+    //   percentage,
+    //   currentBack,
+    //   totalBack,
+    //   spi,
+    //   cpi,
+    //   cgpa,
+    // })
     res.status(201).json({
       status: 'success',
       data: {
@@ -510,4 +517,23 @@ exports.updateProfile = async (req, res) => {
   } catch (err) {
     res.status(404).render('error', { errorCode: 404, errorMessage: err })
   }
+}
+
+
+exports.fetchResult = async (req,res)=>{
+  try{
+    session = req.session;
+    console.log(req.query);
+    const {type} = req.query;
+    // console.log(resultType,type);
+    console.log(session,"xyz");
+    const data = await Data.findOne({resultType:type,email:session.email,aadharNumber:session.aadhar});
+    // res.status(200).rander('home',{data});
+    console.log(data);
+    res.status(200).json({statusCode:200,data,message:'success'});
+
+  }catch(err){
+    
+  }
+
 }

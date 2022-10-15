@@ -30,7 +30,7 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active bg-black" href="#">BE/BTECH</a>
+                            <a class="nav-link active bg-black" href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a>
                         </li>
                         <hr>
                         <li class="nav-item">
@@ -53,10 +53,14 @@
         <p style="color:white;">You Are addeding to this <%= data.university %> -> <%= data.pro_name %> -> <%= data.collage_name %></p>
         </div>
         <h2>Branch Details Add</h2>
-        <form>
-            <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, '016')" onfocusout="focusOutFun(this)" required="">
+        <form action="/university?u_code=<%data.u_code%>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage_id %>" method="post" onsubmit="addId(this)">
+            <div class="user-box" style="display:hidden;">
+                <input type="text" name="" id="branch_id">
                 <label>Branch_id</label>
+            </div>
+            <div class="user-box" style="display:hidden;">
+                <input type="text" name="" id="branch_id">
+                <label>u_code</label>
             </div>
             <div class="user-box">
                 <input type="text" name="" onfocus="fun(this, 'Information Technology')" onfocusout="focusOutFun(this)"
@@ -72,8 +76,8 @@
                     required="">
                 <label>Program</label>
             </div>
-            <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, 'GTU_BE')" onfocusout="focusOutFun(this)" required="">
+            <div class="user-box" style="display:hidden;">
+                <input type="text" name="" id="pro_id" >
                 <label>Program_id</label>
             </div>
             <div class="user-box">
@@ -110,7 +114,16 @@
                 document.getElementById("contents").style.marginLeft = "5%";
                 toggle = 1;
             }
+
         }
+        function addId(obj) {
+                // console.log(obj);
+                document.getElementById("u_code").value = "<%= data.u_code %>";
+                document.getElementById("pro_id").value = "<%= data.pro_id %>";
+                document.getElementById("collage_id").value = "<%= data.collage_id %>";
+                document.getElementById("branch_id").value = "<%= data.collage_id %>_"+document.getElementById("branch_short_name").value.toUpperCase();
+                obj.submit();
+            }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"

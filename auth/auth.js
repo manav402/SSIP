@@ -72,7 +72,7 @@ exports.adminAuth = async (req, res, next) => {
           if (decodedToken.role !== 'admin') {
             return res
               .status(401)
-              .render('error', { errorCode: 100, errorMessage: 'not a admin dude get some jobs you lazy!!' });
+              .render('signup', { errorCode: 100, errorMessage: 'not a admin dude get some jobs you lazy!!' });
           } else {
             next()
           }
