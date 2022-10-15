@@ -15,8 +15,11 @@ exports.developerAuth = async (req, res, next) => {
             })
           } else {
             if (decodedToken.role !== 'dev') {
-                        return res.status(401).render('error', {errorCode:100, errorMessage:"Even if you are developer we not even think about you get some life dude!!!"});
-
+              return res.status(401).render('error', {
+                errorCode: 100,
+                errorMessage:
+                  'Even if you are developer we not even think about you get some life dude!!!',
+              })
             } else {
               next()
             }
@@ -44,12 +47,25 @@ exports.uniAuth = async (req, res, next) => {
           })
         } else {
           if (decodedToken.role !== 'uni') {
-                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
-
+            return res.status(401).render('error', {
+              errorCode: 100,
+              errorMessage:
+                "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+            })
           } else {
             next()
           }
         }
+      })
+    }
+    const y = req.url.indexOf('/login')
+    if (y != -1) {
+      next()
+    } else {
+      return res.status(401).render('error', {
+        errorCode: 100,
+        errorMessage:
+          "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
       })
     }
   } catch (err) {
@@ -70,14 +86,26 @@ exports.adminAuth = async (req, res, next) => {
           })
         } else {
           if (decodedToken.role !== 'admin') {
-            return res
-              .status(401)
-              .render('signup', { errorCode: 100, errorMessage: 'not a admin dude get some jobs you lazy!!' });
+            return res.status(401).render('signup', {
+              errorCode: 100,
+              errorMessage: 'not a admin dude get some jobs you lazy!!',
+            })
           } else {
             next()
           }
         }
       })
+    } else {
+      const x = req.url.indexOf('/login')
+      if (x != -1) {
+        next()
+      } else {
+        return res.status(401).render('error', {
+          errorCode: 100,
+          errorMessage:
+            "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+        })
+      }
     }
   } catch (err) {
     res.status(500).render('error', { errorCode: 404, errorMessage: err })
@@ -85,11 +113,11 @@ exports.adminAuth = async (req, res, next) => {
 }
 
 exports.userAuth = async (req, res, next) => {
-  const token = req.cookies.jwt;
-  console.log(token);
+  const token = req.cookies.jwt
+  console.log(token)
   if (token) {
     jwt.verify(token, jwt_secret, (err, decodedToken) => {
-      console.log(decodedToken);
+      console.log(decodedToken)
       if (err) {
         return res.status(401).json({
           status: 'fail',
@@ -97,33 +125,32 @@ exports.userAuth = async (req, res, next) => {
         })
       } else {
         if (decodedToken.role != 'user') {
-          return res
-            .status(401)
-            .render('error', { errorCode: 100, errorMessage: "hmm you can't even access users page" });
+          return res.status(401).render('error', {
+            errorCode: 100,
+            errorMessage: "hmm you can't even access users page",
+          })
         } else {
           next()
         }
       }
     })
-  }
-  else {
-    const x=req.url.indexOf("/signup");
-    console.log(x,typeof (x));
+  } else {
+    const x = req.url.indexOf('/signup')
+    console.log(x, typeof x)
     // console.log("here");
-    if(x==0){
+    if (x == 0) {
       // console.log(req.url.indexOf("/signup"),"manav");
       // res.status(200).render('',{errorThere:false});
-      console.log("page is working Yaaay 🥳");
-      next();
-    }
-    else{
-      res.status(500).redirect('/signup');
+      console.log('page is working Yaaay 🥳')
+      next()
+    } else {
+      res.status(500).redirect('/signup')
     }
     // res.status(200).render('error', { errorCode: 404, errorMessage: "signup problem" });
   }
 }
 
-exports.notUni = async (req,res,next)=>{
+exports.notUni = async (req, res, next) => {
   try {
     if (req.cookies.jwt) {
       jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
@@ -133,12 +160,28 @@ exports.notUni = async (req,res,next)=>{
           })
         } else {
           if (decodedToken.role === 'uni') {
-                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
-
+            return res.status(401).render('error', {
+              errorCode: 100,
+              errorMessage:
+                "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+            })
           } else {
             next()
           }
         }
+      })
+    }
+    const x = req.url.indexOf('/signup')
+    const y = req.url.indexOf('/login')
+    if (x != -1) {
+      next()
+    } else if (y != -1) {
+      next()
+    } else {
+      return res.status(401).render('error', {
+        errorCode: 100,
+        errorMessage:
+          "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
       })
     }
   } catch (err) {
@@ -156,13 +199,30 @@ exports.notAdmin = async (req, res, next) => {
           })
         } else {
           if (decodedToken.role === 'admin') {
-                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
-
+            return res.status(401).render('error', {
+              errorCode: 100,
+              errorMessage:
+                "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+            })
           } else {
             next()
           }
         }
       })
+    } else {
+      const x = req.url.indexOf('/signup')
+      const y = req.url.indexOf('/login')
+      if (x != -1) {
+        next()
+      } else if (y != -1) {
+        next()
+      } else {
+        return res.status(401).render('error', {
+          errorCode: 100,
+          errorMessage:
+            "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+        })
+      }
     }
   } catch (err) {
     res.status(500).render('error', { errorCode: 404, errorMessage: err })
@@ -178,21 +238,38 @@ exports.notUser = async (req, res, next) => {
             message: 'Unauthorized',
           })
         } else {
-          if (decodedToken.role === 'user') {
-                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
-
+          if (decodedToken.role == 'user') {
+            return res.status(401).render('error', {
+              errorCode: 100,
+              errorMessage:
+                "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+            })
           } else {
             next()
           }
         }
       })
+    } else {
+      const x = req.url.indexOf('/signup')
+      const y = req.url.indexOf('/login')
+      if (x != -1) {
+        next()
+      } else if (y != -1) {
+        next()
+      } else {
+        return res.status(401).render('error', {
+          errorCode: 100,
+          errorMessage:
+            "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+        })
+      }
     }
   } catch (err) {
     res.status(500).render('error', { errorCode: 404, errorMessage: err })
   }
 }
 
-exports.notDev=async (req, res,next)=>{
+exports.notDev = async (req, res, next) => {
   try {
     if (req.cookies.jwt) {
       jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
@@ -201,14 +278,31 @@ exports.notDev=async (req, res,next)=>{
             message: 'Unauthorized',
           })
         } else {
-          if (decodedToken.role === 'dev') {
-                      return res.status(401).render('error', {errorCode:100, errorMessage:"'Hey Dude! We dont need you here this is not for you not! Go home...!!!',"});
-
+          if (decodedToken.role == 'dev') {
+            return res.status(401).render('error', {
+              errorCode: 100,
+              errorMessage:
+                "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+            })
           } else {
             next()
           }
         }
       })
+    } else {
+      const x = req.url.indexOf('/signup')
+      const y = req.url.indexOf('/login')
+      if (x != -1) {
+        next()
+      } else if (y != -1) {
+        next()
+      } else {
+        return res.status(401).render('error', {
+          errorCode: 100,
+          errorMessage:
+            "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+        })
+      }
     }
   } catch (err) {
     res.status(500).render('error', { errorCode: 404, errorMessage: err })
