@@ -540,8 +540,6 @@ exports.fetchResult = async (req, res) => {
 
     }
 
-  } catch (err) {
-
   }catch(err){
     let data =null;
     res.status(404).render('home', {results: data, isThereRes: false, name: session.name, notFound: true});
@@ -553,6 +551,9 @@ exports.renderSearch = async (req,res)=>{
     session=req.session;
     if(session.role=='user'){
       res.status(200).render('search',{isStudent:true});
+    }
+    else{
+      res.status(200).render('search',{isStudent:false});
     }
   }catch(err){
     res.status(404).render('error', { errorCode: 404, errorMessage: err});
