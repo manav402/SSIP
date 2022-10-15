@@ -15,7 +15,8 @@ let sessions = require('express-session')
 const { findOne } = require('../model/User')
 
 const jwt_secret = process.env.JWT_SECRET
-
+let token;
+let maxAge;
 exports.signup = async (req, res) => {
   try {
     console.log('creating data')
@@ -69,8 +70,8 @@ exports.signup = async (req, res) => {
       );     
       console.log('user created with name', newUser.name);
     }
-    const maxAge = 3 * 60 * 60
-    const token = jwt.sign(
+    maxAge = 3 * 60 * 60
+    token = jwt.sign(
       {
         id: newUser._id,
         name,
@@ -367,8 +368,11 @@ exports.logout = async (req, res) => {
   try {
     sessions = req.session
     // req.session = null;
-    sessions.destroy()
-    res.clearCookie('jwt')
+    req.session.destroy()
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      maxAge: maxAge * -1,
+    })
     res.redirect('/login')
   } catch (err) {
     res.status(404).json({
