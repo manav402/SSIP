@@ -410,12 +410,8 @@ exports.getAddPages = async (req, res) => {
 
 exports.createUni = async (req, res) => {
   try {
-    const fill = await Uni.create(res.body)
-    res.status(200).json({
-      status: 'success',
-      message: 'Data has been submitted',
-      data: data,
-    })
+    const fill = await Uni.create(req.body);
+    res.status(200).render('add-uni',{ isThereAny:true,message:"successfull"});
   } catch (err) {
     res.status(404).json({
       status: 'fail',
@@ -429,7 +425,7 @@ exports.getUni = async (req, res) => {
     sessions = req.session
     const university_code = sessions.university_code
     const data = await Uni.find({ university_code })
-    res.status(200).render('add-uni', { data });
+    res.status(200).render('add-uni',{ isThereAny:false,message:"successfull"});
   } catch (err) {
     res.status(404).json({
       status: 'fail',

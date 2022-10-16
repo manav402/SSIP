@@ -309,17 +309,9 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active bg-black"
-                                href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
                             <span class="title"><b>New</b>
                             </span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="?u_code=<%= data.u_code %>">Add Program</a>
-                        </li><br>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">
                                 LogOut
@@ -357,6 +349,9 @@
         </ul>
     </div> -->
     <div class="login-box" id="">
+        <% if(isThereAny) {%>
+            <h3><%=message%></h3>
+            <%}%>
         <h2>University Details</h2>
         <form action="/university/addUni" method="post" onsubmit="addId(this);">
             <div class="user-box" style="display:none;">
