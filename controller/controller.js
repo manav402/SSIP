@@ -381,8 +381,9 @@ exports.getAddPages = async (req, res) => {
   try {
     // const data = req.query;
     // const data = req.query;
-    // console.log(data);
-    const { u_code, collage_id, pro_id } = req.query
+    // console.log(data)
+    const { u_code, collage_id, pro_id } = req.query;
+    console.log(req.query);
     // const session = req.session;
     // const fill = await Uni.create(data)
     // console.log(u_code, collage_id);
@@ -453,7 +454,8 @@ exports.searchData = async (req, res) => {
     let data = 'null'
     let data2
     if (branch_id) {
-      data = await Branch.findOne(req.query)
+      data = await Branch.findOne(req.query);
+      // console.log(data);
       // res.status(200).render('error', { data, errorCode: 404, errorMessage: 'No Data Found' })
       res.status(200).render('course', { data: data })
     } else if (collage_id && !branch_id) {

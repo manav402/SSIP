@@ -13,7 +13,7 @@ const branchSchema = new mongoose.Schema({
     branch_short_name: {
         type: String,
     },
-    pro_name: {
+    program: {
         type: String,
     },
     pro_id: {
