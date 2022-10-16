@@ -37,17 +37,15 @@ const data=new mongoose.Schema({
     seatNumber: {
         type:String,
     },
-    exam:{
-        type:String,
-    },
     branch:{
         type:String,
     },
-    totalSubject:{ 
+    totalSubject:{
         type:Number,
     },
     resultType:{
         type:String,
+        default:"college"
     },
     subject:[new mongoose.Schema({
         name:{
@@ -64,6 +62,7 @@ const data=new mongoose.Schema({
         },
         grade:{
             type:String,
+            default:null
         }
     },{strict:false})],
     acquireMarks:{
@@ -88,7 +87,7 @@ const data=new mongoose.Schema({
     },
     currentBack:{
         type:Number,
-        default:null,
+        default:0,
     },
     totalBack:{
         type:Number,
@@ -96,15 +95,15 @@ const data=new mongoose.Schema({
     },
     spi:{
         type:Number,
-        default:null,
+        default:0,
     },
     cpi:{   
         type:Number,
-        default:null,
+        default:0,
     },
     cgpa:{
         type:Number,
-        default:null,
+        default:0,
     },
 },{strict:false});
 

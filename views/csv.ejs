@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" onsubmit="(e)=>{e.preventDefault();}">
+    <input type="file" name="input_file" id="input_file" accept=".csv">
+    <p id="output" value=""></p>
+    <!-- <p id="json" value=""></p>
+     -->
+     <!-- <input type="text" name="json" value="">
+     -->
+     <textarea name="json" id="json" cols="30" rows="10"></textarea>
+     <p><%=data%></p>
+     <textarea name="json" id="input" cols="30" rows="10" value="<%=data%>" style="display:hidden;"></textarea>
+     <a href="?sendData=true">GET Sample data</a>
+    <input type="submit" value="submit">
+    </form>
+    <script>
+        if(document.getElementById("input").value){
+            console.log("has some data");        
+        }
+        const formFile = document.querySelector('#input_file');
+            formFile.addEventListener('change', getData, false);
+
+            function getData() {
+                    let file = formFile.files[0];
+                    let fr = new FileReader();
+                    fr.onload = receivedText;
+                    fr.readAsText(file);
+
+                    function receivedText() {
+                        // console.log(fr.result);
+                        document.getElementById("output").textContent=fr.result;
+                        document.getElementById("json").value=csvJSON(fr.result);
+
+                        // Do additional processing here
+                    }
+            }
+            function csvJSON(csv) {
+
+                    var lines = csv.split("\n");
+
+                    var result = [];
+
+                    // NOTE: If your columns contain commas in their values, you'll need
+                    // to deal with those before doing the next step 
+                    // (you might convert them to &&& or something, then covert them back later)
+                    // jsfiddle showing the issue https://jsfiddle.net/
+                    var headers = lines[0].split(",");
+
+                    for (var i = 1; i < lines.length; i++) {
+
+                        var obj = {};
+                        var currentline = lines[i].split(",");
+
+                        for (var j = 0; j < headers.length; j++) {
+                            obj[headers[j]] = currentline[j];
+                        }
+
+                        result.push(obj);
+
+                    }
+
+                    //return result; //JavaScript object
+                    return JSON.stringify(result); //JSON
+                }
+    </script>
+</body>
+</html>

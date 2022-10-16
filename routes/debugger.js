@@ -22,5 +22,11 @@ debug.route('/get-result')
     .get(controller.getAllResult)
     .post(controller.getResult);
 
+debug.route('/csv')
+    .get((req,res) => {
+        res.status(200).render('csv',{data:''});
+    })
+    .post(controller.convertcsv);
+
 
 module.exports = debug;
