@@ -53,16 +53,6 @@ const data=new mongoose.Schema({
         },
         mark:{
             type:Number,
-        },
-        total:{
-            type: Number,
-        },
-        passing_marks:{
-            type:Number,
-        },
-        grade:{
-            type:String,
-            default:null
         }
     },{strict:false})],
     acquireMarks:{
