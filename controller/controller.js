@@ -646,6 +646,7 @@ exports.findSearchResult = async (req, res) => {
         seatNumber,
         year,
       })
+      console.log(data);
       if (!data) {
         res.status(200).render('search', {
           isStudent: false,
@@ -655,9 +656,10 @@ exports.findSearchResult = async (req, res) => {
           programs: false,
         })
       }
+      console.log(data);
       res
         .status(200)
-        .render('search', { isStudent: false, isThereRes: false, results: data, universitys: null, programs: false })
+        .render('search', { isStudent: false, isThereRes: true, results: data, universitys: null, programs: false })
     }
   } catch (error) {
     res.status(404).render('error', { errorCode: 404, errorMessage: error })
