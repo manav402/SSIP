@@ -581,6 +581,7 @@ exports.renderSearch = async (req, res) => {
   try {
     sessions = req.session
     if (sessions.role == 'user') {
+      console.log("Going here....")
       res.status(200).render('search', { isStudent: true, isThereRes: false })
     } else {
       const { u_code } = req.query
@@ -594,6 +595,7 @@ exports.renderSearch = async (req, res) => {
           isThereRes: false,
           universitys: data,
           uniSelected: u_code,
+          selectedBranch: null,
           programs: dataP,
         })
       } else {
@@ -603,7 +605,8 @@ exports.renderSearch = async (req, res) => {
           isThereRes: false,
           universitys: data,
           uniSelected: false,
-          programs: null,
+          programs: false,
+          selectedBranch: null,
         })
       }
     }
@@ -616,6 +619,7 @@ exports.findSearchResult = async (req, res) => {
   try {
     let data = ''
     const { sem, university, branch, year, aadharNumber, seatNumber } = req.body
+    console.log("Semester ...", sem)
     if (sem) {
       sessions = req.session
       data = await Data.findOne({
@@ -632,8 +636,9 @@ exports.findSearchResult = async (req, res) => {
       }
       res
         .status(200)
-        .render('search', { isStudent: true, isThereRes: true, results: data,universitys:null })
+        .render('search', { isStudent: true, isThereRes: true, results: data, universitys: null })
     } else {
+      console.log("Else part start here ....")
       console.log(req.body)
       // const newAadhar = parseInt(aadhar);
       // console.log(typeof (aadhar));
@@ -648,11 +653,13 @@ exports.findSearchResult = async (req, res) => {
           isStudent: false,
           isThereRes: false,
           results: data,
+          universitys: null,
+          programs: false,
         })
       }
       res
         .status(200)
-        .render('search', { isStudent: false, isThereRes: true, results: data })
+        .render('search', { isStudent: false, isThereRes: false, results: data, universitys: null, programs: false })
     }
   } catch (error) {
     res.status(404).render('error', { errorCode: 404, errorMessage: error })
