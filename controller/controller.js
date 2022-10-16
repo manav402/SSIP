@@ -370,7 +370,7 @@ exports.logout = async (req, res) => {
     req.session.destroy()
     res.cookie('jwt', token, {
       httpOnly: true,
-      maxAge: maxAge * -1,
+      maxAge: 100,
     })
     res.redirect('/login')
   } catch (err) {
@@ -416,7 +416,7 @@ exports.getAddPages = async (req, res) => {
 
 exports.createUni = async (req, res) => {
   try {
-    // const fill = await Uni.create(data)
+    const fill = await Uni.create(res.body)
     res.status(200).json({
       status: 'success',
       message: 'Data has been submitted',
