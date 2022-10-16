@@ -41,32 +41,37 @@ exports.uniAuth = async (req, res, next) => {
   try {
     if (req.cookies.jwt) {
       jwt.verify(req.cookies.jwt, jwt_secret, (err, decodedToken) => {
+        console.log(decodedToken, 'token role')
         if (err) {
           return res.status(401).json({
             message: 'Unauthorized',
           })
         } else {
-          if (decodedToken.role !== 'uni') {
+          // console.log(decodedToken.role==='uni');
+          const x = decodedToken
+          if (x.role == 'uni') {
+            next()
+          } else {
+            console.log('why i am executing ?', x.role)
             return res.status(401).render('error', {
               errorCode: 100,
               errorMessage:
                 "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
             })
-          } else {
-            next()
           }
         }
       })
-    }
-    const y = req.url.indexOf('/login')
-    if (y != -1) {
-      next()
     } else {
-      return res.status(401).render('error', {
-        errorCode: 100,
-        errorMessage:
-          "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
-      })
+      const y = req.url.indexOf('/login')
+      if (y != -1) {
+        next()
+      } else {
+        return res.status(401).render('error', {
+          errorCode: 100,
+          errorMessage:
+            "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+        })
+      }
     }
   } catch (err) {
     res.status(500).render('error', { errorCode: 404, errorMessage: err })
@@ -114,39 +119,39 @@ exports.adminAuth = async (req, res, next) => {
 
 exports.userAuth = async (req, res, next) => {
   const token = req.cookies.jwt
-  console.log(token);
   if (token) {
     jwt.verify(token, jwt_secret, (err, decodedToken) => {
-      console.log(decodedToken,"token role")
+      console.log(decodedToken, 'token role')
       if (err) {
         return res.status(401).json({
           status: 'fail',
           message: 'You are not authorized to access this page',
         })
-      }
-      else if(decodedToken){
+      } else if (decodedToken) {
         if (decodedToken.role === 'user') {
-          console.log("you are user here is your access 🙂");
-          next();
+          console.log('you are user here is your access 🙂')
+          next()
         } else {
+          const y = req.url.indexOf('/signup')
+          if (y !== -1) {
+            next()
+          }
           return res.status(401).render('error', {
             errorCode: 100,
             errorMessage: "hmm you can't even access users page",
           })
         }
-    }
-    else{
-      const x= req.url.indexOf('/signup');
-      if(x!==-1) {
-        next();
+      } else {
+        const x = req.url.indexOf('/signup')
+        if (x !== -1) {
+          next()
+        } else {
+          return res.status(401).render('error', {
+            errorCode: 100,
+            errorMessage: 'unauthorized',
+          })
+        }
       }
-      else{
-        return res.status(401).render('error', {
-          errorCode: 100,
-          errorMessage: 'unauthorized',
-        })
-      }
-    }
     })
   } else {
     const x = req.url.indexOf('/signup')
