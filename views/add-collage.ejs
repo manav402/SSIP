@@ -32,7 +32,7 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active bg-black" href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a>
+                            <!-- <a class="nav-link active bg-black" href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a> -->
                         </li>
                         <hr>
                         <li class="nav-item">
@@ -59,16 +59,16 @@
         </div>
         <h2>Collage Details</h2>
         <form action="university?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>" onsubmit="addID(this)">
-            <div class="user-box" style="display:hidden;">
-                <input type="text" name="" id="collage_id">
+            <div class="user-box" style="display:none;">
+                <input type="text" name="collage_id" id="collage_id">
                 <label>Collage_id</label>
             </div>
-            <div class="user-box" style="display:hidden;">
-                <input type="text" name="" id="u_code">
+            <div class="user-box" style="display:none;">
+                <input type="text" name="u_code" id="u_code">
                 <label>Collage_id</label>
             </div>
-            <div class="user-box" style="display:hidden;">
-                <input type="text" name="" id="pro_id">
+            <div class="user-box" style="display:none;">
+                <input type="text" name="pro_id" id="pro_id">
                 <label>Collage_id</label>
             </div>
             <div class="user-box">
