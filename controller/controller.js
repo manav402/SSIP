@@ -389,7 +389,8 @@ exports.getAddPages = async (req, res) => {
       res.status(200).render('add-Branch', { data })
     } else if (pro_id) {
       const data = await Program.findOne({ u_code, pro_id })
-      res.status(200).render('add-collage', { data })
+      console.log(data,"get add collage page",data.u_code)
+      res.status(200).render('add-collage', { data:data })
     } else if (u_code) {
       const data = await Collage.findOne({ u_code })
       // console.log(data);
@@ -438,7 +439,7 @@ exports.searchData = async (req, res) => {
   try {
     const query = req.query
     const { u_code, branch_id, collage_id, pro_id } = req.query
-    // console.log(req.params.u_code)
+    console.log(req.query);
     let data = 'null'
     let data2;
     if (branch_id) {
@@ -458,12 +459,12 @@ exports.searchData = async (req, res) => {
     } else if (u_code) {
       data = await Uni.findOne({ u_code })
       data2 = await Program.find({ u_code })
-      // console.log(data,"university data");
+      console.log(data,"university data");
       res.status(200).render('university', { data: data, data2: data2 })
     } else {
       res
         .status(200)
-        .redirect('/university/addUni');
+        .json({ message:"NO uni found" });
     }
   } catch (err) {
     return res
@@ -474,18 +475,19 @@ exports.searchData = async (req, res) => {
 
 exports.addData = async (req, res) => {
   try {
-    const { u_code, collage_id, pro_id } = req.query
-    // console.log(req.body);
+    const { u_code, collage_id, pro_id } = req.query;
+    console.log(req.query,"addDaa");
     let data = 'null'
+    console.log(req.body,req.query);
     if (collage_id) {
       data = Branch.create(req.body, { runValidators: true, new: true })
     } else if (pro_id) {
       data = Collage.create(req.body, { runValidators: true, new: true })
     } else if (u_code) {
-      // console.log(req.body)
+      console.log(req.body)
       data = Program.create(req.body, { runValidators: true, new: true })
     } else {
-      (data = Uni), create(req.body, { runValidators: true, new: true })
+      data = Uni.create(req.body, { runValidators: true, new: true })
     }
     res.status(200).json({
       status: 'ok',
