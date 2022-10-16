@@ -48,15 +48,16 @@ exports.uniAuth = async (req, res, next) => {
           })
         } else {
           // console.log(decodedToken.role==='uni');
-          const x = decodedToken
+          const x = decodedToken;
           if (x.role == 'uni') {
-            next()
+            console.log("you are uni here is your access 🙂")
+            next();
           } else {
             console.log('why i am executing ?', x.role)
             return res.status(401).render('error', {
               errorCode: 100,
               errorMessage:
-                "'Hey Dude! We dont need you here this is not for you not! Go home...!!!',",
+                "'Hey Dude! We don't need you here this is not for you not! Go home...!!!',",
             })
           }
         }
