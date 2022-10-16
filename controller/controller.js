@@ -583,8 +583,8 @@ exports.fetchResult = async (req, res) => {
 
 exports.renderSearch = async (req, res) => {
   try {
-    session = req.session
-    if (session.role == 'user') {
+    sessions = req.session
+    if (sessions.role == 'user') {
       res.status(200).render('search', { isStudent: true, isThereRes: false })
     } else {
       const { u_code } = req.query
@@ -636,7 +636,7 @@ exports.findSearchResult = async (req, res) => {
       }
       res
         .status(200)
-        .render('search', { isStudent: true, isThereRes: true, results: data })
+        .render('search', { isStudent: true, isThereRes: true, results: data,universitys:null })
     } else {
       console.log(req.body)
       // const newAadhar = parseInt(aadhar);
@@ -688,7 +688,19 @@ exports.convertcsv = async (req, res) => {
 exports.designResult = async (req, res) => {
   try {
     res.status(200).json(req.body)
-    const data2 = Branch.find(req.query)
+    const data2 = Branch.find(req.query);
+    const x = req.query.mark;
+    const totalMark = x.length()*100;
+    const aquireMarks = (x)=>{
+      let sum=0;
+      for(let i=0;i<x.length;i++){
+        sum+=x[i];
+      }
+      return sum;
+    };
+    const subject = await Branch.find({u_code:req.query.u_code,pro_id:req.query.pro_id,collage_id:req.query.collage_id,branch_id:req.query.branch_id});
+    // create a json array of name and _marks
+    // const 
     const data = await Data.create({
       name: req.body.name,
       aadharNumber: req.body.aadharNumber,
@@ -698,13 +710,19 @@ exports.designResult = async (req, res) => {
       pro_id: req.query.pro_id,
       collage: data2.collage,
       collage_id: req.query.collage_id,
-      year: '2020',
-      sem: 5,
+      year: req.body.url,
+      sem: req.body.sem,
       email: req.body.email,
       seatNumber: req.body.seatNumber,
       branch: req.body.branch_name,
       totalSubject: data2.no_of_subjects,
-      resultType: 'college',
+      resultType: req.body.resultType,
+      cpi,
+      spi,
+      cgpa,
+      totalMark,
+      aquireMarks,
+      subject: subject,
     })
     res.status(200).json(data);
   } catch (err) {
