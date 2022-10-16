@@ -179,11 +179,7 @@ exports.login = async (req, res) => {
       if (user.role === 'admin') {
         res.status(200).redirect('/search')
       } else if (user.role === 'dev') {
-        res.status(400).render({
-          status: 'success',
-          message:
-            'hmm devloper it seems and login through ui shame on you and your degree 😑😑😑',
-        })
+        res.status(400).redirect('/university/addUni');
       } else if (user.role === 'uni') {
         const university = await Uni.findOne({
           university_code: user.university_code,
@@ -368,6 +364,7 @@ exports.logout = async (req, res) => {
     sessions = req.session
     // req.session = null;
     req.session.destroy();
+    res.clearCookie('jwt');
     res.redirect('/login')
   } catch (err) {
     res.status(404).json({
@@ -413,12 +410,8 @@ exports.getAddPages = async (req, res) => {
 
 exports.createUni = async (req, res) => {
   try {
-    const fill = await Uni.create(res.body)
-    res.status(200).json({
-      status: 'success',
-      message: 'Data has been submitted',
-      data: data,
-    })
+    const fill = await Uni.create(req.body);
+    res.status(200).render('add-uni',{ isThereAny:true,message:"successfull"});
   } catch (err) {
     res.status(404).json({
       status: 'fail',
@@ -432,12 +425,7 @@ exports.getUni = async (req, res) => {
     sessions = req.session
     const university_code = sessions.university_code
     const data = await Uni.find({ university_code })
-    res.status(200).json({
-      status: 'success',
-      data: {
-        data,
-      },
-    })
+    res.status(200).render('add-uni',{ isThereAny:false,message:"successfull"});
   } catch (err) {
     res.status(404).json({
       status: 'fail',
@@ -452,22 +440,22 @@ exports.searchData = async (req, res) => {
     const { u_code, branch_id, collage_id, pro_id } = req.query
     // console.log(req.params.u_code)
     let data = 'null'
-    let data2
+    let data2;
     if (branch_id) {
       data = await Branch.findOne(req.query);
       // console.log(data);
       // res.status(200).render('error', { data, errorCode: 404, errorMessage: 'No Data Found' })
-      res.status(200).render('course', { data: data })
-    } else if (collage_id && !branch_id) {
-      delete req.query.pro_id
+      res.status(200).render('course', { data: data });
+    } else if (collage_id) {
+      delete req.query.branch_id;
       data = await Collage.findOne(req.query)
       data2 = await Branch.find({ u_code, pro_id, collage_id })
       res.status(200).render('collage', { data: data, data2: data2 })
-    } else if (!collage_id && pro_id) {
+    } else if (pro_id) {
       data = await Program.findOne({ u_code, pro_id })
       data2 = await Collage.find({ u_code, pro_id })
       res.status(200).render('program', { data: data, data2: data2 })
-    } else if (!pro_id) {
+    } else if (u_code) {
       data = await Uni.findOne({ u_code })
       data2 = await Program.find({ u_code })
       // console.log(data,"university data");
@@ -475,7 +463,7 @@ exports.searchData = async (req, res) => {
     } else {
       res
         .status(200)
-        .render('error', { errorCode: 100, errorMessage: 'some error occured' })
+        .redirect('/university/addUni');
     }
   } catch (err) {
     return res
@@ -497,7 +485,7 @@ exports.addData = async (req, res) => {
       // console.log(req.body)
       data = Program.create(req.body, { runValidators: true, new: true })
     } else {
-      ;(data = Uni), create(req.body, { runValidators: true, new: true })
+      (data = Uni), create(req.body, { runValidators: true, new: true })
     }
     res.status(200).json({
       status: 'ok',
