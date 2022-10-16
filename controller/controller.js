@@ -367,11 +367,7 @@ exports.logout = async (req, res) => {
   try {
     sessions = req.session
     // req.session = null;
-    req.session.destroy()
-    res.cookie('jwt', token, {
-      httpOnly: true,
-      maxAge: 100,
-    })
+    req.session.destroy();
     res.redirect('/login')
   } catch (err) {
     res.status(404).json({
