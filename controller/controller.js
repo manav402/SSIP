@@ -462,7 +462,7 @@ exports.searchData = async (req, res) => {
       data2 = await Branch.find({ u_code, pro_id, collage_id })
       res.status(200).render('collage', { data: data, data2: data2 })
     } else if (!collage_id && pro_id) {
-      data = await Program.findOne({ u_code, branch_id })
+      data = await Program.findOne({ u_code, pro_id })
       data2 = await Collage.find({ u_code, pro_id })
       res.status(200).render('program', { data: data, data2: data2 })
     } else if (!pro_id) {
