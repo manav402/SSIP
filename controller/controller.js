@@ -551,24 +551,29 @@ exports.fetchResult = async (req, res) => {
     const { type } = req.query
     // console.log(resultType,type);
     console.log(sessions, 'xyz')
+    console.log("Here fetch fun : ....", type);
+    console.log(sessions.email, sessions.aadhar)
     const data = await Data.findOne({
       resultType: type,
       email: sessions.email,
       aadharNumber: sessions.aadhar,
     })
+    const universityName = await Uni.findOne({u_code: data.u_code});
+    data.create({u_name: universityName.u_name});
     // res.status(200).rander('home',{data});
     console.log(data)
     // const {name}=data;
     if (data) {
-      console.log('yes')
+      // console.log('yes')
+      // data.json
       res
         .status(200)
-        .render('home', { results: data, isThereRes: 'true', name: data.name })
+        .render('home', { results: data, isThereRes: true, name: data.name })
     } else {
       console.log('no')
       res
         .status(200)
-        .render('home', { results: data, isThereRes: 'false', name: data.name })
+        .render('home', { results: data, isThereRes: false, name: data.name })
     }
   } catch (err) {
     let data = null
