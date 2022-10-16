@@ -67,7 +67,7 @@
             <tr>
                 <th>Program</th>
                 <th>:</th>
-                <td><%= data.pro_name %></td>
+                <td><%= data.program %></td>
             </tr>
             <tr>
                 <th>University</th>
@@ -87,8 +87,9 @@
         </table>
         <h1>Subjects:</h1>
         <ul>
-            <li><a href="#">Data Structure</a></li>
-            <li><a href="#">Operating System</a></li>
+            <% for (let i = 0; i < data.subjects.length; i++) { %>
+            <li style="color:white;"><%= data.subjects[i].subject_name %></li>
+            <% } %>
         </ul>
         <a class="button" href="/university/Design?u_code=<%=data.u_code%>&pro_id=<%=data.pro_id%>&collage_id=<%=data.collage_id%>&branch_id=<%=data.branch_id%>">Add Result Deesign</a>
     </div>

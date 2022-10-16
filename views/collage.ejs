@@ -39,11 +39,11 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/create?u_code=<%= data.u_code %>">Add Program</a>
+                            <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>">Add Program</a>
                         </li><br>
                         <li class="nav-item">
                             <a class="nav-link"
-                                href="/create?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage%>">Add
+                                href="/university/create?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage%>">Add
                                 Course</a>
                         </li><br>
                         <hr>
@@ -115,7 +115,6 @@
                 </a>
                 <%});%>
         </ul><br><br>
-        <button class="button">Add Branch</button>
     </div>
     <script>
         var toggle = 1;
