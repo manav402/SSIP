@@ -37,7 +37,7 @@
     ul{
       width: 100%;
       padding: 0;
-     list-style: none; 
+     list-style: none;
      position: relative;
      display: inline-block;
      margin: 0;
@@ -65,11 +65,17 @@
     }
     table{
       box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
-        width: fit-content;
+        width: 450px;
     }
+
     th,td{
         font-size: larger;
         padding-left: 5%;
+
+    }
+    td{
+      width: 200px;
+      padding-left: 15%;
     }
     .button{
       text-align: center ;
@@ -86,9 +92,9 @@
         margin-top: 15%;
     }
     #contents li{
-      
+
       position: relative;
- 
+
       margin: 1%;
       margin-left: 0;
       padding: 2%;

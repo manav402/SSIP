@@ -44,82 +44,84 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } %>
-    <div class="container-fluid">
-        <div class="signupcontainer">
-            <h3>Creating account is fast and easy!</h3>
+            <div class="container-fluid">
+                <div class="signupcontainer">
+                    <h3>Creating account is fast and easy!</h3>
 
-            <form class="signupForm" action="/signup" method="post">
-                <div class="mb-3">
-                    <label for="exampleInputname" class="form-label">Name :</label>
-                    <input required type="text" name="name" class="form-control" placeholder="Full Name*(as per Aadhar)"
-                        aria-describedby="nameHelp" value="">
+                    <form class="signupForm" action="/signup" method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputname" class="form-label">Name :</label>
+                            <input required type="text" name="name" class="form-control"
+                                placeholder="Full Name*(as per Aadhar)" aria-describedby="nameHelp" value="">
 
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputdate" class="form-label">Date of Birth :</label>
-                    <input required type="date" name="DOB" class="form-control" id="exampleInputdate"
-                        aria-describedby="dateHelp" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputdate" class="form-label">Date of Birth :</label>
+                            <input required type="date" name="DOB" class="form-control" id="exampleInputdate"
+                                aria-describedby="dateHelp" value="">
 
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input required type="email" name="email" class="form-control" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="Email ID" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input required type="email" name="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Email ID" value="">
 
-                </div>
-                <div class="mb-3">
-                    <label for="Aadhar" class="form-label">Aadhar</label>
-                    <input required type="text" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" name="aadhar"
-                        class="form-control" id="Aadhar" aria-describedby="aadharHelp" placeholder="Aadhar Number*"
-                        value="">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputMobile" class="form-label">Mobile NO :</label>
-                    <input required type="number" name="mobile" class="form-control" id="exampleInputMobile" value=""
-                        aria-describedby="mobileHelp" placeholder="Mobile Number*" pattern="[6-9]\d{9}"
-                        title="Enter a valid Phone Number">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Aadhar" class="form-label">Aadhar</label>
+                            <input required type="text" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" name="aadhar"
+                                class="form-control" id="Aadhar" aria-describedby="aadharHelp"
+                                placeholder="Aadhar Number*" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputMobile" class="form-label">Mobile NO :</label>
+                            <input required type="number" name="mobile" class="form-control" id="exampleInputMobile"
+                                value="" aria-describedby="mobileHelp" placeholder="Mobile Number*" pattern="[6-9]\d{9}"
+                                title="Enter a valid Phone Number">
 
-                </div>
-                <label for="gender">Gender : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Male" checked>
-                    <label class="form-check-label" for="inlineRadio1">Male</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Female">
-                    <label class="form-check-label" for="inlineRadio2">Female</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Other">
-                    <label class="form-check-label" for="inlineRadio2">Other</label>
-                </div>
+                        </div>
+                        <label for="gender">Gender : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Male"
+                                checked>
+                            <label class="form-check-label" for="inlineRadio1">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Female">
+                            <label class="form-check-label" for="inlineRadio2">Female</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Other">
+                            <label class="form-check-label" for="inlineRadio2">Other</label>
+                        </div>
 
-                <div class="row g-3 align-items-center">
-                    <div class="col-auto"><br>
-                        <label for="inputPassword6" class="col-form-label">Password :</label>
-                    </div>
-                    <div class="col-auto"><br>
-                        <input required type="password" name="pin" value="" id="inputPassword6" class="form-control"
-                            aria-describedby="passwordHelpInline" placeholder="Set 6 digit security PIN*"
-                            pattern="\d{6}" title="Enter Valid PIN">
-                    </div>
+                        <div class="row g-3 align-items-center">
+                            <div class="col-auto"><br>
+                                <label for="inputPassword6" class="col-form-label">Password :</label>
+                            </div>
+                            <div class="col-auto"><br>
+                                <input required type="password" name="pin" value="" id="inputPassword6"
+                                    class="form-control" aria-describedby="passwordHelpInline"
+                                    placeholder="Set 6 digit security PIN*" pattern="\d{6}" title="Enter Valid PIN">
+                            </div>
 
-                </div><br>
+                        </div><br>
 
-                <center>
-                    <button class="signupsubmit" type="submit" class="btn btn-primary">Submit</button>
-                </center>
-                <div class="col-auto">
-                    <span id="passwordHelpInline" class="form-text">
-                        By signing up, you agree to our <a href=""> Terms </a> and <a href=""> Privacy Policy</a>
-                    </span>
+                        <center>
+                            <button class="signupsubmit" type="submit" class="btn btn-primary">Submit</button>
+                        </center>
+                        <div class="col-auto">
+                            <span id="passwordHelpInline" class="form-text">
+                                By signing up, you agree to our <a href=""> Terms </a> and <a href=""> Privacy
+                                    Policy</a>
+                            </span>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="gotosigninpage">
-        Already have an account?<a href="/login">&nbsp; Sign In</a>
-    </div>
+            </div>
+            <div class="gotosigninpage">
+                Already have an account?<a href="/login">&nbsp; Sign In</a>
+            </div>
 
 </body>
 

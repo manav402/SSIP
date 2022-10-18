@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="/css/pages.css" rel="stylesheet">
-    <!-- <link href="/css/navbar.css" rel="stylesheet"> -->
+    <link href="/css/navbar.css" rel="stylesheet">
 </head>
 
 <body>
@@ -32,16 +32,21 @@
                             <a class="nav-link active bg-black" href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id%>><%= data.pro_name %></a>
                         </li>
                         <hr>
-                        <li class="nav-item">
-                            <span class="title"><b>New</b>
-                            </span>
+                        <li class=" nav-item">
+                                <span class="title"><b>New</b>
+                                </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>?pro_id=<%=data.pro_id%>">Add College</a>
+                            <a class="nav-link"
+                                href="/university/create?u_code=<%= data.u_code %>?pro_id=<%=data.pro_id%>">Add
+                                College</a>
                         </li><br>
                         <li class="nav-item">
-                            <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>?pro_id=<%= data.pro_id%>?branch_id=<%= data.branch_id%>">Add Course</a>
-                        </li><br><hr>
+                            <a class="nav-link"
+                                href="/university/create?u_code=<%= data.u_code %>?pro_id=<%= data.pro_id%>?branch_id=<%= data.branch_id%>">Add
+                                Course</a>
+                        </li><br>
+                        <hr>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">
                                 LogOut
@@ -58,27 +63,37 @@
             <tr>
                 <th>Name</th>
                 <th>:</th>
-                <td><%= data.pro_name %></td>
+                <td>
+                    <%= data.pro_name %>
+                </td>
             </tr>
             <tr>
                 <th>Program Short Name</th>
                 <th>:</th>
-                <td><%= data.pro_short_name %></td>
+                <td>
+                    <%= data.pro_short_name %>
+                </td>
             </tr>
             <tr>
                 <th>Duration</th>
                 <th>:</th>
-                <td><%= data.pro_duration %> Years</td>
+                <td>
+                    <%= data.pro_duration %> Years
+                </td>
             </tr>
             <tr>
                 <th>Total Colleges</th>
                 <th>:</th>
-                <td><%= data.pro_total_collages %></td>
+                <td>
+                    <%= data.pro_total_collages %>
+                </td>
             </tr>
             <tr>
                 <th>University</th>
                 <th>:</th>
-                <td><%= data.university %></td>
+                <td>
+                    <%= data.university %>
+                </td>
             </tr>
         </table>
         <h1>Colleges:</h1>
@@ -87,10 +102,12 @@
             <li><a href="#">L.D. College of Engineering</a></li>
             <li><a href="#">Government Engg. College, Gandhinagar</a></li> -->
             <% data2.forEach((obj)=>{ %>
-               <a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>&collage_id=<%= obj.collage_id %> ">
-                <li>  <%= obj.collage_name %>
-                        </li></a>
-            <%});%>
+                <a href="?u_code=<%= obj.u_code %>&pro_id=<%= obj.pro_id %>&collage_id=<%= obj.collage_id %> ">
+                    <li>
+                        <%= obj.collage_name %>
+                    </li>
+                </a>
+                <%});%>
         </ul>
         <button class="button">Add College</button>
     </div>
