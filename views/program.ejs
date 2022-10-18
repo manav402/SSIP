@@ -29,8 +29,8 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active bg-black" href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id%>><%= data.pro_name %></a>
                         </li>
+<<<<<<< HEAD
                         <hr>
                         <li class=" nav-item">
                                 <span class="title"><b>New</b>
@@ -48,6 +48,16 @@
                         </li><br>
                         <hr>
                         <li class="nav-item">
+=======
+                        <li class="nav-item">
+                            <span class="title"><b>New</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>&pro_id=<%=data.pro_id%>">Add College</a>
+                        </li><br>
+                        <li class="nav-item">
+>>>>>>> da61d92566849ca129ba966128a7c207d9bef1ce
                             <a class="nav-link" href="/logout">
                                 LogOut
                             </a>
@@ -109,7 +119,7 @@
                 </a>
                 <%});%>
         </ul>
-        <button class="button">Add College</button>
+        <!-- <button class="button">Add College</button> -->
     </div>
     <script>
         var toggle = 1;

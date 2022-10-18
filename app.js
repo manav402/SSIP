@@ -26,11 +26,11 @@ app.use(session({
 
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 // this is not a comment
-app.use('/', base);
+app.use('/',base);
 
 app.use('/university',router);
 
-app.use('/debugging', debug);
+app.use('/debugging',debug);
 app.use(express.static(staticPath));
 app.set('view engine', 'ejs');
 

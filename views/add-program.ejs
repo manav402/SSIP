@@ -133,7 +133,6 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active bg-black" href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a>
                         </li>
                         <hr>
                         <li class="nav-item">
@@ -141,12 +140,17 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>">Add College</a>
+                            <a class="nav-link" href="/university/create?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>">Add College</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"
-                                href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage_id %> ">Add Course</a>
+                                href="/university/create?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage_id %> ">Add Course</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                LogOut
+                            </a>
+                            </li>
                     </ul>
                 </div>
             </div>

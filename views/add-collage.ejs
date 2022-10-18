@@ -32,7 +32,7 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active bg-black" href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a>
+                            <!-- <a class="nav-link active bg-black" href="/university/?u_code=<%= data.u_code %>">BE/BTECH</a> -->
                         </li>
                         <hr>
                         <li class="nav-item">
@@ -46,6 +46,11 @@
                             <a class="nav-link"
                                 href="?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>&collage_id=<%= data.collage_id %> ">Add Course</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                LogOut
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -57,56 +62,59 @@
             <p style="color:white;">You Are addeding to this <%= data.university %> -> <%= data.pro_name %>
             </p>
         </div>
+        here
         <h2>Collage Details</h2>
-        <form action="university?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>" onsubmit="addID(this)">
-            <div class="user-box" style="display:hidden;">
-                <input type="text" name="" id="collage_id">
+        <p><%=data.u_code%></p>
+        <form action="/university?u_code=<%= data.u_code %>&pro_id=<%= data.pro_id %>" method="post" onsubmit="addId(this)">
+            <!-- <form action="" method="post" onsubmit="addI"></form> -->
+            <div class="user-box" style="display:none;">
+                <input type="text" name="collage_id" id="collage_id" value="">
                 <label>Collage_id</label>
             </div>
-            <div class="user-box" style="display:hidden;">
-                <input type="text" name="" id="u_code">
-                <label>Collage_id</label>
+            <div class="user-box" style="display:none;">
+                <input type="text" name="u_code" id="u_code" value="">
+                <label>u_code</label>
             </div>
-            <div class="user-box" style="display:hidden;">
-                <input type="text" name="" id="pro_id">
-                <label>Collage_id</label>
+            <div class="user-box" style="display:none;">
+                <input type="text" name="pro_id" id="pro_id" value="">
+                <label>pro_id</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, 'Vishwakarma government engineering collage')"
+                <input type="text" name="collage_name" onfocus="fun(this, 'Vishwakarma government engineering collage')"
                     onfocusout="focusOutFun(this)" required="">
                 <label>Collage_name</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" id="short" onfocus="fun(this, 'VGEC')" onfocusout="focusOutFun(this)" required="">
+                <input type="text" name="collage_short_name" id="short" onfocus="fun(this, 'VGEC')" onfocusout="focusOutFun(this)" required="">
                 <label>Collage_short_name</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, 'c_type')" onfocusout="focusOutFun(this)" required="">
+                <input type="text" name="collage_type" onfocus="fun(this, 'c_type')" onfocusout="focusOutFun(this)" required="">
                 <label>Collage_type</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, 'c_code')" onfocusout="focusOutFun(this)" required="">
+                <input type="text" name="collage_code" onfocus="fun(this, 'c_code')" onfocusout="focusOutFun(this)" required="">
                 <label>Collage_code</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, 'Gujarat technological university')"
+                <input type="text" name="university" onfocus="fun(this, 'Gujarat technological university')"
                     onfocusout="focusOutFun(this)" required="">
                 <label>University</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, '500')" onfocusout="focusOutFun(this)" required="">
+                <input type="text" name="no_of_students" onfocus="fun(this, '500')" onfocusout="focusOutFun(this)" required="">
                 <label>No_of_student</label>
             </div>
             <div class="user-box">
-                <input type="text" name="" onfocus="fun(this, '10')" onfocusout="focusOutFun(this)" required="">
+                <input type="text" name="no_of_course" onfocus="fun(this, '10')" onfocusout="focusOutFun(this)" required="">
                 <label>No_of_course</label>
             </div>
-            <a href="#" style="margin: 0;">
+            <!-- <a href="#" style="margin: 0;"> -->
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
-                Submit
+                <input type="submit" value="submit">
             </a>
         </form>
     </div>
@@ -124,10 +132,14 @@
             }
         }
         function addId(obj) {
-                // console.log(obj);
-                document.getElementById("u_code").value = "<%= data.u_code %>";
-                document.getElementById("pro_id").value = "<%= data.pro_id %>";
-                document.getElementById("collage_id").value= "<%=data.pro_id %>_"+document.getElementById("short").value.toUpperCase();
+                console.log(obj,"object");
+                let u = document.getElementById("u_code");
+                let p = document.getElementById("pro_id");
+                let c = document.getElementById("collage_id");
+                u = "<%= data.u_code %>";
+                p = "<%= data.pro_id %>";
+                c= "<%=data.pro_id %>_"+document.getElementById("short").value.toUpperCase();
+                console.log(u,p,c,"on submit")
                 obj.submit();
             }
     </script>

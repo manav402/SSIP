@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const uniSchema = new mongoose.Schema({
     u_code: {
         type:String,
-        Unique:true,
-        required:[true,'Please enter a code for uni'],
     },
     u_name: {
         type:String,
